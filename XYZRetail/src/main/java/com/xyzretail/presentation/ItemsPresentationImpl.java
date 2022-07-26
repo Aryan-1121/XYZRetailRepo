@@ -54,16 +54,16 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			break;
 		case 3: 
 			System.out.println("Your Total Bill Amount is : ");
-//			ItemsBill itemsbill=new ItemsService.generateBill();
-//			if(itemsBill!=null) {
-//				System.out.println(itemsBill);
-//			}
-//			else
-//				System.out.println("");
+			double itemsBill=itemsService.generateBill();
+			if(itemsBill!=0) {
+				System.out.println(itemsBill);
+			}
+			else
+				System.out.println("");
 			break;
 		
 		case 4:
-			System.out.println("Thanks for using Shopping Basket Application!!");
+			System.out.println("\n*************** Thanks for using our Shopping Basket Application!! ************");
 			System.exit(0);
 		default:
 			System.out.println("Invalid Choice");

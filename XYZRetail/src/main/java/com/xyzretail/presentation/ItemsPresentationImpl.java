@@ -26,8 +26,10 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		switch(choice) {
 		case 1: 
 			List<Item> items=itemsService.getAllItems();
+			System.out.println("Available items:");
+			System.out.println("Item Name  \t Cost of each Unit \t Avaliable Quantity");
 			for(Item item:items) {
-				System.out.println("Total items are : "+item);
+				System.out.println(item.getItemName()+"\t"+item.getItemPrice()+"\t"+item.getItemLeft());
 			}
 			break;	
 	
@@ -41,7 +43,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				System.out.println("Enter the quantity you wants to buy : ");
 				int requiredQuantity=sc.nextInt();
 				
-				Item item=ItemsService.searchItemsById(id,requiredQuantity);
+				Item item=itemsService.searchItemsById(id,requiredQuantity);
 				if(item!=null) {
 					System.out.println("Item added to cart is successfully : "+item+" : "+requiredQuantity);
 				}
@@ -49,15 +51,16 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				ch=sc.nextInt();
 			}
 		
-		
+			break;
 		case 3: 
 			System.out.println("Your Total Bill Amount is : ");
-			ItemsBill itemsbill=new ItemsService.generateBill();
-			if(itemsBill!=null) {
-				System.out.println(itemsBill);
-			}
-			else
-				System.out.println("");
+//			ItemsBill itemsbill=new ItemsService.generateBill();
+//			if(itemsBill!=null) {
+//				System.out.println(itemsBill);
+//			}
+//			else
+//				System.out.println("");
+			break;
 		
 		case 4:
 			System.out.println("Thanks for using Shopping Basket Application!!");

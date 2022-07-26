@@ -10,13 +10,19 @@ import lombok.ToString;
 @ToString
 @Data
 
-public abstract class Item {
+public class Item {
 
 	private String itemId;
+	private String itemName;
 	private double itemPrice;
-	private int quantityLeft;
-	private int quantitySold;
-	
+	private double itemTax;
+	private int itemLeft;
+	private int itemSold;
+//	public Item(String itemName,double itemPrice,int itemLeft){
+//		this.itemName=itemName;
+//		this.itemPrice=itemPrice;
+//		this.itemLeft=itemLeft;
+//	}
 	public double calculateTax(Item item) {
 		return 0;};
 }

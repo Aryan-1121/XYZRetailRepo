@@ -11,13 +11,15 @@ import lombok.ToString;
 @Data
 public class CD extends Item {
 
+	private String itemId="2";
 	private String itemName="CD";
-	private double salesTax;
+	private double itemTax=10;
 	private int requestedQuantity;
 	
+	@Override
 	public double calculateTax(Item item) {
 		
-		return requestedQuantity*(salesTax/100);
+		return requestedQuantity*(itemTax/100);
 	}
 
 }

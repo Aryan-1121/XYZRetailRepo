@@ -77,12 +77,15 @@ public class BasketDaoImpl implements BasketDao{
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM BASKET");
 
 			while (resultSet.next()) {
-//				String itemId = resultSet.getString("item_Id");
+     			String itemId = resultSet.getString("item_Id");
 				String itemName = resultSet.getString("Item_Name");
 				double item_Price = resultSet.getDouble("Item_Price");
-				int item_Quantity= resultSet.getInt("quantity_Left");
+				double item_Tax=resultSet.getDouble("Item_Tax");
+				int item_Quantity_left= resultSet.getInt("quantity_Left");
+				int item_Quantity_sold= resultSet.getInt("quantity_Sold");
+				
 
-				itemList.add(new Item(itemName, item_Price, item_Quantity));
+				itemList.add(new Item(itemId,itemName,item_Price,item_Tax,item_Quantity_left,item_Quantity_sold));
 			}
 
 		} catch (SQLException e) {

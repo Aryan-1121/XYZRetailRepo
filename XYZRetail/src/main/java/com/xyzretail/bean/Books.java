@@ -10,14 +10,16 @@ import lombok.ToString;
 @ToString
 @Data
 public class Books extends Item {
-
+	
+	private String itemId="1";
 	private String itemName="Books";
-	private double salesTax;
+	private double itemTax=0;
 	private int requestedQuantity;
 	
+	@Override
 	public double calculateTax(Item item) {
 		
-		return requestedQuantity*(salesTax/100);
+		return requestedQuantity*(itemTax/100);
 	}
 
 }

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.Item;
 
 public class BasketDaoImpl implements BasketDao{
@@ -102,4 +103,73 @@ public class BasketDaoImpl implements BasketDao{
 		return null;
 	}
 
+
+
+
+	@Override
+	public boolean addCustomer(Customer customer) {
+		
+		int rows = 0;
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
+				"wiley");
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("INSERT INTO customer values(?,?)");) {
+		
+			preparedStatement.setString(1, customer.getUserName() );
+			preparedStatement.setString(2, customer.getUserPassord());
+			
+			rows = preparedStatement.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		if(rows!=0)
+			return true;
+
+
+		return false;
+	}
+
+
+
+
+	@Override
+	public boolean validateCustomer(Customer customer) {
+		
+
+
+		return false;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

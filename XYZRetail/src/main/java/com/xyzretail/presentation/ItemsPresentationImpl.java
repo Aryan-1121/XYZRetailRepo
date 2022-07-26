@@ -13,6 +13,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 	
 	@Override
 	public void showMenu() {
+		System.out.println("======================================");
 		System.out.println("1. Show All Items");
 		System.out.println("2. Do you wants to shop?");
 		System.out.println("3. Generate Bill");

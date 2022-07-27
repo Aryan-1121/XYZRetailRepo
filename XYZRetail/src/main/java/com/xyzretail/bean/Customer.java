@@ -12,6 +12,6 @@ import lombok.ToString;
 public class Customer {
 	
 	private String userName;
-	private String userPassord;
+	private String userPassword;
 	
 }

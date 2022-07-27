@@ -10,10 +10,5 @@ public interface BasketDao {
 	boolean updateRecord(String itemID);
 	List<Item> getAllItems();
 	Item searchItemById(String item_id);
-	
-	boolean addCustomer(Customer customer);	//		To add new user/Customer
-	
-	boolean validateCustomer (Customer customer);
-	
-	
+		
 }

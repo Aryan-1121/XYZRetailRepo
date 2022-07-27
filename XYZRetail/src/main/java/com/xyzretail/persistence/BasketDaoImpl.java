@@ -18,7 +18,7 @@ public class BasketDaoImpl implements BasketDao{
 	@Override
 	public int addItem(Item item) {
 		int rows = 0;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wileyc256", "root",
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley");
 				PreparedStatement preparedStatement = connection
 						.prepareStatement("INSERT INTO BASKET values(?,?,?,?,?,?)");) {
@@ -47,18 +47,18 @@ public class BasketDaoImpl implements BasketDao{
 	@Override
 	public boolean updateRecord(String itemID) {
 		
-//		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wileyc256", "root",
-//				"wiley"); 
-//				Statement statement = connection.createStatement();) {
-//			
-//			
-//			
-//			
-//			
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
+				"wiley"); 
+				Statement statement = connection.createStatement();) {
+			
+			
+			
+			
+			
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return false;
 	}
@@ -71,7 +71,7 @@ public class BasketDaoImpl implements BasketDao{
 		
 		List<Item> itemList = new ArrayList<Item>();
 		
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wileyc256", "root",
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley"); 
 				Statement statement = connection.createStatement();) {
 
@@ -103,44 +103,6 @@ public class BasketDaoImpl implements BasketDao{
 		return null;
 	}
 
-
-
-
-	@Override
-	public boolean addCustomer(Customer customer) {
-		
-		int rows = 0;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley");
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("INSERT INTO customer values(?,?)");) {
-		
-			preparedStatement.setString(1, customer.getUserName() );
-			preparedStatement.setString(2, customer.getUserPassord());
-			
-			rows = preparedStatement.executeUpdate();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		if(rows!=0)
-			return true;
-
-
-		return false;
-	}
-
-
-
-
-	@Override
-	public boolean validateCustomer(Customer customer) {
-		
-
-
-		return false;
-	}
 
 }
 

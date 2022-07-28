@@ -6,6 +6,7 @@ use ShoppingBasket;
 -- BASKET
 
 drop table basket;
+
 create table if not exists 
 basket(
 Item_Id varchar(5) primary key , 
@@ -25,6 +26,7 @@ User_Name varchar(30) primary key,
 User_Password varchar(30) not null
 );
 
+select * from customer;
 drop table customer;
 
 

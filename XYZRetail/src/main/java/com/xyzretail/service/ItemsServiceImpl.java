@@ -2,6 +2,7 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.Item;
 
 public class ItemsServiceImpl implements ItemsService {
@@ -35,6 +36,18 @@ public class ItemsServiceImpl implements ItemsService {
 	public Item searchItemsById(String id, int reqQuantity) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean addCustomer(Customer customer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean validateCustomer(Customer Customer) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

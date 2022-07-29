@@ -18,6 +18,7 @@ Available_Quantity int
 );
 
 drop table item_Details;
+
 desc item_details;
 
 

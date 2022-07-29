@@ -19,15 +19,7 @@ public class Customer {
 			customerPresentation.showMenuCustomer();
 			System.out.println("Enter Choice ");
 			int choice=scanner.nextInt();
-			customerPresentation.performMenuCustomer(choice);
-			while(choice==2) {
-				itemsPresentation.showMenu();
-				System.out.println("Enter Your Choice ");
-				int ch=scanner.nextInt();
-				itemsPresentation.performMenu(ch);
-			}
-				
-					
+			customerPresentation.performMenuCustomer(choice);			
 		}
 
 	}

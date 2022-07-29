@@ -8,7 +8,6 @@ import com.xyzretail.persistence.*;
 
 public class ItemsServiceImpl implements ItemsService {
 
-<<<<<<< HEAD
 	private BasketDao basketDao = new BasketDaoImpl();
 
 	@Override
@@ -28,9 +27,6 @@ public class ItemsServiceImpl implements ItemsService {
 		}
 		return tax;
 	}
-
-=======
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
 	@Override
 	public List<ItemDetails> getAllItems() {
 
@@ -77,12 +73,6 @@ public class ItemsServiceImpl implements ItemsService {
 		return false;
 	}
 
-	@Override
-	public double setTax(ItemDetails item) {
-		// TODO Auto-generated method stub
-		return 0;
-
-	}
 
 
 

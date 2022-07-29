@@ -11,7 +11,7 @@ import com.xyzretail.presentation.ItemsPresentationImpl;
 public class Customer {
 	
 	public static void main(String[] args) {
-//		ItemsPresentation itemsPresentation=new ItemsPresentationImpl();
+		ItemsPresentation itemsPresentation=new ItemsPresentationImpl();
 		CustomerPresentation customerPresentation=new CustomerPresentationImpl();
 		Scanner scanner=new Scanner(System.in);
 		System.out.println("***********   Welcome to Our Shopping Basket Application!! ***********\n");
@@ -20,6 +20,13 @@ public class Customer {
 			System.out.println("Enter Choice ");
 			int choice=scanner.nextInt();
 			customerPresentation.performMenuCustomer(choice);
+			while(choice==2) {
+				itemsPresentation.showMenu();
+				System.out.println("Enter Your Choice ");
+				int ch=scanner.nextInt();
+				itemsPresentation.performMenu(ch);
+			}
+				
 					
 		}
 

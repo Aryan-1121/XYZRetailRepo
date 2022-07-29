@@ -6,16 +6,19 @@ SET sql_safe_updates=0;
 
 -- itemDetails 
 
-drop table item_details;
+
+
 create table if not exists 
 item_details(
-Item_Id varchar(5) primary key , 
+Item_Id varchar(10) primary key , 
 Item_Category varchar(20) not null,
-Item_Name varchar(20) not null,
+Item_Name varchar(50) not null,
 Item_Price double not null, 
 Available_Quantity int 
 );
 
+drop table item_Details;
+desc item_details;
 
 
 

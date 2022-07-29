@@ -34,11 +34,11 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 
 
 			System.out.println("Available items:");
-			System.out.println("Category \t \t  Item Name \t \t PRICE \t \t Avaliable Quantity");
-			System.out.println("\n \n");
+			System.out.println("ID \t \t Category \t \t  Item Name \t \t \t PRICE \t \t Avaliable Quantity");
+			System.out.println();
 			
 			for(ItemDetails item:items) {
-				System.out.println(item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t  "+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
+				System.out.println(item.getItemId()+"\t \t "+item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t  "+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
 			}
 			break;	
 	

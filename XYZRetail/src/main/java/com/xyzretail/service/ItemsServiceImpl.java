@@ -53,49 +53,11 @@ public class ItemsServiceImpl implements ItemsService {
 	}
 
 	@Override
-	public boolean addCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeCustomer(Customer customer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public double setTax(ItemDetails item) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
-
-	@Override
-	public double calculateTaxAmount(ItemDetails category) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	
-
-	@Override
-	public boolean addCustomer(com.xyzretail.bean.Customer customer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeCustomer(com.xyzretail.bean.Customer customer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	
-
-	
-	
 	
 
 }

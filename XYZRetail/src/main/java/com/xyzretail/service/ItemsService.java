@@ -14,10 +14,7 @@ public interface ItemsService {
 
 	boolean addItem(ItemDetails item);
 
-
 	List<ItemDetails> getItemDetails();
-
-	
 
 	double generateBill();
 
@@ -26,13 +23,6 @@ public interface ItemsService {
 	boolean validateCustomer();
 
 	double setTax(ItemDetails item);
-
-
-	
-
-
-	boolean addCustomer(Customer customer);
-	boolean removeCustomer(Customer customer);
 
 
 }

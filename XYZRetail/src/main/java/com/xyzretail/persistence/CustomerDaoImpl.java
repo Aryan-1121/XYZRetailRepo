@@ -29,7 +29,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			rows = preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
-			System.out.println("This user Name is already taken, try for another one :)");
+			System.out.println("This UserName is already taken, try for another one :)");
 		}
 
 		if(rows!=0)

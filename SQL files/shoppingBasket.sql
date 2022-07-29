@@ -1,21 +1,24 @@
-<<<<<<< HEAD
 create database if not exists ShoppingBasket;
 
 use ShoppingBasket;
 
+SET sql_safe_updates=0;
 
--- BASKET
+-- itemDetails 
 
-drop table basket;
+
 
 create table if not exists 
-basket(
-Item_Id varchar(5) primary key , 
-Item_Category varchar(20),
-Item_Name varchar(20) not null,
+item_details(
+Item_Id varchar(10) primary key , 
+Item_Category varchar(20) not null,
+Item_Name varchar(50) not null,
 Item_Price double not null, 
 Available_Quantity int 
 );
+
+drop table item_Details;
+desc item_details;
 
 
 
@@ -27,8 +30,10 @@ User_Name varchar(30) primary key,
 User_Password varchar(30) not null
 );
 
+
 select * from customer;
 drop table customer;
+
 
 
 -- 	TRANSACTION
@@ -36,14 +41,11 @@ drop table customer;
 create table if not exists transactionTable
 (
 
-	item_Id varchar(5),
-    purchase_Date date,
-    purchase_Time time,
-    item_quantity int,
+    transactionId int primary key,
     User_Name varchar(30),
-    constraint item_key foreign key(Item_Id)
-    references basket (item_Id) on delete set null on update restrict,
-	
+    transaction_Date date,
+    transaction_Time time,
+    
     constraint user_key foreign key(User_Name)
     references customer (User_Name) on delete set null on update restrict
 	
@@ -51,57 +53,22 @@ create table if not exists transactionTable
 
 
 drop table transactionTable;
-=======
-create database if not exists ShoppingBasket;
-
-use ShoppingBasket;
 
 
--- BASKET
 
-drop table basket;
 
-create table if not exists 
-basket(
-Item_Id varchar(5) primary key , 
-Item_Category varchar(20),
-Item_Name varchar(20) not null,
-Item_Price double not null, 
-Available_Quantity int 
+
+
+
+--   	ORDER TABLE 
+
+
+create table if not exists Orders(
+	transactionId int references transactionTable(transactionId),
+	User_Name varchar(30) references customer(user_Name),
+    purchased_Quantity int
 );
+    
+    
+    
 
-
-
--- CUSTOMER 
-
-create table if not exists customer
-(
-User_Name varchar(30) primary key,
-User_Password varchar(30) not null
-);
-
-select * from customer;
-drop table customer;
-
-
--- 	TRANSACTION
-
-create table if not exists transactionTable
-(
-
-	item_Id varchar(5),
-    purchase_Date date,
-    purchase_Time time,
-    item_quantity int,
-    User_Name varchar(30),
-    constraint item_key foreign key(Item_Id)
-    references basket (item_Id) on delete set null on update restrict,
-	
-    constraint user_key foreign key(User_Name)
-    references customer (User_Name) on delete set null on update restrict
-	
-);
-
-
-drop table transactionTable;
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo

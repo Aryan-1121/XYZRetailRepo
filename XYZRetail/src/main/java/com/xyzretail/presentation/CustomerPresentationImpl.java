@@ -72,24 +72,22 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			
 		
 			
-			int check=1;
 			
-			if(isVerified && check==1)
-			{
-				System.out.println("To See All Items, Please Enter 1 ");
-				check=sc.nextInt();
-				List<ItemDetails> items=itemsService.getAllItems();
-				System.out.println("Available items:");
-				System.out.println("Item Name  \t Cost of each Unit \t Avaliable Quantity");
-				
-				for(ItemDetails item:items) {
-					System.out.println(item.getItemName()+"\t"+item.getItemPrice()+"\t"+item.getAvailableQuantity());
-				}
-				break;	
-			}
-			else {
-				System.out.println("Please Login Again To See All Items !!!");
-			}
+//			if(isVerified)
+//			{
+//				S
+//				List<ItemDetails> items=itemsService.getAllItems();
+//				System.out.println("Available items:");
+//				System.out.println("Item Name  \t Cost of each Unit \t Avaliable Quantity");
+//				
+//				for(ItemDetails item:items) {
+//					System.out.println(item.getItemName()+"\t"+item.getItemPrice()+"\t"+item.getAvailableQuantity());
+//				}
+//				break;	
+//			}
+//			else {
+//				System.out.println("Please Login Again To See All Items !!!");
+//			}
 			break;
 	
 		case 3:

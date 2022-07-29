@@ -56,9 +56,10 @@ public class ItemsServiceImpl implements ItemsService {
 	public double setTax(ItemDetails item) {
 		// TODO Auto-generated method stub
 		return 0;
+
 	}
 
-	
+
 
 }
 

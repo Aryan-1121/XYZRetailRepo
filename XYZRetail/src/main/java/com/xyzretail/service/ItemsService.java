@@ -2,10 +2,16 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import com.xyzretail.bean.Item;
 import com.xyzretail.client.Customer;
+=======
+import com.xyzretail.bean.Customer;
+import com.xyzretail.bean.ItemDetails;
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 
 public interface ItemsService {
+<<<<<<< HEAD
 //	double getBooksCost(int requiredBooks);
 //	double getCdCost(int requiredCds);
 //	double getCosmeticsCost(int requiredCosmetics);
@@ -37,4 +43,17 @@ public interface ItemsService {
 
 	double calculateTaxAmount(Item category);
 
+=======
+	double getBooksCost(int requiredBooks);
+	double getCdCost(int requiredCds);
+	double getCosmeticsCost(int requiredCosmetics);
+	double generateBill();
+
+	boolean addCustomer(Customer customer);	//		To add new user/Customer
+	
+	boolean validateCustomer (Customer Customer);
+	
+	List<ItemDetails> getAllItems();
+	ItemDetails searchItemsById(String id,int reqQuantity);
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 }

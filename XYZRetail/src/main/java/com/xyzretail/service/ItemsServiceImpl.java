@@ -2,8 +2,13 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import com.xyzretail.bean.Item;
 import com.xyzretail.client.Customer;
+=======
+import com.xyzretail.bean.Customer;
+import com.xyzretail.bean.ItemDetails;
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 
 public class ItemsServiceImpl implements ItemsService {
 
@@ -101,15 +106,31 @@ public class ItemsServiceImpl implements ItemsService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<Item> getAllItems() {
+		// TODO Auto-generated method stub
+=======
+	public List<ItemDetails> getAllItems() {
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
+		return null;
+	}
+
+	@Override
+	public ItemDetails searchItemsById(String id, int reqQuantity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Item searchItemsById(String id, int reqQuantity) {
+	public boolean addCustomer(Customer customer) {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
+	}
+
+	@Override
+	public boolean validateCustomer(Customer Customer) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

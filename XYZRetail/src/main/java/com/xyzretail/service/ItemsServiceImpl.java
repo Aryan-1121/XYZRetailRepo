@@ -28,7 +28,6 @@ public class ItemsServiceImpl implements ItemsService {
 		return tax;
 	}
 
-
 	@Override
 	public List<ItemDetails> getAllItems() {
 

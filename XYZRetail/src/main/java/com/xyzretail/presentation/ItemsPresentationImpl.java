@@ -35,10 +35,14 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			
 		case 1: 
 			List<ItemDetails> items=itemsService.getAllItems();
+
+
 			System.out.println("Available items:");
-			System.out.println("Item Name  \t Cost of each Unit \t Avaliable Quantity");
+			System.out.println("Category \t \t  Item Name \t \t PRICE \t \t Avaliable Quantity");
+			System.out.println("\n \n");
+			
 			for(ItemDetails item:items) {
-				System.out.println(item.getItemName()+"\t"+item.getItemPrice()+"\t"+item.getAvailableQuantity());
+				System.out.println(item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t  "+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
 			}
 			break;	
 	

@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.persistence.*;
 
 public class ItemsServiceImpl implements ItemsService {
 
+	private BasketDao basketDao = new BasketDaoImpl();
 
 	@Override
 	public double setTax(ItemDetails item) {
@@ -28,8 +30,9 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public List<ItemDetails> getAllItems() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return basketDao.getAllItems();
+
 	}
 
 	@Override

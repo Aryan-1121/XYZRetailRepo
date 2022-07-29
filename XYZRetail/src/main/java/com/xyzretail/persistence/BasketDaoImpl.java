@@ -69,19 +69,20 @@ public class BasketDaoImpl implements BasketDao{
 	public List<ItemDetails> getAllItems() {
 		
 		List<ItemDetails> itemList = new ArrayList<ItemDetails>();
+
 		
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley"); 
 				Statement statement = connection.createStatement();) {
 
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM BASKET");
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM Item_Details");
 
 			while (resultSet.next()) {
      			String itemId = resultSet.getString("item_Id");
      			String itemCategory=resultSet.getString("item_Category");
 				String itemName = resultSet.getString("Item_Name");
 				double item_Price = resultSet.getDouble("Item_Price");
-				int availableQuantity=resultSet.getInt("availableQuantity");
+				int availableQuantity=resultSet.getInt("Available_Quantity");
 				
 
 				itemList.add(new ItemDetails(itemId,itemCategory,itemName,item_Price,availableQuantity));

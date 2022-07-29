@@ -3,7 +3,7 @@ package com.xyzretail.service;
 import java.util.List;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.Item;
+import com.xyzretail.bean.ItemDetails;
 
 public interface ItemsService {
 	double getBooksCost(int requiredBooks);
@@ -15,6 +15,6 @@ public interface ItemsService {
 	
 	boolean validateCustomer (Customer Customer);
 	
-	List<Item> getAllItems();
-	Item searchItemsById(String id,int reqQuantity);
+	List<ItemDetails> getAllItems();
+	ItemDetails searchItemsById(String id,int reqQuantity);
 }

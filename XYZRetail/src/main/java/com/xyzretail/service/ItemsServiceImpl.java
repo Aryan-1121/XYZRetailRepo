@@ -3,7 +3,7 @@ package com.xyzretail.service;
 import java.util.List;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.Item;
+import com.xyzretail.bean.ItemDetails;
 
 public class ItemsServiceImpl implements ItemsService {
 
@@ -28,12 +28,12 @@ public class ItemsServiceImpl implements ItemsService {
 	}
 
 	@Override
-	public List<Item> getAllItems() {
+	public List<ItemDetails> getAllItems() {
 		return null;
 	}
 
 	@Override
-	public Item searchItemsById(String id, int reqQuantity) {
+	public ItemDetails searchItemsById(String id, int reqQuantity) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
 	private String userName;
-	private String passWord;
+	private String userPassword;
 }

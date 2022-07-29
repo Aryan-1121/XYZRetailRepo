@@ -14,6 +14,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 
 	private ItemsService itemsService=new ItemsServiceImpl();
 	private CustomerDao CustomerDao= new CustomerDaoImpl();
+	ItemsPresentation itemsPresentation=new ItemsPresentationImpl();
 	
 	@Override
 	public void showMenuCustomer() {
@@ -64,9 +65,16 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 					
 			boolean isVerified = CustomerDao.validateCustomer(loginCustomer);
 			
-			if(isVerified)
+			if(isVerified) {
 				System.out.println("LOGIN SUCCESSFULL !!!");
-			
+				while(true) {
+					itemsPresentation.showMenu();
+					System.out.println("Enter Your Choice ");
+					int ch=sc.nextInt();
+					itemsPresentation.performMenu(ch);
+				}
+			}
+				
 			else 
 				System.out.println("SOMETHING WENT WRONG .. ");
 			

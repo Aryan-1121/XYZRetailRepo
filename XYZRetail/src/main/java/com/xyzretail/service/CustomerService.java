@@ -1,6 +1,6 @@
 package com.xyzretail.service;
 
-import com.xyzretail.client.Customer;
+import com.xyzretail.bean.Customer;
 
 public interface CustomerService {
 

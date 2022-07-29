@@ -24,5 +24,6 @@ public class Item {
 //		this.itemLeft=itemLeft;
 //	}
 	public double calculateTax(Item item) {
-		return 0;};
+		return 0;
+		}
 }

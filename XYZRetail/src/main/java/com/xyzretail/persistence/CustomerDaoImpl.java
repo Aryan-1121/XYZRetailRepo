@@ -56,7 +56,7 @@ public class CustomerDaoImpl implements CustomerDao {
 			String UserPassword = resultSet.getString("User_Password");
 	
 			System.out.println("---------------------------------------");
-			if(UserName.equals(null)) {
+			if(UserName.equals(null))	 {
 				System.out.println("incorrect usernameS");
 				return false;
 			}

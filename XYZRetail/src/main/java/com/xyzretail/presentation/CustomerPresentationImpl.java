@@ -1,20 +1,15 @@
 package com.xyzretail.presentation;
 
-import java.util.List;
-import java.util.Scanner;
 
+import java.util.Scanner;
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.ItemDetails;
-import com.xyzretail.persistence.CustomerDao;
-import com.xyzretail.persistence.CustomerDaoImpl;
-import com.xyzretail.service.ItemsService;
-import com.xyzretail.service.ItemsServiceImpl;
+import com.xyzretail.service.CustomerService;
+import com.xyzretail.service.CustomerServiceImpl;
 
 public class CustomerPresentationImpl implements CustomerPresentation {
 
-	private ItemsService itemsService=new ItemsServiceImpl();
-	private CustomerDao CustomerDao= new CustomerDaoImpl();
 	ItemsPresentation itemsPresentation=new ItemsPresentationImpl();
+	private CustomerService customerService=new CustomerServiceImpl();
 	
 	@Override
 	public void showMenuCustomer() {
@@ -43,7 +38,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			Customer customer = new Customer(userName, password);
 			
 			
-			boolean isAdded = CustomerDao.addCustomer(customer);
+			boolean isAdded = customerService.addCustomer(customer);
 			
 			if(isAdded)
 				System.out.println("Registration Successful !!! ");
@@ -63,7 +58,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			System.out.println("Enter Your Password");
 			loginCustomer.setUserPassword(sc.next());
 					
-			boolean isVerified = CustomerDao.validateCustomer(loginCustomer);
+			boolean isVerified = customerService.validateCustomer(loginCustomer);
 			
 			if(isVerified) {
 				System.out.println("LOGIN SUCCESSFULL !!!");
@@ -77,25 +72,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 				
 			else 
 				System.out.println("SOMETHING WENT WRONG .. ");
-			
-		
-			
-			
-//			if(isVerified)
-//			{
-//				S
-//				List<ItemDetails> items=itemsService.getAllItems();
-//				System.out.println("Available items:");
-//				System.out.println("Item Name  \t Cost of each Unit \t Avaliable Quantity");
-//				
-//				for(ItemDetails item:items) {
-//					System.out.println(item.getItemName()+"\t"+item.getItemPrice()+"\t"+item.getAvailableQuantity());
-//				}
-//				break;	
-//			}
-//			else {
-//				System.out.println("Please Login Again To See All Items !!!");
-//			}
+
 			break;
 	
 		case 3:

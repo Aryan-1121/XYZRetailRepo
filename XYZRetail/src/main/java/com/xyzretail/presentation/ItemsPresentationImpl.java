@@ -2,19 +2,15 @@ package com.xyzretail.presentation;
 
 import java.util.List;
 import java.util.Scanner;
-
-import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemDetails;
-import com.xyzretail.persistence.CustomerDao;
-
-import com.xyzretail.persistence.CustomerDaoImpl;
 import com.xyzretail.service.ItemsService;
 import com.xyzretail.service.ItemsServiceImpl;
 
 public class ItemsPresentationImpl implements ItemsPresentation{
 	
 	private ItemsService itemsService=new ItemsServiceImpl();
-//	private CustomerDao CustomerDao= new CustomerDaoImpl();
+
+	
 	
 	@Override
 	public void showMenu() {

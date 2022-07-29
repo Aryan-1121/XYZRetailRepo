@@ -6,5 +6,7 @@ import com.xyzretail.bean.Transaction;
 public interface TransactionDao {
 
 		Transaction getTransactionDetails(Customer customerName);
+		
+		public boolean updateTransaction(Customer customerName,String itemId);
 	
 }

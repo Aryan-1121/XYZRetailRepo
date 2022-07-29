@@ -39,7 +39,9 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public double getTax(Item item) {
-		// TODO Auto-generated method stub
+
+		
+		
 		return 0;
 	}
 
@@ -76,7 +78,10 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public double calculateCDCost(Item item) {
-		// TODO Auto-generated method stub
+
+		
+		
+		
 		return 0;
 	}
 

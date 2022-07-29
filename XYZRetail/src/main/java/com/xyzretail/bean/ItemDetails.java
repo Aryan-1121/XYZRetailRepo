@@ -13,7 +13,7 @@ public class ItemDetails {
 
 	private String itemId;
 	private String itemCategory;
-	private double itemName;
+	private String itemName;
 	private double itemPrice;
 	private int availableQuantity;
 	

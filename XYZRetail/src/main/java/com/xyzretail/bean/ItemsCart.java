@@ -1,7 +1,5 @@
 package com.xyzretail.bean;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +7,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ItemBill {
-
-	private int orderId;
-	private String customerName;
-	private List<ItemsCart> cart;
-	private double grandTotal;
-		
+public class ItemsCart {
+	
+	private ItemDetails item;
+	private int purchaseQuantity;
+	private double salesTax;
+	private double totalCost;
+	
 }

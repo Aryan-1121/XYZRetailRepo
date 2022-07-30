@@ -47,13 +47,6 @@ public class BillServiceImpl implements BillService {
 		double itemCDPrice;
 		double itemCosmiticsPrice;
 		
-		
-		
-		
-		
-		
-		
-		
 		return 0;
 	}
 

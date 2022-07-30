@@ -13,6 +13,7 @@ public class Transaction {
 
 	private int transactionId;
 	private String customerName;
+	private ItemsCart cart;
 	private Date date;
 	
 }

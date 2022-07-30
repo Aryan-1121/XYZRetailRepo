@@ -4,9 +4,10 @@ import java.util.List;
 
 import com.xyzretail.bean.ItemDetails;
 
-public interface persistenceDao {
+public interface PersistenceDao {
 
 	boolean updateQuantity(int purchasedQuantity);
-	ItemDetails searchItemsById(int id);
+	ItemDetails searchItemsById(String id);
+	boolean searchItemsById(String id,int reqQuantity);
 	List<ItemDetails> getAllItems();
 }

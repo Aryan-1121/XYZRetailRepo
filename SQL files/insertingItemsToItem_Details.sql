@@ -19,14 +19,16 @@ insert ignore into  item_Details  values
 ('CD-106', "CD", "English Songs", 200, 100),
 
 
-('CS-101', "COSMETICS", "Lipstick ", 350, 200),
+('CS-101', "COSMETICS", "Lipstick", 350, 200),
 ('CS-102', "COSMETICS", "Mascara﻿ ", 499, 150),
-('CS-103', "COSMETICS", "Nail paint ", 150, 300),
-('CS-104', "COSMETICS", "Highlighter ", 299, 200),
-('CS-105', "COSMETICS", "Eye liner ", 399, 200) ;
+('CS-103', "COSMETICS", "Nail paint", 150, 300),
+('CS-104', "COSMETICS", "Highlighter", 299, 200),
+('CS-105', "COSMETICS", "Eye liner", 399, 200) ;
+
 
 set sql_safe_updates=0;
 delete from item_Details;
 
+drop table item_Details;
 
 select * from item_Details;

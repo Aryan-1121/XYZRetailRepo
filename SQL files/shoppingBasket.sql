@@ -63,6 +63,26 @@ create table if not exists Orders(
     purchased_Quantity int
 );
     
+    select * from Orders;
     
     
+    -- 			ITEM CART
+    
+    
+Create table if not exists ItemsCart(
+	itemId varchar(10),
+    User_Name varchar(30) references customer(User_Name),
+    transactionId int references transactionTable(transactionId),
+	requiredQuantity int not NULL,
+	tax double,
+	totalCost double,
+    
+	constraint itemFK foreign key(itemId) references Item_Details(Item_Id)
+); 
 
+
+delete from ItemsCart;
+drop table ItemsCart;
+
+
+select * from ItemsCart;

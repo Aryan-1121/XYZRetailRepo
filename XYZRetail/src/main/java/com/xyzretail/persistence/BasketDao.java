@@ -8,7 +8,7 @@ public interface BasketDao {
 
 	int addItem(ItemDetails item);
 	boolean updateRecord(String itemID);
-	List<ItemDetails> getAllItems();
+	List<ItemDetails> getAllItems();				//done 
 	ItemDetails searchItemById(String item_id);
 		
 }

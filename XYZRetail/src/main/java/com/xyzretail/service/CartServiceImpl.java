@@ -18,19 +18,27 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public boolean addItemToCart(String itemId, int reqQuantity) {
-	if(itemsService.searchItemsById(itemId, reqQuantity)) {
+		
+//		System.out.println("entered in addItemsToCart in cartServiceImplementation");
+	
 		ItemDetails item=itemsService.searchItemsById(itemId);
+	if(itemsService.searchItemsById(itemId, reqQuantity)) {
+		
+//		System.out.println("inside if stmnt of cartServiceImpl  ( !itemsService.searchItemsById(itemId, reqQuantity).equals(null)");
+
 		int tax;
+		System.out.println("Category name ="+item.getItemCategory());
 		switch(item.getItemCategory()) {
-		case "Book":
 		case "Books":
+		
 			tax=0;
 			break;
-		case "CD":
-		case "CDS" :
+		case "CD"  :
+		
 			tax=10;
 			break;
-		case "Cosmetics":
+		case "COSMETICS":
+		
 			tax=12;
 			break;
 		default:
@@ -38,10 +46,17 @@ public class CartServiceImpl implements CartService {
 			break;
 		}
 		double cost=(item.getItemPrice()*(tax/100))+item.getItemPrice();
-		double totalCost=cost*reqQuantity;
+		System.out.println("pirce without cost :"+item.getItemPrice());
+		System.out.println("cost = "+cost);
+		System.out.println("tax :"+tax);		// check
 		
+		double totalCost=cost*reqQuantity;
+		System.out.println(totalCost);		//check
 		return itemsCartDao.addItemToCart(item, reqQuantity, tax, totalCost);
 		}
+	else 
+
+		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
 		return false;
 	}
 

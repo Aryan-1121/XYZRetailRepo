@@ -3,6 +3,7 @@ package com.xyzretail.presentation;
 import java.util.List;
 import java.util.Scanner;
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.CartServiceImpl;
 import com.xyzretail.service.ItemsService;
@@ -20,8 +21,9 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println("=============================");
 		System.out.println("1. Show All Items");
 		System.out.println("2. Do you wants to shop?");
-		System.out.println("3. Generate Bill");
-		System.out.println("4. Exit");
+		System.out.println("3. See items in cart?");
+		System.out.println("4. Generate Bill");
+		System.out.println("5. Exit");
 		System.out.println("================================");
 		
 	}
@@ -70,7 +72,20 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				chs=sc.nextInt();	
 			}
 			break;
-		case 3: 
+			
+		case 3:
+			System.out.println("Items that are avaialble in cart are:");
+			List<ItemsCart> itemsCart=cartService.getAllItemsInCart(customer);
+			System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+			for(ItemsCart item:itemsCart) {
+
+				System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+
+			}
+			System.out.println();
+			break;
+			
+		case 4: 
 			System.out.println("Your Total Bill Amount is : ");
 			double itemsBill=itemsService.generateBill();
 			if(itemsBill!=0) {
@@ -82,7 +97,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		
 		
 	
-		case 4:
+		case 5:
 			System.out.println("\n*************** Thanks for using our Shopping Basket Application!! ************");
 			System.exit(0);
 			

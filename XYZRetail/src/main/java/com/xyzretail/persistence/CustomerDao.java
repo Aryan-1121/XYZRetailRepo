@@ -2,11 +2,11 @@ package com.xyzretail.persistence;
 
 import com.xyzretail.bean.Customer;
 
-public interface CustomerDao {
+public interface CustomerDao {		// Completed 
 
-	boolean addCustomer(Customer customer);	//		To add new user/Customer
+	boolean addCustomer(Customer customer);	//		To Register new Customer 
 	
-	boolean validateCustomer (Customer Customer);
+	boolean validateCustomer (Customer Customer);		//		Login verification 
 	
 	
 }

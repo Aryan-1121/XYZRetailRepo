@@ -16,7 +16,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 	
 	
 	@Override
-	public void showMenu() {
+	public void showMenu(String customer) {
 		System.out.println("=============================");
 		System.out.println("1. Show All Items");
 		System.out.println("2. Do you wants to shop?");
@@ -27,7 +27,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 	}
 	
 	@Override
-	public void performMenu(int ch) {
+	public void performMenu(int ch,String customer) {
 		Scanner sc=new Scanner(System.in);
 		try {
 		switch(ch) {
@@ -63,15 +63,13 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				System.out.println("Enter the quantity you wants to buy : ");
 				int requiredQuantity=sc.nextInt();
 				
-				boolean added=cartService.addItemToCart(id, requiredQuantity);
+				boolean added=cartService.addItemToCart(customer,id, requiredQuantity);
 				if(added) {
-					System.out.println("Item added to cart is successfully : "+id+" : "+requiredQuantity);
+					System.out.println("Item added to cart is successfully : "+id+"  "+"  : "+requiredQuantity);
 				}
 				System.out.println("Do you wants to shop : If YES enter 1, If NO enter 0");
-				chs=sc.nextInt();
-				
+				chs=sc.nextInt();	
 			}
-		
 			break;
 		case 3: 
 			System.out.println("Your Total Bill Amount is : ");

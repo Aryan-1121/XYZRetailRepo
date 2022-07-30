@@ -24,14 +24,21 @@ public class PersistenceDaoImpl implements PersistenceDao {
 				"wiley");
 				PreparedStatement preparedStatement = connection
 						.prepareStatement("SELECT * FROM Item_Details where Item_Id= ?");) {
+			
 		
 			preparedStatement.setString(1,id);
+			
+			
 			ResultSet items=preparedStatement.executeQuery();
+			
+			
+			items.next();
 			String itemId = items.getString("item_Id");
      		String itemCategory=items.getString("item_Category");
 			String itemName = items.getString("Item_Name");
 			double item_Price = items.getDouble("Item_Price");
 			int availableQuantity=items.getInt("Available_Quantity");
+			
 			
 			item=new ItemDetails(itemId,itemCategory,itemName,item_Price,availableQuantity);
 					
@@ -51,9 +58,12 @@ public class PersistenceDaoImpl implements PersistenceDao {
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
 		ItemDetails item=searchItemsById(id);
+
+		
 		if(item.getAvailableQuantity()>reqQuantity) {
 			return true;
 		}
+
 		return false;
 	}
 

@@ -7,7 +7,6 @@ SET sql_safe_updates=0;
 -- itemDetails 
 
 
-
 create table if not exists 
 item_details(
 Item_Id varchar(10) primary key , 
@@ -54,12 +53,6 @@ create table if not exists transactionTable
 
 
 drop table transactionTable;
-
-
-
-
-
-
 
 --   	ORDER TABLE 
 

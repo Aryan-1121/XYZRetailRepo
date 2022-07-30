@@ -13,9 +13,10 @@ import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
 
 public class ItemsCartDaoImpl implements ItemsCartDao {
-	PersistenceDao persistenceDao=new PersistenceDaoImpl();
+	private PersistenceDao persistenceDao=new PersistenceDaoImpl();
+	private int flag=0;
 	
-	private boolean connectDB() {
+	private void connectDB() {
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley");
 				Statement  statement=connection.createStatement();) {
@@ -26,16 +27,19 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 					+ "totalCost double,"
 					+ "constraint itemFK foreign key(itemId) references Item_Details(Item_Id)); ";
 			statement.executeUpdate(sql);
-			return true;
+			//return true;
 			}
 		catch(SQLException e) {
-			return false;}
-		}
+			//return false;}
+		}}
 
 	@Override
 	public boolean addItemToCart(ItemDetails item, int reqQuantity, double tax, double totalCost) {
 		int rows=0;
-		if(connectDB()) {
+		if(flag==0) {
+			flag=1;
+		connectDB();}
+		else {
 		try(Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley");
 				PreparedStatement preparedStatement=connection.prepareStatement("Insert into ItemsCart values(?,?,?,?);")){
@@ -51,7 +55,7 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 		if(rows!=0) {
 			return true;
 		}
-		}
+		return false;}
 		return false;
 	}
 

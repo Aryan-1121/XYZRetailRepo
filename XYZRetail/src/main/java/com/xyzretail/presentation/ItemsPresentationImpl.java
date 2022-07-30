@@ -64,7 +64,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				int requiredQuantity=sc.nextInt();
 				
 				boolean added=cartService.addItemToCart(id, requiredQuantity);
-				if(added!=false) {
+				if(added) {
 					System.out.println("Item added to cart is successfully : "+id+" : "+requiredQuantity);
 				}
 				System.out.println("Do you wants to shop : If YES enter 1, If NO enter 0");

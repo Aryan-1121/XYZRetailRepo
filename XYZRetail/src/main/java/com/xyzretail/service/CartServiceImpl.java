@@ -12,8 +12,8 @@ public class CartServiceImpl implements CartService {
 	private ItemsService itemsService=new ItemsServiceImpl();
 
 	@Override
-	public List<ItemsCart> getAllItemsInCart() {
-		return itemsCartDao.getAllItemsInCart();
+	public List<ItemsCart> getAllItemsInCart(String customer) {
+		return itemsCartDao.getAllItemsInCart(customer);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class CartServiceImpl implements CartService {
 			tax=0;
 			break;
 		}
-		double cost=(item.getItemPrice()*(tax/100))+item.getItemPrice();
+		double cost=(item.getItemPrice()*tax*0.01)+item.getItemPrice();
 		System.out.println("pirce without cost :"+item.getItemPrice());
 		System.out.println("cost = "+cost);
 		System.out.println("tax :"+tax);		// check

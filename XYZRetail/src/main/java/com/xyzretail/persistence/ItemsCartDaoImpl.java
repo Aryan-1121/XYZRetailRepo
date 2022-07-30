@@ -64,13 +64,14 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 	}
 
 	@Override
-	public List<ItemsCart> getAllItemsInCart() {
+	public List<ItemsCart> getAllItemsInCart(String customer) {
 		List<ItemsCart> cart=new ArrayList<ItemsCart>();
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley"); 
-				Statement statement = connection.createStatement();) {
+				PreparedStatement statement = connection.prepareStatement("SELECT * FROM ItemsCart where User_Name=?");) {
 
-			ResultSet resultSet = statement.executeQuery("SELECT * FROM ItemsCart");
+			statement.setString(1, customer);
+			ResultSet resultSet = statement.executeQuery();
 			while(resultSet.next()) {
 				String itemId=resultSet.getString("ItemId");
 				String userName = resultSet.getString("User_Name");

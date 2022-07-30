@@ -2,7 +2,6 @@ package com.xyzretail.service;
 
 import java.util.List;
 
-import com.xyzretail.client.Customer;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.persistence.*;
 
@@ -45,13 +44,6 @@ public class ItemsServiceImpl implements ItemsService {
 	public boolean addItem(ItemDetails item) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	
-	@Override
-	public List<ItemDetails> getItemDetails() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	

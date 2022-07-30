@@ -14,8 +14,6 @@ public interface ItemsService {
 
 	boolean addItem(ItemDetails item);
 
-	List<ItemDetails> getItemDetails();
-
 	double generateBill();
 
 	double getTax(ItemDetails item);

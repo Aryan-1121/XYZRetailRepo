@@ -2,17 +2,21 @@ package com.xyzretail.service;
 
 import java.util.List;
 
-import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemsCart;
 
 
 public interface ItemsService {
 
-	List<ItemDetails> getAllItems();
 	
-	ItemDetails searchItemsById(String itemId,int availableQuantity);
+	
+	boolean searchItemsById(String itemId,int reqQuantity);
+	ItemDetails searchItemsById(String itemId);
+	
 
-	boolean addItem(ItemDetails item);
+//	boolean addItemToCart(String itemId,int reqQuantity);
+//	List<ItemsCart> getAllItemsFromCart();
+	List<ItemDetails> getAllItems();
 
 	double generateBill();
 

@@ -3,12 +3,15 @@ package com.xyzretail.presentation;
 import java.util.List;
 import java.util.Scanner;
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.service.CartService;
+import com.xyzretail.service.CartServiceImpl;
 import com.xyzretail.service.ItemsService;
 import com.xyzretail.service.ItemsServiceImpl;
 
 public class ItemsPresentationImpl implements ItemsPresentation{
 	
 	private ItemsService itemsService=new ItemsServiceImpl();
+	private CartService cartService=new CartServiceImpl();
 
 	
 	
@@ -41,13 +44,17 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 
 				System.out.println("\t"+item.getItemId()+"\t \t "+item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t  "+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
 
+				//System.out.println("\t\t"+item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t"+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
+
+				System.out.println(item.getItemId()+"\t \t "+item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t  "+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
+
 			}
 			System.out.println();
 			break;	
 	
 		case 2:
 			System.out.println("Do you wants to shop : If YES enter 1, If NO enter 0");
-			int chs=1;
+			int chs=sc.nextInt();
 			while(chs!=0) {
 				
 				System.out.println("Enter Item Id you wants to buy: ");
@@ -55,9 +62,9 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				System.out.println("Enter the quantity you wants to buy : ");
 				int requiredQuantity=sc.nextInt();
 				
-				ItemDetails item=itemsService.searchItemsById(id,requiredQuantity);
-				if(item!=null) {
-					System.out.println("Item added to cart is successfully : "+item+" : "+requiredQuantity);
+				boolean added=cartService.addItemToCart(id, requiredQuantity);
+				if(added!=false) {
+					System.out.println("Item added to cart is successfully : "+id+" : "+requiredQuantity);
 				}
 				System.out.println("Do you wants to shop : If YES enter 1, If NO enter 0");
 				chs=sc.nextInt();

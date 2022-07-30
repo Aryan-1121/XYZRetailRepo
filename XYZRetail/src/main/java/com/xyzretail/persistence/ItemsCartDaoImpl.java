@@ -13,8 +13,8 @@ import com.xyzretail.bean.*;
 
 public class ItemsCartDaoImpl implements ItemsCartDao {
 	PersistenceDao persistenceDao=new PersistenceDaoImpl();
-	
-	private boolean connectDB() {			// could be in static block
+		
+	private boolean connectDB() {			
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley");
 				Statement  statement=connection.createStatement();) {
@@ -32,14 +32,14 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 		}
 
 	@Override
-	public boolean addItemToCart(ItemDetails item, Customer customer, Transaction transactionId,int reqQuantity, double tax, double totalCost ) {
+	public boolean addItemToCart(ItemDetails item,String customer, int transactionId,int reqQuantity, double tax, double totalCost ) {
 		int rows=0;
 		if(connectDB()) {
 		try(Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley");
 				PreparedStatement preparedStatement=connection.prepareStatement("Insert into ItemsCart values(?,?,?,?,?,?);")){
 			preparedStatement.setString(1,item.getItemId());
-			preparedStatement.setString(2, customer.getUserName());
+			preparedStatement.setString(2, customer);
 			preparedStatement.setInt(3, 999);
 			preparedStatement.setInt(4, reqQuantity);
 			preparedStatement.setDouble(5, tax);
@@ -79,7 +79,7 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 				double tax=resultSet.getDouble("Tax");
 				double cost=resultSet.getDouble("totalCost");
 		
-				cart.add(new ItemsCart(persistenceDao.searchItemsById(itemId),reqQuantity,tax,cost));
+				cart.add(new ItemsCart(persistenceDao.searchItemsById(itemId),userName,transId,reqQuantity,tax,cost));
 				}
 			}catch(SQLException e) {
 				System.out.println("No item in cart or cart doesnot exist!!");

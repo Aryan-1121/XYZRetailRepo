@@ -63,10 +63,10 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			if(isVerified) {
 				System.out.println("LOGIN SUCCESSFULL !!!");
 				while(true) {
-					itemsPresentation.showMenu();
+					itemsPresentation.showMenu(loginCustomer.getUserName());
 					System.out.println("Enter Your Choice ");
 					int ch=sc.nextInt();
-					itemsPresentation.performMenu(ch);
+					itemsPresentation.performMenu(ch,loginCustomer.getUserName());
 				}
 			}
 				

@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class ItemsCart {
 	
 	private ItemDetails item;
-	private Customer customer;
-	private Transaction transactionId;
+	private String customer;
+	private int transactionId;
 	private int purchaseQuantity;
 	private double salesTax;
 	private double totalCost;

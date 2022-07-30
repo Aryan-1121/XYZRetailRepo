@@ -17,7 +17,7 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public boolean addItemToCart(String itemId, int reqQuantity) {
+	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
 		
 //		System.out.println("entered in addItemsToCart in cartServiceImplementation");
 	
@@ -52,12 +52,13 @@ public class CartServiceImpl implements CartService {
 		
 		double totalCost=cost*reqQuantity;
 		System.out.println(totalCost);		//check
-		return itemsCartDao.addItemToCart(item, reqQuantity, tax, totalCost);
+		return itemsCartDao.addItemToCart(item,customer,999, reqQuantity, tax, totalCost);
 		}
-	else 
+	else {
 
 		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
 		return false;
+	}
 	}
 
 	@Override

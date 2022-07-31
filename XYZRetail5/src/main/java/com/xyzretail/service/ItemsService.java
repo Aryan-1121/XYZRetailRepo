@@ -12,13 +12,7 @@ public interface ItemsService {
 	boolean searchItemsById(String itemId,int reqQuantity);
 	ItemDetails searchItemsById(String itemId);
 	
-	public void deleteItemFromCart(String customer);
-	
-	
-	public int unselectFromCart(String itemId, String customer);
-	
-//	boolean addItemToCart(String itemId,int reqQuantity);
-//	List<ItemsCart> getAllItemsFromCart();
+	public void updateRecord(String itemID , int quantity);
 
 	List<ItemDetails> getAllItems();
 

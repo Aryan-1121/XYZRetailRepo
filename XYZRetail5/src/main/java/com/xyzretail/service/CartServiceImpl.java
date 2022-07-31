@@ -58,10 +58,17 @@ public class CartServiceImpl implements CartService {
 	}
 	}
 
+
+	
 	@Override
-	public boolean deleteItemFromCart(String itemId) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteItemFromCart(String customer) {
+		itemsCartDao.deleteItemFromCart(customer);
+	}
+
+	@Override
+	public int unselectFromCart(String itemId, String customer) {
+		return itemsCartDao.unselectFromCart(itemId, customer);
+		
 	}
 
 }

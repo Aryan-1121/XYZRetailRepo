@@ -80,15 +80,11 @@ public class ItemsServiceImpl implements ItemsService {
 	}
 
 	@Override
-	public void deleteItemFromCart(String customer) {
-		itemsCartDao.deleteItemFromCart(customer);
+	public void updateRecord(String itemID, int quantity) {
+		basketDao.updateRecord(itemID, quantity);
 	}
 
-	@Override
-	public int unselectFromCart(String itemId, String customer) {
-		return itemsCartDao.unselectFromCart(itemId, customer);
-		
-	}
+
 
 	
 

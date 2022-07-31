@@ -44,22 +44,26 @@ public class BasketDaoImpl implements BasketDao{
 	
 
 	@Override
-	public boolean updateRecord(String itemID) {
+	public void updateRecord(String itemID , int quantity) {
 		
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley"); 
-				Statement statement = connection.createStatement();) {
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("update item_Details " + 
+						"set Available_Quantity=  Available_Quantity - ? " + 
+						"where Item_Id = ? ;");) {
 			
+			preparedStatement.setInt(1, quantity);
+			preparedStatement.setString(2, itemID);
 			
+			preparedStatement.executeUpdate();
 			
-			
-			
-
+		
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e);
 		}
 		
-		return false;
+
 	}
 
 	

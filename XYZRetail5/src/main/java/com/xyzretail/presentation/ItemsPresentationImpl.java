@@ -109,7 +109,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			else {
 				System.out.println("Enter Item ID to remove from cart :");
 				String itemId= sc.next();
-				int rows =itemsService.unselectFromCart(itemId, customer);
+				int rows =cartService.unselectFromCart(itemId, customer);
 				if (rows==0)
 					System.out.println("You don't have this item in your Cart :) ");
 				else
@@ -134,7 +134,8 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					for(ItemsCart item:itemsBill.getCart()) {
 
 						System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
-
+						
+						itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());
 					}
 					System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 					
@@ -145,7 +146,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					else 
 						System.out.println("WORNGG !!");
 					transactionService.insertIntoOrderTable(customer);		// Inserting into order table
-					itemsService.deleteItemFromCart(customer);		
+					cartService.deleteItemFromCart(customer);		
 				}
 				else
 					System.out.println("Your cart is empty !!");

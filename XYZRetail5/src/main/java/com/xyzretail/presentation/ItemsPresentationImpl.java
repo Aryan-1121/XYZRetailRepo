@@ -3,7 +3,7 @@ package com.xyzretail.presentation;
 import java.util.List;
 import java.util.Scanner;
 
-
+import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.service.*;
@@ -14,7 +14,8 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 	private CartService cartService=new CartServiceImpl();
 	private TransactionService transactionService = new TransactionServiceImpl();
 	
-	
+	private BillService bill=new BillServiceImpl();
+
 	@Override
 	public void showMenu(String customer) {
 		System.out.println("=============================");
@@ -23,7 +24,6 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println("3. See items in cart?");
 		System.out.println("4. Generate Bill");
 		System.out.println("5. Exit");
-		System.out.println("6. complte transaction ");
 		System.out.println("================================");
 		
 	}
@@ -92,18 +92,42 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			break;
 			
 		case 4: 
+			
 			System.out.println("Your Total Bill Amount is : ");
-			double itemsBill=itemsService.generateBill();
-			if(itemsBill!=0) {
+			ItemBill itemsBill=bill.generateBill(customer);
+			if(itemsBill!=null) {
+				//System.out.println("Bill id : "+itemsBill.getBillId());
+				System.out.println("Customer Name : "+itemsBill.getCustomerName());
+				System.out.println("Purchased items:");
+				System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+				for(ItemsCart item:itemsBill.getCart()) {
+
+					System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+
+				}
+				System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 				
-				// LAKSHMII YOUR CODE HERE !!
+				List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer);
+
+				if (!itemsCarts.isEmpty()) {
+					
+					boolean isComplete = transactionService.performTransaction(customer);
+					System.out.println(customer);
+					if(isComplete)
+						System.out.println("Transaction completed ");
+					else 
+						System.out.println("WORNGG !!");
+					transactionService.insertIntoOrderTable(customer);		// Inserting into order table
+				}
+				else
+					System.out.println("Your cart is empty !!");
 				
 				itemsService.deleteItemFromCart(customer);		
+
 			}
 			else
-				System.out.println("nothing to bill");
+				System.out.println("No items in cart!!");
 			break;
-		
 		
 	
 		case 5:
@@ -111,23 +135,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			System.exit(0);
 			
 			
-		case 6: 
-			List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer);
-
-			if (!itemsCarts.isEmpty()) {
-				
-				boolean isComplete = transactionService.performTransaction(customer);
-				System.out.println(customer);
-				if(isComplete)
-					System.out.println("Transaction completed ");
-				else 
-					System.out.println("WORNGG !!");
-				transactionService.insertIntoOrderTable(customer);		// Inserting into order table
-			}
-			else
-				System.out.println("Your cart is empty !!");
-			
-			break;
+		
 			
 		default:
 			System.out.println("Invalid Choice");

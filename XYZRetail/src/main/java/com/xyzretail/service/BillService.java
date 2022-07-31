@@ -1,11 +1,12 @@
 package com.xyzretail.service;
 
+import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 
 public interface BillService {
 	
 	
-	double generateBill();
+	ItemBill generateBill(String customer);
 
 	public void getTax(ItemDetails item);
 	

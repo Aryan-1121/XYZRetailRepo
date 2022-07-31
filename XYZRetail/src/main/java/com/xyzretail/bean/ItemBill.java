@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ItemBill {
 
-	private int orderId;
 	private String customerName;
 	private List<ItemsCart> cart;
 	private double grandTotal;

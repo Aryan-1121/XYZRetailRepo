@@ -2,8 +2,12 @@ package com.xyzretail.presentation;
 
 import java.util.List;
 import java.util.Scanner;
+
+import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.service.BillService;
+import com.xyzretail.service.BillServiceImpl;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.CartServiceImpl;
 import com.xyzretail.service.ItemsService;
@@ -13,6 +17,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 	
 	private ItemsService itemsService=new ItemsServiceImpl();
 	private CartService cartService=new CartServiceImpl();
+	private BillService bill=new BillServiceImpl();
 
 	
 	
@@ -88,12 +93,21 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			
 		case 4: 
 			System.out.println("Your Total Bill Amount is : ");
-			double itemsBill=itemsService.generateBill();
-			if(itemsBill!=0) {
-				System.out.println(itemsBill);
+			ItemBill itemsBill=bill.generateBill(customer);
+			if(itemsBill!=null) {
+				//System.out.println("Bill id : "+itemsBill.getBillId());
+				System.out.println("Customer Name : "+itemsBill.getCustomerName());
+				System.out.println("Purchased items:");
+				System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+				for(ItemsCart item:itemsBill.getCart()) {
+
+					System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+
+				}
+				System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 			}
 			else
-				System.out.println("");
+				System.out.println("No items in cart!!");
 			break;
 		
 		

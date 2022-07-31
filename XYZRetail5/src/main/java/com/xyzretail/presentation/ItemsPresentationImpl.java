@@ -6,7 +6,14 @@ import java.util.Scanner;
 import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
-import com.xyzretail.service.*;
+import com.xyzretail.service.BillService;
+import com.xyzretail.service.BillServiceImpl;
+import com.xyzretail.service.CartService;
+import com.xyzretail.service.CartServiceImpl;
+import com.xyzretail.service.ItemsService;
+import com.xyzretail.service.ItemsServiceImpl;
+import com.xyzretail.service.TransactionService;
+import com.xyzretail.service.TransactionServiceImpl;
 
 public class ItemsPresentationImpl implements ItemsPresentation{
 	
@@ -22,8 +29,9 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println("1. Show All Items");
 		System.out.println("2. Do you wants to shop?");
 		System.out.println("3. See items in cart?");
-		System.out.println("4. Generate Bill");
-		System.out.println("5. Exit");
+		System.out.println("4. Remove item from cart");
+		System.out.println("5. Generate Bill");
+		System.out.println("6. Exit");
 		System.out.println("================================");
 		
 	}
@@ -91,25 +99,44 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			
 			break;
 			
-		case 4: 
 			
-			System.out.println("Your Total Bill Amount is : ");
+		case 4:
+			
+			List<ItemsCart> itemsCart1 =cartService.getAllItemsInCart(customer);
+			if(itemsCart1.isEmpty())
+				System.out.println("There's nothing to Remove from Your cart :)");
+			
+			else {
+				System.out.println("Enter Item ID to remove from cart :");
+				String itemId= sc.next();
+				int rows =itemsService.unselectFromCart(itemId, customer);
+				if (rows==0)
+					System.out.println("You don't have this item in your Cart :) ");
+				else
+					System.out.println("item removed sucessufully");
+
+			}
+			
+			break; 
+			
+		case 5: 
+			
 			ItemBill itemsBill=bill.generateBill(customer);
-			if(itemsBill!=null) {
-				//System.out.println("Bill id : "+itemsBill.getBillId());
-				System.out.println("Customer Name : "+itemsBill.getCustomerName());
-				System.out.println("Purchased items:");
-				System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
-				for(ItemsCart item:itemsBill.getCart()) {
-
-					System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
-
-				}
-				System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 				
 				List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer);
 
-				if (!itemsCarts.isEmpty()) {
+				if (!itemsCarts.isEmpty() && itemsBill!=null ) {
+					System.out.println("Your Total Bill Amount is : ");
+
+					System.out.println("Customer Name : "+itemsBill.getCustomerName());
+					System.out.println("Purchased items:");
+					System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+					for(ItemsCart item:itemsBill.getCart()) {
+
+						System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+
+					}
+					System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 					
 					boolean isComplete = transactionService.performTransaction(customer);
 					System.out.println(customer);
@@ -118,19 +145,15 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					else 
 						System.out.println("WORNGG !!");
 					transactionService.insertIntoOrderTable(customer);		// Inserting into order table
+					itemsService.deleteItemFromCart(customer);		
 				}
 				else
 					System.out.println("Your cart is empty !!");
-				
-				itemsService.deleteItemFromCart(customer);		
 
-			}
-			else
-				System.out.println("No items in cart!!");
 			break;
 		
 	
-		case 5:
+		case 6:
 			System.out.println("\n*************** Thanks for using our Shopping Basket Application!! ************");
 			System.exit(0);
 			
@@ -146,7 +169,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		}	
 	}
 		catch(Exception exception) {
-			System.out.println("");
+			System.out.println(exception);
 		}
 }
 }

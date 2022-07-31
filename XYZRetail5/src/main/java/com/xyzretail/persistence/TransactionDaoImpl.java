@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.Transaction;
 
 public class TransactionDaoImpl implements TransactionDao{

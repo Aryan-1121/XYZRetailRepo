@@ -27,7 +27,6 @@ public class CartServiceImpl implements CartService {
 //		System.out.println("inside if stmnt of cartServiceImpl  ( !itemsService.searchItemsById(itemId, reqQuantity).equals(null)");
 
 		int tax;
-		System.out.println("Category name ="+item.getItemCategory());
 		switch(item.getItemCategory()) {
 		case "Books":
 		
@@ -46,12 +45,10 @@ public class CartServiceImpl implements CartService {
 			break;
 		}
 		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
-		System.out.println("pirce without cost :"+item.getItemPrice());
-		System.out.println("cost = "+cost);
-		System.out.println("tax :"+tax);		// check
-		
+
 		double totalCost=cost*reqQuantity;
-		System.out.println(totalCost);		//check
+//		System.out.println(totalCost);		//check
+		System.out.println();
 		return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
 		}
 	else {

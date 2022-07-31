@@ -3,7 +3,6 @@ package com.xyzretail.service;
 import java.util.List;
 
 import com.xyzretail.bean.ItemDetails;
-import com.xyzretail.bean.ItemsCart;
 
 
 public interface ItemsService {
@@ -14,6 +13,10 @@ public interface ItemsService {
 	ItemDetails searchItemsById(String itemId);
 	
 	public void deleteItemFromCart(String customer);
+	
+	
+	public int unselectFromCart(String itemId, String customer);
+	
 //	boolean addItemToCart(String itemId,int reqQuantity);
 //	List<ItemsCart> getAllItemsFromCart();
 

@@ -3,8 +3,12 @@ package com.xyzretail.service;
 import java.util.List;
 
 import com.xyzretail.bean.ItemDetails;
-import com.xyzretail.bean.ItemsCart;
-import com.xyzretail.persistence.*;
+import com.xyzretail.persistence.BasketDao;
+import com.xyzretail.persistence.BasketDaoImpl;
+import com.xyzretail.persistence.ItemsCartDao;
+import com.xyzretail.persistence.ItemsCartDaoImpl;
+import com.xyzretail.persistence.PersistenceDao;
+import com.xyzretail.persistence.PersistenceDaoImpl;
 
 public class ItemsServiceImpl implements ItemsService {
 
@@ -78,6 +82,12 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public void deleteItemFromCart(String customer) {
 		itemsCartDao.deleteItemFromCart(customer);
+	}
+
+	@Override
+	public int unselectFromCart(String itemId, String customer) {
+		return itemsCartDao.unselectFromCart(itemId, customer);
+		
 	}
 
 	

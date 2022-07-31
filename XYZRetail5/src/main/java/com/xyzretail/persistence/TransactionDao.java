@@ -1,7 +1,6 @@
 package com.xyzretail.persistence;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.Transaction;
 
 public interface TransactionDao {

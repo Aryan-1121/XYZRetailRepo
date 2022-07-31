@@ -98,4 +98,24 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 		return cart;
 	}
 
+	@Override
+	public int unselectFromCart(String itemId, String customer) {
+		int rows=0;
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
+				"wiley"); 
+				PreparedStatement statement = connection.prepareStatement("delete FROM ItemsCart where User_Name=? and itemId = ?");) {
+
+		
+			
+			statement.setString(1, customer);
+			statement.setString(2, itemId);
+			rows=statement.executeUpdate();
+			}catch(SQLException e) {
+				System.out.println("exception occured in removing item from cart :");
+				System.out.println(e);
+				
+			}
+		return rows;
+	}
+
 }

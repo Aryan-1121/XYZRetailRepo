@@ -9,4 +9,5 @@ public interface ItemsCartDao {
 	public boolean addItemToCart(ItemDetails item, String customer, int reqQuantity, double tax, double totalCost );
 	public void deleteItemFromCart(String customer);
 	List<ItemsCart> getAllItemsInCart(String customer);
+	public int unselectFromCart(String itemId, String customer);
 }

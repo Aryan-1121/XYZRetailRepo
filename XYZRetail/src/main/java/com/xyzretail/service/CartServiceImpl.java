@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.persistence.DummyClassDateTime;
 import com.xyzretail.persistence.ItemsCartDao;
 import com.xyzretail.persistence.ItemsCartDaoImpl;
 
@@ -46,12 +47,12 @@ public class CartServiceImpl implements CartService {
 			break;
 		}
 		double cost=(item.getItemPrice()*tax*0.01)+item.getItemPrice();
-		System.out.println("pirce without cost :"+item.getItemPrice());
+		System.out.println("pirce without cost : "+item.getItemPrice());
 		System.out.println("cost = "+cost);
-		System.out.println("tax :"+tax);		// check
+		System.out.println("tax : "+tax);		// check
 		
 		double totalCost=cost*reqQuantity;
-		System.out.println(totalCost);		//check
+		System.out.println(totalCost);
 		return itemsCartDao.addItemToCart(item,customer,999, reqQuantity, tax, totalCost);
 		}
 	else {

@@ -1,9 +1,14 @@
 package com.xyzretail.presentation;
 
+
+
 import java.util.List;
 import java.util.Scanner;
+
+import com.xyzretail.bean.DateTime;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.persistence.DummyClassDateTime;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.CartServiceImpl;
 import com.xyzretail.service.ItemsService;
@@ -13,6 +18,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 	
 	private ItemsService itemsService=new ItemsServiceImpl();
 	private CartService cartService=new CartServiceImpl();
+	private DummyClassDateTime dummyClassDateTime=new DummyClassDateTime();
 
 	
 	
@@ -23,7 +29,8 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println("2. Do you wants to shop?");
 		System.out.println("3. See items in cart?");
 		System.out.println("4. Generate Bill");
-		System.out.println("5. Exit");
+		System.out.println("5. Show Purchased Date and Time");
+		System.out.println("6. Exit");
 		System.out.println("================================");
 		
 	}
@@ -79,7 +86,8 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
 			for(ItemsCart item:itemsCart) {
 
-				System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+				System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+
+				item.getPurchaseQuantity()+"\t \t"+item.getTotalCost()+"\t \t");
 
 			}
 			System.out.println();
@@ -95,9 +103,19 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				System.out.println("");
 			break;
 		
+		case 5:
+			System.out.println("Purchased Time \t \t Purchased Date ");
+			
+//			boolean add=dummyClassDateTime.addDateTime();
+			List<DateTime> dt=dummyClassDateTime.showDateTime();
+			
+			for(DateTime dtt:dt) {
+				System.out.println(dtt.getTime()+"\t \t"+dtt.getDate());
+			}
+			break;
 		
 	
-		case 5:
+		case 6:
 			System.out.println("\n*************** Thanks for using our Shopping Basket Application!! ************");
 			System.exit(0);
 			

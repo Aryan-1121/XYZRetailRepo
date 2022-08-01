@@ -19,6 +19,11 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
 		
+		if (reqQuantity <1 )
+		{
+			System.out.println("enter positive value !!");
+			return false ;
+		}
 //		System.out.println("entered in addItemsToCart in cartServiceImplementation");
 	
 		ItemDetails item=itemsService.searchItemsById(itemId);

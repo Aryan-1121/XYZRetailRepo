@@ -119,35 +119,63 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 	}
 
 	@Override
-	public boolean modifyQuantityOfCartItems(String customer, String itemId, int modifiedQuantity,double cost) {
+	public boolean modifyQuantityOfCartItems(String customer, String itemId, int modifiedQuantity,double tax, double cost ) {
 		int rows=0;
+		System.out.println(rows);
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley"); 
-				PreparedStatement statement = connection.prepareStatement("update ItemsCart set requiredQuantity=?,totalCost=? where User_Name=? and itemId = ?");) {
+				PreparedStatement statement = connection.prepareStatement("update itemsCart set requiredQuantity= ?, tax=?, totalCost=? where ItemId = ? and User_name =?;");) {
+					
 			statement.setInt(1, modifiedQuantity);
-			statement.setDouble(2, cost);
-			statement.setString(2, customer);
-			statement.setString(3, itemId);
+			statement.setDouble(2, tax);
+			statement.setDouble(3, cost);
+			statement.setString(4, itemId);
+			statement.setString(5, customer);
 			rows=statement.executeUpdate();
 		}catch(SQLException e) {
 			System.out.println("exception occured in modifying the required Quantity :");
 			System.out.println("Requested qunatity is not available!!");
 		}
-		finally {
-		if(rows>0){return true;}
-		else return false;
+		
+		if(rows!=0) {
+			return true;
 		}
+		else {
+			
+			System.out.println(rows);
+			return false;
+		}
+		
 	}
 
 	@Override
 	public boolean searchItemById(String itemId,String customer) {
 		List<ItemsCart> cart=getAllItemsInCart(customer);
 		for(ItemsCart item:cart) {
-			if(item.getItem().getItemId().equals(itemId)) {
+			if(item.getItem().getItemId().equalsIgnoreCase(itemId))
 				return true;
-			}
+//			System.out.println(item.getCustomer()+"  "+item.getItem().getItemId() );
 		}
+		System.out.println("you dont have "+itemId+" in your cart");
 		return false;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

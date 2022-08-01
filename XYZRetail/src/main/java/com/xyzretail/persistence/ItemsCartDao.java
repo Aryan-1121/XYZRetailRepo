@@ -11,5 +11,5 @@ public interface ItemsCartDao {
 	List<ItemsCart> getAllItemsInCart(String customer);
 	public int unselectFromCart(String itemId, String customer);
 	public boolean searchItemById(String itemId,String customer);
-	public boolean modifyQuantityOfCartItems(String customer,String itemId,int modifiedQuantity,double cost);
+	public boolean modifyQuantityOfCartItems(String customer,String itemId,int modifiedQuantity,double tax,double cost);
 }

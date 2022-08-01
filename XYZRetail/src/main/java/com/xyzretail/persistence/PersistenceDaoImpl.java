@@ -39,7 +39,6 @@ public class PersistenceDaoImpl implements PersistenceDao {
 			double item_Price = items.getDouble("Item_Price");
 			int availableQuantity=items.getInt("Available_Quantity");
 			
-			
 			item=new ItemDetails(itemId,itemCategory,itemName,item_Price,availableQuantity);
 					
 		}catch (SQLException e) {
@@ -57,12 +56,15 @@ public class PersistenceDaoImpl implements PersistenceDao {
 
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
+		
+
 		ItemDetails item=searchItemsById(id);
 
-		
+
 		if(item.getAvailableQuantity()>reqQuantity) {
 			return true;
 		}
+		System.out.println("We don't have that much quantity in our store :(");
 
 		return false;
 	}

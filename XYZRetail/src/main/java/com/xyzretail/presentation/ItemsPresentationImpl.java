@@ -85,11 +85,11 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		case 3:
 			System.out.println("Items that are in your cart are :");
 			List<ItemsCart> itemsCart=cartService.getAllItemsInCart(customer);
-			System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+			System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Tax\t \t Purchased Quantity  \t \t TotalCost");
 			double totalCost=0;
 			for(ItemsCart item:itemsCart) {
 				
-				System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
+				System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getSalesTax()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
 				totalCost +=item.getTotalCost();
 				
 
@@ -130,10 +130,10 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 
 					System.out.println("\t \t Customer Name : "+itemsBill.getCustomerName());
 					System.out.println("\t \t Purchased items:");
-					System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+					System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Tax\t \t Purchased Quantity  \t \t TotalCost");
 					for(ItemsCart item:itemsBill.getCart()) {
 
-						System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+						System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getSalesTax()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
 						
 						itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());
 					}

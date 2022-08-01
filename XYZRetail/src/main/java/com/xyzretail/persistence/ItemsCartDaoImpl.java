@@ -102,11 +102,11 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 	public int unselectFromCart(String itemId, String customer) {
 		int rows=0;
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley"); 
+				"wiley");
+				Statement state=connection.createStatement();
 				PreparedStatement statement = connection.prepareStatement("delete FROM ItemsCart where User_Name=? and itemId = ?");) {
 
-		
-			
+			state.execute("set sql_safe_updates=0;");
 			statement.setString(1, customer);
 			statement.setString(2, itemId);
 			rows=statement.executeUpdate();
@@ -116,6 +116,38 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 				
 			}
 		return rows;
+	}
+
+	@Override
+	public boolean modifyQuantityOfCartItems(String customer, String itemId, int modifiedQuantity,double cost) {
+		int rows=0;
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
+				"wiley"); 
+				PreparedStatement statement = connection.prepareStatement("update ItemsCart set requiredQuantity=?,totalCost=? where User_Name=? and itemId = ?");) {
+			statement.setInt(1, modifiedQuantity);
+			statement.setDouble(2, cost);
+			statement.setString(2, customer);
+			statement.setString(3, itemId);
+			rows=statement.executeUpdate();
+		}catch(SQLException e) {
+			System.out.println("exception occured in modifying the required Quantity :");
+			System.out.println("Requested qunatity is not available!!");
+		}
+		finally {
+		if(rows>0){return true;}
+		else return false;
+		}
+	}
+
+	@Override
+	public boolean searchItemById(String itemId,String customer) {
+		List<ItemsCart> cart=getAllItemsInCart(customer);
+		for(ItemsCart item:cart) {
+			if(item.getItem().getItemId().equals(itemId)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

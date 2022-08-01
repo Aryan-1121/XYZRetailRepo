@@ -11,6 +11,27 @@ public class CartServiceImpl implements CartService {
 	private ItemsCartDao itemsCartDao=new ItemsCartDaoImpl();
 	private ItemsService itemsService=new ItemsServiceImpl();
 
+	private double getTax(String itemCategory) {
+		int tax;
+		switch(itemCategory) {
+		case "Books":
+		
+			tax=0;
+			break;
+		case "CD"  :
+		
+			tax=10;
+			break;
+		case "COSMETICS":
+		
+			tax=12;
+			break;
+		default:
+			tax=0;
+			break;
+		}
+		return tax;
+	}
 	@Override
 	public List<ItemsCart> getAllItemsInCart(String customer) {
 		return itemsCartDao.getAllItemsInCart(customer);
@@ -30,25 +51,8 @@ public class CartServiceImpl implements CartService {
 	if(itemsService.searchItemsById(itemId, reqQuantity)) {
 		
 //		System.out.println("inside if stmnt of cartServiceImpl  ( !itemsService.searchItemsById(itemId, reqQuantity).equals(null)");
-
-		int tax;
-		switch(item.getItemCategory()) {
-		case "Books":
+		double tax=getTax(item.getItemCategory());
 		
-			tax=0;
-			break;
-		case "CD"  :
-		
-			tax=10;
-			break;
-		case "COSMETICS":
-		
-			tax=12;
-			break;
-		default:
-			tax=0;
-			break;
-		}
 		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
 
 		double totalCost=cost*reqQuantity;
@@ -74,6 +78,21 @@ public class CartServiceImpl implements CartService {
 	public int unselectFromCart(String itemId, String customer) {
 		return itemsCartDao.unselectFromCart(itemId, customer);
 		
+	}
+
+	@Override
+	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
+		if(itemsService.searchItemsById(itemId, modifiedQuantity) && itemsCartDao.searchItemById(itemId, customer)) {
+			ItemDetails item=itemsService.searchItemsById(itemId);	
+			double tax=getTax(item.getItemCategory());
+			
+			double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
+
+			double totalCost=cost*modifiedQuantity;
+			itemsCartDao.modifyQuantityOfCartItems(customer, itemId, modifiedQuantity,totalCost);
+			return true;
+		}
+		return false;
 	}
 
 }

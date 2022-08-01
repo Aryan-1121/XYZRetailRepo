@@ -30,9 +30,10 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println("1. Show All Items");
 		System.out.println("2. Do you wants to shop?");
 		System.out.println("3. See Your Cart");
-		System.out.println("4. Remove Item from Cart");
-		System.out.println("5. Generate the Bill");
-		System.out.println("6. Exit");
+		System.out.println("4. Modify Quantity of items in cart");
+		System.out.println("5. Remove Item from Cart");
+		System.out.println("6. Generate the Bill");
+		System.out.println("7. Exit");
 		System.out.println("================================");
 		
 	}
@@ -97,9 +98,23 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			System.out.println("Total Cart Price : " +totalCost );
 			
 			break;
-			
-			
 		case 4:
+			
+				System.out.println("Enter item id to modify:");
+				String id=sc.nextLine();
+				System.out.println("Enter the quantity to be updated:");
+				int quantity=sc.nextInt();
+				if(cartService.modifyItemsInCart(customer, id, quantity)) {
+					System.out.println("Updated item id : "+id+ " with quantity : "+ quantity);
+					performMenu(3,customer);
+				}
+				else {
+					System.out.println("Unable to update requested quantity!!");
+					System.out.println("Enter the quantity in avaialable range!!");
+				}
+
+			break;
+		case 5:
 			
 			List<ItemsCart> itemsCart1 =cartService.getAllItemsInCart(customer);
 			if(itemsCart1.isEmpty())
@@ -118,7 +133,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			
 			break; 
 			
-		case 5: 
+		case 6: 
 			
 			ItemBill itemsBill=bill.generateBill(customer);
 				
@@ -152,7 +167,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			break;
 		
 	
-		case 6:
+		case 7:
 			System.out.println("\n*************** Thanks for using our Shopping Basket Application!! ************");
 			System.exit(0);
 			

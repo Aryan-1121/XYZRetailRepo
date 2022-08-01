@@ -1,5 +1,6 @@
 package com.xyzretail.presentation;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -140,7 +141,6 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 					
 					boolean isComplete = transactionService.performTransaction(customer);
-					System.out.println(customer);
 					if(isComplete)
 						System.out.println("Transaction completed !!!");
 					else 
@@ -171,9 +171,11 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		
 	}catch(NullPointerException nullPointer) {
 		System.out.println("Enter Correct Details ");}
-		catch(Exception exception) {
-			System.out.println(exception);
-			
-		}
+	catch(InputMismatchException ex) {
+		System.out.println("Enter correct input");
+	}
+	catch(Exception exception) {
+		System.out.println(exception);
+	}
 }
 }

@@ -28,9 +28,9 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println("=============================");
 		System.out.println("1. Show All Items");
 		System.out.println("2. Do you wants to shop?");
-		System.out.println("3. See items in cart?");
-		System.out.println("4. Remove item from cart");
-		System.out.println("5. Generate Bill");
+		System.out.println("3. See Your Cart");
+		System.out.println("4. Remove Item from Cart");
+		System.out.println("5. Generate the Bill");
 		System.out.println("6. Exit");
 		System.out.println("================================");
 		
@@ -64,38 +64,38 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			break;	
 	
 		case 2:
-			System.out.println("Do you wants to shop : If YES enter 1, If NO enter 0");
+			System.out.println("Add Items To Your Cart : If YES enter 1, If NO enter 0");
 			int chs=sc.nextInt();
 			while(chs!=0) {
 				
 				System.out.println("Enter Item Id you wants to buy: ");
 				String id=sc.next();
-				System.out.println("Enter the quantity you wants to buy : ");
+				System.out.println("Enter the Quantities you wants to buy : ");
 				int requiredQuantity=sc.nextInt();
 				
 				boolean added=cartService.addItemToCart(customer,id, requiredQuantity);
 				if(added) {
 					System.out.println("Item added to cart is successfully : "+id+"  "+"  : "+requiredQuantity);
-				}
+				}else{ System.out.println("Enter correct item id or item is not available");}
 				System.out.println("Do you wants to shop : If YES enter 1, If NO enter 0");
 				chs=sc.nextInt();	
 			}
 			break;
 			
 		case 3:
-			System.out.println("Items that are avaialble in cart are:");
+			System.out.println("Items that are in your cart are :");
 			List<ItemsCart> itemsCart=cartService.getAllItemsInCart(customer);
-			System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+			System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
 			double totalCost=0;
 			for(ItemsCart item:itemsCart) {
 				
-				System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
+				System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
 				totalCost +=item.getTotalCost();
 				
 
 			}
 			System.out.println();
-			System.out.println("Total Cart price : " +totalCost );
+			System.out.println("Total Cart Price : " +totalCost );
 			
 			break;
 			
@@ -104,7 +104,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			
 			List<ItemsCart> itemsCart1 =cartService.getAllItemsInCart(customer);
 			if(itemsCart1.isEmpty())
-				System.out.println("There's nothing to Remove from Your cart :)");
+				System.out.println("Your Cart is Already Empty, Please Add Items In Your Cart :)");
 			
 			else {
 				System.out.println("Enter Item ID to remove from cart :");
@@ -113,7 +113,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				if (rows==0)
 					System.out.println("You don't have this item in your Cart :) ");
 				else
-					System.out.println("item removed sucessufully");
+					System.out.println("Item removed sucessufully !!!");
 
 			}
 			
@@ -126,23 +126,25 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer);
 
 				if (!itemsCarts.isEmpty() && itemsBill!=null ) {
-					System.out.println("Your Total Bill Amount is : ");
-					System.out.println("Customer Name : "+itemsBill.getCustomerName());
-					System.out.println("Purchased items:");
-					System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
+					System.out.println("Your Bill Details are : ");
+
+					System.out.println("\t \t Customer Name : "+itemsBill.getCustomerName());
+					System.out.println("\t \t Purchased items:");
+					System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
 					for(ItemsCart item:itemsBill.getCart()) {
 
-						System.out.println(item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
+						System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t"+item.getItem().getItemPrice()+"\t \t"+item.getPurchaseQuantity()+"\t \t"+item.getTotalCost());
 						
 						itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());
 					}
 					System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 					
 					boolean isComplete = transactionService.performTransaction(customer);
+					System.out.println(customer);
 					if(isComplete)
-						System.out.println("Transaction completed ");
+						System.out.println("Transaction completed !!!");
 					else 
-						System.out.println("WORNGG !!");
+						System.out.println("Something Went Wrong !!");
 					transactionService.insertIntoOrderTable(customer);		// Inserting into order table
 					cartService.deleteItemFromCart(customer);		
 				}
@@ -166,9 +168,12 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 			
 			
 		}	
-	}
+		
+	}catch(NullPointerException nullPointer) {
+		System.out.println("Enter Correct Details ");}
 		catch(Exception exception) {
 			System.out.println(exception);
+			
 		}
 }
 }

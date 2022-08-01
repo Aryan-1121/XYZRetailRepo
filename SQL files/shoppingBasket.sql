@@ -36,29 +36,6 @@ select * from customer;
 drop table customer;
 
 
-
--- 	TRANSACTION
-
-create table if not exists transactionTable
-(
-
-    transactionId int primary key,
-    User_Name varchar(30),
-    transaction_Date date,
-    transaction_Time time,
-    
-    constraint user_key foreign key(User_Name)
-    references customer (User_Name) on delete set null on update restrict
-	
-);
-
-
-drop table transactionTable;
-
-
-
-
-
     -- 			ITEM CART
     
     

@@ -104,13 +104,17 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				String id=sc.nextLine();
 				System.out.println("Enter the quantity to be updated:");
 				int quantity=sc.nextInt();
+							
 				if(cartService.modifyItemsInCart(customer, id, quantity)) {
+					System.out.println("===============");
+					System.out.println(customer);
+					System.out.println(id);
+					System.out.println(quantity);
 					System.out.println("Updated item id : "+id+ " with quantity : "+ quantity);
-					performMenu(3,customer);
+//					performMenu(3,customer);
 				}
 				else {
-					System.out.println("Unable to update requested quantity!!");
-					System.out.println("Enter the quantity in avaialable range!!");
+					System.out.println("Unable to update you Cart");
 				}
 
 			break;

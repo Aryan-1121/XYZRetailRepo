@@ -1,5 +1,5 @@
 create database if not exists ShoppingBasket;
-
+DROP DATABASE shoppingbasket;
 use ShoppingBasket;
 
 SET sql_safe_updates=0;

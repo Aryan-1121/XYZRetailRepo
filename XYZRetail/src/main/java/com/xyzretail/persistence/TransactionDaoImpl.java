@@ -82,7 +82,7 @@ public class TransactionDaoImpl implements TransactionDao{
 		}
 
 		if(rows!=0)
-			System.out.println("Order table updated");
+			System.out.println();
 		else 
 			System.out.println("coulden't update your Order table  !!");
 		

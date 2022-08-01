@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
-import com.xyzretail.persistence.DummyClassDateTime;
 import com.xyzretail.persistence.ItemsCartDao;
 import com.xyzretail.persistence.ItemsCartDaoImpl;
 
@@ -28,7 +27,6 @@ public class CartServiceImpl implements CartService {
 //		System.out.println("inside if stmnt of cartServiceImpl  ( !itemsService.searchItemsById(itemId, reqQuantity).equals(null)");
 
 		int tax;
-		System.out.println("Category name ="+item.getItemCategory());
 		switch(item.getItemCategory()) {
 		case "Books":
 		
@@ -46,14 +44,12 @@ public class CartServiceImpl implements CartService {
 			tax=0;
 			break;
 		}
-		double cost=(item.getItemPrice()*tax*0.01)+item.getItemPrice();
-		System.out.println("pirce without cost : "+item.getItemPrice());
-		System.out.println("cost = "+cost);
-		System.out.println("tax : "+tax);		// check
-		
+		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
+
 		double totalCost=cost*reqQuantity;
-		System.out.println(totalCost);
-		return itemsCartDao.addItemToCart(item,customer,999, reqQuantity, tax, totalCost);
+//		System.out.println(totalCost);		//check
+		System.out.println();
+		return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
 		}
 	else {
 
@@ -62,10 +58,17 @@ public class CartServiceImpl implements CartService {
 	}
 	}
 
+
+	
 	@Override
-	public boolean deleteItemFromCart(String itemId) {
-		// TODO Auto-generated method stub
-		return false;
+	public void deleteItemFromCart(String customer) {
+		itemsCartDao.deleteItemFromCart(customer);
+	}
+
+	@Override
+	public int unselectFromCart(String itemId, String customer) {
+		return itemsCartDao.unselectFromCart(itemId, customer);
+		
 	}
 
 }

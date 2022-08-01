@@ -7,6 +7,7 @@ SET sql_safe_updates=0;
 -- itemDetails 
 
 
+
 create table if not exists 
 item_details(
 Item_Id varchar(10) primary key , 
@@ -54,25 +55,17 @@ create table if not exists transactionTable
 
 drop table transactionTable;
 
---   	ORDER TABLE 
 
 
-create table if not exists Orders(
-	transactionId int references transactionTable(transactionId),
-	User_Name varchar(30) references customer(user_Name),
-    purchased_Quantity int
-);
-    
-    select * from Orders;
-    
-    
+
+
     -- 			ITEM CART
     
     
 Create table if not exists ItemsCart(
 	itemId varchar(10),
     User_Name varchar(30) references customer(User_Name),
-    transactionId int references transactionTable(transactionId),
+--     transactionId int references transactionTable(transactionId),
 	requiredQuantity int not NULL,
 	tax double,
 	totalCost double,

@@ -92,8 +92,6 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 				
 				System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getSalesTax()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
 				totalCost +=item.getTotalCost();
-				
-
 			}
 			System.out.println();
 			System.out.println("Total Cart Price : " +totalCost );

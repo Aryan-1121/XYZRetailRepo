@@ -127,7 +127,6 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 
 				if (!itemsCarts.isEmpty() && itemsBill!=null ) {
 					System.out.println("Your Total Bill Amount is : ");
-
 					System.out.println("Customer Name : "+itemsBill.getCustomerName());
 					System.out.println("Purchased items:");
 					System.out.println("ID \t \t Item Name \t \t \t UnitPrice \t \t Purchased Quantity \t \t TotalCost");
@@ -140,7 +139,6 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
 					
 					boolean isComplete = transactionService.performTransaction(customer);
-					System.out.println(customer);
 					if(isComplete)
 						System.out.println("Transaction completed ");
 					else 

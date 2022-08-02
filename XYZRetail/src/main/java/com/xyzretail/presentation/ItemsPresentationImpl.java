@@ -51,7 +51,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 //			System.out.println("\t\tCategory \t\t  Item Name \t \t  PRICE \t \t Avaliable Quantity");
 
 			System.out.println("Available items:");
-			System.out.println("ID \t \t Category \t \t  Item Name \t \t \t PRICE \t \t Avaliable Quantity");
+			System.out.println("ID \t \t Category \t   Item Name \t \t  PRICE \t \t Avaliable Quantity");
 
 			System.out.println();
 			
@@ -59,7 +59,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 
 				//System.out.println("\t\t"+item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t"+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
 
-				System.out.println(item.getItemId()+"\t \t "+item.getItemCategory()+"\t \t"+item.getItemName()+"\t \t  "+item.getItemPrice()+"\t \t \t"+item.getAvailableQuantity());
+				System.out.println(item.getItemId()+"\t \t "+item.getItemCategory()+"\t \t"+item.getItemName()+"\t  \t  "+item.getItemPrice()+"\t \t \t \t"+item.getAvailableQuantity());
 
 			}
 			System.out.println();
@@ -111,7 +111,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					System.out.println(id);
 					System.out.println(quantity);
 					System.out.println("Updated item id : "+id+ " with quantity : "+ quantity);
-//					performMenu(3,customer);
+					performMenu(3,customer);
 				}
 				else {
 					System.out.println("Unable to update you Cart");
@@ -148,15 +148,21 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 
 					System.out.println("\t \t Customer Name : "+itemsBill.getCustomerName());
 					System.out.println("\t \t Purchased items:");
+					
+					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+					System.out.println("|                                                                                                                                                          |");
 					System.out.println("\t \t ID \t \t Item Name \t \t \t UnitPrice \t \t Tax\t \t Purchased Quantity  \t \t TotalCost");
+					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					for(ItemsCart item:itemsBill.getCart()) {
 
-						System.out.println("\t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getSalesTax()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
+						System.out.println("| \t \t"+item.getItem().getItemId()+"\t \t "+item.getItem().getItemName()+"\t \t \t"+item.getItem().getItemPrice()+"\t \t \t"+item.getSalesTax()+"\t \t \t"+item.getPurchaseQuantity()+"\t \t \t"+item.getTotalCost());
 						
 						itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());
 					}
-					System.out.println("Total Amount to be Paid : "+itemsBill.getGrandTotal());
-					
+					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+					System.out.println("|                                                                                                                                                          |");
+					System.out.println("|	Total Amount to be Paid : "+itemsBill.getGrandTotal());
+					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					boolean isComplete = transactionService.performTransaction(customer);
 					if(isComplete)
 						System.out.println("Transaction completed !!!");

@@ -79,6 +79,12 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
+		if(modifiedQuantity <1) {
+			System.out.println("enter positive value greater than 0");
+			return false;
+		}
+		
+		
 		
 		if(itemsService.searchItemsById(itemId, modifiedQuantity) && itemsCartDao.searchItemById(itemId, customer)) {
 			ItemDetails item=itemsService.searchItemsById(itemId);	

@@ -16,13 +16,4 @@ public interface ItemsService {
 
 	List<ItemDetails> getAllItems();
 
-	double generateBill();
-
-	double getTax(ItemDetails item);
-
-	boolean validateCustomer();
-
-	double setTax(ItemDetails item);
-
-
 }

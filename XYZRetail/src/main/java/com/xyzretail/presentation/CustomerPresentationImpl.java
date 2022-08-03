@@ -13,11 +13,12 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 	
 	@Override
 	public void showMenuCustomer() {
-		System.out.println("=============================");
+		System.out.println("***** Registration/Login *****");
+		System.out.println("____________________________________\n");
 		System.out.println("1. Enter your details for Registration ");
 		System.out.println("2. Enter you details for Login");
 		System.out.println("3. Exit");
-		System.out.println("================================");
+		System.out.println("_____________________________________\n");
 		
 	}
 
@@ -41,9 +42,9 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			boolean isAdded = customerService.addCustomer(customer);
 			
 			if(isAdded)
-				System.out.println("Registration Successful !!! ");
+				System.out.println("Registration Successful !!! \n");
 			else 
-				System.out.println("Something Went Wrong ..");
+				System.out.println("Something Went Wrong ...\n");
 			
 			break;
 
@@ -61,8 +62,9 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			boolean isVerified = customerService.validateCustomer(loginCustomer);
 			
 			if(isVerified) {
-				System.out.println("LOGIN SUCCESSFULL !!!");
+				System.out.println("LOGIN SUCCESSFULL !!!\n");
 				while(true) {
+					System.out.println("************ Main Menu *************");
 					itemsPresentation.showMenu(loginCustomer.getUserName());
 					System.out.println("Enter Your Choice ");
 					int ch=sc.nextInt();
@@ -71,7 +73,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			}
 				
 			else 
-				System.out.println("SOMETHING WENT WRONG .. ");
+				System.out.println("SOMETHING WENT WRONG .. \n");
 
 			break;
 	

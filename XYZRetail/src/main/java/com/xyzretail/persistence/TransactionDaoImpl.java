@@ -1,4 +1,4 @@
-package com.xyzretail.persistence;
+	package com.xyzretail.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -88,6 +88,33 @@ public class TransactionDaoImpl implements TransactionDao{
 		
 		
 		
+	}
+
+	@Override
+	public int monthCount(String customer) {
+
+		int month =0;
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
+				"wiley");
+				PreparedStatement preparedStatement = connection
+						.prepareStatement("select count(*) as monthCount from transactionTable " + 
+								"where user_Name=? and month(now())=month(transaction_Date) and year(now())=year(transaction_Date);" ); ) {
+			
+			
+			preparedStatement.setString(1,customer);
+			ResultSet resultSet = preparedStatement.executeQuery();			
+			
+			resultSet.next();
+			month= resultSet.getInt("monthCount");		
+			
+			
+
+		} catch (SQLException e) {
+			System.out.println(" couldn't insert into orders Table");
+			System.out.println("exception occured \n"+ e);
+		
+		}
+		return month;
 	}
 
 }

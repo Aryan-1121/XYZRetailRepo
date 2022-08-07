@@ -106,11 +106,13 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 						
 						itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());
 					}
+					System.out.println(bill.discount(customer));
 					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					System.out.println("|                                                                                                                                                         |");
 					System.out.println("|	Total Amount to be Paid : "+itemsBill.getGrandTotal());
 					System.out.println("|                                                                                                                                                         |");
 					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+					
 					boolean isComplete = transactionService.performTransaction(customer);
 					if(isComplete)
 						System.out.println("Transaction completed !!!\n");

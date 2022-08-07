@@ -21,7 +21,7 @@ public class BillServiceImpl implements BillService {
 	public double discount(String customer) {
 		if(transactionDao.monthCount(customer) > 5) {
 			ItemBill itemBill=generateBill(customer);
-			double discountPrice=itemBill.getGrandTotal()+(itemBill.getGrandTotal()*(double)0.15);
+			double discountPrice=itemBill.getGrandTotal()-(itemBill.getGrandTotal()*(double)0.15);			//	+  ->  -
 			return discountPrice;
 		}
 		return 0;

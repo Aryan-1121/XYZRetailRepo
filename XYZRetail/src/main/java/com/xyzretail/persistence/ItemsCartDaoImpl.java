@@ -159,6 +159,17 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 		System.out.println("you dont have "+itemId+" in your cart");
 		return false;
 	}
+	
+	public ItemsCart getItemById(String itemId,String customer) {
+		List<ItemsCart> cart=getAllItemsInCart(customer);
+		for(ItemsCart item:cart) {
+			if(item.getItem().getItemId().equalsIgnoreCase(itemId))
+				return item;
+//			System.out.println(item.getCustomer()+"  "+item.getItem().getItemId() );
+		}
+		//System.out.println("you dont have "+itemId+" in your cart");
+		return null;
+	}
 
 }
 

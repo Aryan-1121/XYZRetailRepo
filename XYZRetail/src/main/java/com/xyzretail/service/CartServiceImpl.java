@@ -55,7 +55,16 @@ public class CartServiceImpl implements CartService {
 		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
 
 		double totalCost=cost*reqQuantity;
-		return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+		if(!itemsCartDao.searchItemById(itemId, customer)){
+			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+		}
+		else {
+			ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
+			reqQuantity+=itemCart.getPurchaseQuantity();
+			totalCost+=itemCart.getTotalCost();
+			itemsCartDao.unselectFromCart(itemId, customer);
+			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+		}
 		}
 	else {
 
@@ -93,8 +102,7 @@ public class CartServiceImpl implements CartService {
 			double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
 
 			double totalCost=cost*modifiedQuantity;
-		
-			
+	
 			itemsCartDao.modifyQuantityOfCartItems(customer, itemId, modifiedQuantity, tax ,totalCost);
 			return true;
 		}

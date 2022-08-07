@@ -86,7 +86,12 @@ public class CartPresentation implements Cart {
 					System.out.println(id);
 					System.out.println(quantity);
 					System.out.println("Updated Item Id : "+id+ " with new quantity of : "+ quantity+"\n");
-					performMenuCart(3,customer);
+					System.out.println("\nDo you need to update more? Enter 1 else enter 0:");
+					int cho=sc.nextInt();
+					if(cho==1)
+						performMenuCart(3,customer);
+//					else
+//						break;
 				}
 				else {
 					System.out.println("Unable to update you Cart\n");

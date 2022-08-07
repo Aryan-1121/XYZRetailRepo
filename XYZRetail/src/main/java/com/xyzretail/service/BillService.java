@@ -7,6 +7,6 @@ public interface BillService {
 	
 	
 	ItemBill generateBill(String customer);
-
+	
 
 }

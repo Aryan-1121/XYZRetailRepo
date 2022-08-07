@@ -11,6 +11,6 @@ public interface TransactionDao {
 		
 		public void insertIntoOrderTable(String customer);
 		
-		public boolean updateTransaction(Customer customerName,String itemId);
+		public boolean updateTransaction(Customer customerName,String itemId);		
 	
 }

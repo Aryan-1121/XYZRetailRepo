@@ -13,4 +13,5 @@ public interface TransactionDao {
 		
 		public boolean updateTransaction(Customer customerName,String itemId);
 	
+		public int monthCount(String customer);
 }

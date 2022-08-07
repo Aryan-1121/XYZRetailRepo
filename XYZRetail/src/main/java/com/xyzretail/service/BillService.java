@@ -7,6 +7,8 @@ public interface BillService {
 	
 	
 	ItemBill generateBill(String customer);
+	
+	boolean discount(String customer);
 
 
 }

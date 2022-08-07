@@ -106,10 +106,16 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 						
 						itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());
 					}
-					System.out.println(bill.discount(customer));
+					//System.out.println(bill.discount(customer));
 					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					System.out.println("|                                                                                                                                                         |");
 					System.out.println("|	Total Amount to be Paid : "+itemsBill.getGrandTotal());
+					if(bill.discount(customer)>0) {
+						System.out.println("|                                                                                                                                                         |");
+						System.out.println("|    you have got a discount of 15% for purchasing with us more than 5 times in this month!!!                                                                                                                                                       |");
+						System.out.println("|                                                                                                                                                         |");
+						System.out.println("|    Now you have to pay only "+bill.discount(customer)+"                                                                                                                                                    |");	
+					}
 					System.out.println("|                                                                                                                                                         |");
 					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					

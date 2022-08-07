@@ -92,9 +92,6 @@ public class CartServiceImpl implements CartService {
 			System.out.println("enter positive value greater than 0");
 			return false;
 		}
-		
-		
-		
 		if(itemsService.searchItemsById(itemId, modifiedQuantity) && itemsCartDao.searchItemById(itemId, customer)) {
 			ItemDetails item=itemsService.searchItemsById(itemId);	
 			double tax=getTax(item.getItemCategory());
@@ -104,6 +101,7 @@ public class CartServiceImpl implements CartService {
 			double totalCost=cost*modifiedQuantity;
 	
 			itemsCartDao.modifyQuantityOfCartItems(customer, itemId, modifiedQuantity, tax ,totalCost);
+			
 			return true;
 		}
 		return false;

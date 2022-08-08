@@ -108,16 +108,23 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 					}
 					//System.out.println(bill.discount(customer));
 					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
-					System.out.println("|                                                                                                                                                         |");
+					System.out.println("|                                                                                                                                                          |");
 					System.out.println("|	Total Amount to be Paid : "+itemsBill.getGrandTotal());
+					System.out.println("|                                                                                                                                                          |");
+					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------\n");
 					if(bill.discount(customer)>0) {
-						System.out.println("|                                                                                                                                                         |");
-						System.out.println("|    you have got a discount of 15% for purchasing with us more than 5 times in this month!!!                                                                                                                                                       |");
-						System.out.println("|                                                                                                                                                         |");
-						System.out.println("|    Now you have to pay only "+bill.discount(customer)+"                                                                                                                                                    |");	
+						
+						System.out.println("----------------------------------------------------------------CONGRATULATION!!!---------------------------------------------------------------------------");
+						System.out.println("|                                                                                                                                                          |");
+						System.out.println("|    Hey Congratulations!!                                                                                                                                 |");
+						System.out.println("|    You are a Lucky Customer, you have got a discount of 15% for purchasing with us more than 5 times in this month!!!                                    |");
+						System.out.println("|                                                                                                                                                          |");
+						System.out.println("|    Now you have to pay only "+bill.discount(customer)+"                                                                                                  |");	
+						System.out.println("|                                                                                                                                                          |");
+						System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					}
-					System.out.println("|                                                                                                                                                         |");
-					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
+//					System.out.println("|                                                                                                                                                          |");
+//					System.out.println("-----------------------------------------------------------------------------------------------------------------------------------------------------------");
 					
 					boolean isComplete = transactionService.performTransaction(customer);
 					if(isComplete)

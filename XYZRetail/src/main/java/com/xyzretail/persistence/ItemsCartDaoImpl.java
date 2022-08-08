@@ -156,7 +156,7 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 				return true;
 //			System.out.println(item.getCustomer()+"  "+item.getItem().getItemId() );
 		}
-		System.out.println("you dont have "+itemId+" in your cart");
+		//System.out.println("you dont have "+itemId+" in your cart");
 		return false;
 	}
 	

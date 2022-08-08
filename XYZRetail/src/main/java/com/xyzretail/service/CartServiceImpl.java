@@ -65,7 +65,7 @@ public class CartServiceImpl implements CartService {
 			itemsCartDao.unselectFromCart(itemId, customer);
 			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
 		}
-		}
+	}
 	else {
 
 		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");

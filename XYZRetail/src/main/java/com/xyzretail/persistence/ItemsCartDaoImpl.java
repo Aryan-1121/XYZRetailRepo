@@ -9,11 +9,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.xyzretail.bean.*;
 
+@Repository("itemsCartDao")
 public class ItemsCartDaoImpl implements ItemsCartDao {
-	PersistenceDao persistenceDao=new PersistenceDaoImpl();
-		
+	private PersistenceDao persistenceDao;
+
+
+	public void setPersistenceDao(PersistenceDao persistenceDao) {
+		this.persistenceDao = persistenceDao;
+	}
+
 	private boolean connectDB() {			
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
 				"wiley");

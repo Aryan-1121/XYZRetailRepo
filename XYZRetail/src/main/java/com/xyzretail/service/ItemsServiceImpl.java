@@ -2,6 +2,8 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.persistence.BasketDao;
 import com.xyzretail.persistence.BasketDaoImpl;
@@ -10,11 +12,26 @@ import com.xyzretail.persistence.ItemsCartDaoImpl;
 import com.xyzretail.persistence.PersistenceDao;
 import com.xyzretail.persistence.PersistenceDaoImpl;
 
+@Service("itemsService")
 public class ItemsServiceImpl implements ItemsService {
 
-	private BasketDao basketDao = new BasketDaoImpl();
-	private PersistenceDao persistenceDao=new PersistenceDaoImpl();
-	private ItemsCartDao itemsCartDao = new ItemsCartDaoImpl();
+	private BasketDao basketDao;
+	private PersistenceDao persistenceDao;
+	private ItemsCartDao itemsCartDao;
+
+	
+	
+	public void setBasketDao(BasketDao basketDao) {
+		this.basketDao = basketDao;
+	}
+
+	public void setPersistenceDao(PersistenceDao persistenceDao) {
+		this.persistenceDao = persistenceDao;
+	}
+
+	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
+		this.itemsCartDao = itemsCartDao;
+	}
 
 	@Override
 	public ItemDetails searchItemsById(String itemId) {

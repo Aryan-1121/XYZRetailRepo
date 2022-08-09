@@ -7,10 +7,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.xyzretail.bean.Customer;
 
+@Repository("customerDao")
 public class CustomerDaoImpl implements CustomerDao {
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 	@Override
 	public boolean addCustomer(Customer customer) {
 		

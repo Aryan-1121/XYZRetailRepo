@@ -2,15 +2,31 @@ package com.xyzretail.presentation;
 
 
 import java.util.Scanner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.xyzretail.bean.Customer;
 import com.xyzretail.service.CustomerService;
 import com.xyzretail.service.CustomerServiceImpl;
 
+@Component("cutomerPresentation")
 public class CustomerPresentationImpl implements CustomerPresentation {
 
-	ItemsPresentation itemsPresentation=new ItemsPresentationImpl();
-	private CustomerService customerService=new CustomerServiceImpl();
+	ItemsPresentation itemsPresentation;
+	private CustomerService customerService;
 	
+	
+	@Autowired
+	public void setItemsPresentation(ItemsPresentation itemsPresentation) {
+		this.itemsPresentation = itemsPresentation;
+	}
+	
+	@Autowired
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
+	}
+
 	@Override
 	public void showMenuCustomer() {
 		System.out.println("***** Registration/Login *****");

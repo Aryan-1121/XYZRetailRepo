@@ -4,6 +4,9 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
@@ -16,13 +19,36 @@ import com.xyzretail.service.ItemsServiceImpl;
 import com.xyzretail.service.TransactionService;
 import com.xyzretail.service.TransactionServiceImpl;
 
+@Component("itemsPresentation")
 public class ItemsPresentationImpl implements ItemsPresentation{
 	
-	private ItemsService itemsService=new ItemsServiceImpl();
-	private CartService cartService=new CartServiceImpl();
-	private TransactionService transactionService = new TransactionServiceImpl();
-	Cart cartPresentation=new CartPresentation();
-	private BillService bill=new BillServiceImpl();
+	private ItemsService itemsService;
+	private CartService cartService;
+	private TransactionService transactionService;
+	private CartPresentation cartPresentation;
+	private BillService bill;
+	
+	
+	@Autowired
+	public void setItemsService(ItemsService itemsService) {
+		this.itemsService = itemsService;
+	}
+	@Autowired
+	public void setCartService(CartService cartService) {
+		this.cartService = cartService;
+	}
+	@Autowired
+	public void setTransactionService(TransactionService transactionService) {
+		this.transactionService = transactionService;
+	}
+	@Autowired
+	public void setCartPresentation(CartPresentation cartPresentation) {
+		this.cartPresentation = cartPresentation;
+	}
+	@Autowired
+	public void setBill(BillService bill) {
+		this.bill = bill;
+	}
 
 	@Override
 	public void showMenu(String customer) {

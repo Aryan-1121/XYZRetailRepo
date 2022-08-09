@@ -15,7 +15,6 @@ public class ItemsServiceImpl implements ItemsService {
 
 	private BasketDao basketDao;
 	private PersistenceDao persistenceDao;
-	private ItemsCartDao itemsCartDao;
 
 	
 	@Autowired
@@ -27,11 +26,7 @@ public class ItemsServiceImpl implements ItemsService {
 	public void setPersistenceDao(PersistenceDao persistenceDao) {
 		this.persistenceDao = persistenceDao;
 	}
-	
-	@Autowired
-	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
-		this.itemsCartDao = itemsCartDao;
-	}
+
 
 	@Override
 	public ItemDetails searchItemsById(String itemId) {

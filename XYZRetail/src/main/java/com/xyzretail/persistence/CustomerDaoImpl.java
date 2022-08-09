@@ -1,6 +1,5 @@
 
 package com.xyzretail.persistence;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.persistence.helper.CutomerDaoHelper;
+import com.xyzretail.persistence.helper.CustomerDaoHelper;
 
 @Repository("customerDao")
 public class CustomerDaoImpl implements CustomerDao {
@@ -32,10 +31,14 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@Override
 	public Customer validateCustomer(Customer customer) {
+	
 		
-		String sql="SELECT * FROM CUSTOMER WHERE USER_NAME = ?";
-		Customer cus=(Customer) jdbcTemplate.query(sql,new CutomerDaoHelper());
+//		String sql="SELECT * FROM CUSTOMER WHERE USER_NAME = "+customer.getUserName();
+		String sql = "SELECT * FROM CUSTOMER WHERE USER_NAME = \""+customer.getUserName()+"\"	";
+		jdbcTemplate.execute(sql);
+		List<Customer> cust= jdbcTemplate.query(sql, new CustomerDaoHelper());
 		
+		Customer cus = cust.get(0);
 		return cus;
 	}
 	

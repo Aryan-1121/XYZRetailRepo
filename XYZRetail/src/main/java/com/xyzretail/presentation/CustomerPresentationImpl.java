@@ -10,7 +10,7 @@ import com.xyzretail.bean.Customer;
 import com.xyzretail.service.CustomerService;
 import com.xyzretail.service.CustomerServiceImpl;
 
-@Component("cutomerPresentation")
+@Component("customerPresentationImpl")
 public class CustomerPresentationImpl implements CustomerPresentation {
 
 	private ItemsPresentation itemsPresentation;
@@ -106,7 +106,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 		}	
 	}
 		catch(Exception exception) {
-			System.out.println("");
+			System.out.println("exception occured :"+exception);
 		}
 		
 		

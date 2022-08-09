@@ -20,7 +20,6 @@ import com.xyzretail.persistence.helper.ItemsCartDaoHelper;
 
 @Repository("itemsCartDao")
 public class ItemsCartDaoImpl implements ItemsCartDao {
-	private PersistenceDao persistenceDao;
 
 
 	private JdbcTemplate jdbcTemplate;
@@ -30,10 +29,7 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Autowired
-	public void setPersistenceDao(PersistenceDao persistenceDao) {
-		this.persistenceDao = persistenceDao;
-	}
+	
 
 	@Override
 	public int addItemToCart(ItemDetails item,String customer, int reqQuantity, double tax, double totalCost ) {
@@ -53,7 +49,7 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 
 	@Override
 	public List<ItemsCart> getAllItemsInCart(String customer) {
-		String sql="SELECT * FROM ItemsCart where User_Name=?";
+		String sql="SELECT * FROM ItemsCart where User_Name= \""+customer+"\"";
 		List<ItemsCart> cart=jdbcTemplate.query(sql, new ItemsCartDaoHelper());
 		return cart;
 	}
@@ -74,7 +70,9 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 
 	@Override
 	public boolean searchItemById(String itemId,String customer) {
-		String sql="select * from itemsCart where User_Name=? and itemId=?";
+//		String sql="select * from itemsCart where User_Name=? and itemId=?";
+		String sql="select * from itemsCart where User_Name= \""+customer+"\"    and itemId= \""+itemId+"\""  ;
+
 		ItemsCart cart=(ItemsCart) jdbcTemplate.query(sql, new ItemsCartDaoHelper());
 		if(cart!=null) {
 			return true;
@@ -83,7 +81,7 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 	}
 	
 	public ItemsCart getItemById(String itemId,String customer) {
-		String sql="select * from itemsCart where User_Name=? and itemId=?";
+		String sql="select * from itemsCart where User_Name=  \""+customer+"\"    and itemId= \""+itemId+"\"";
 		ItemsCart cart=(ItemsCart) jdbcTemplate.query(sql, new ItemsCartDaoHelper());
 		return cart;
 	}

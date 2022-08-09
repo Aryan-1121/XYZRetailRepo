@@ -1,20 +1,11 @@
 	package com.xyzretail.persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.Transaction;
-import com.xyzretail.persistence.helper.TransactionDaoHelper;
 
 @Repository("transactionDao")
 public class TransactionDaoImpl implements TransactionDao{
@@ -70,19 +61,9 @@ public class TransactionDaoImpl implements TransactionDao{
 		String query1 ="select max(transactionId ) as maxid from transactionTable;";
 		String query2="insert ignore into orders select t.transactionId , i.itemId, requiredQuantity from itemsCart i, transactionTable t where (transactionId=? )and t.User_Name=i.User_Name;";
 			
-			
-			ResultSet resultSet = statement.executeQuery();
-			resultSet.next();
-			int transacId= resultSet.getInt("maxid");		
-			preparedStatement.setInt(1,transacId);
-			
-			
-			rows = preparedStatement.executeUpdate();			
-
-		} catch (SQLException e) {
-			System.out.println(" couldn't insert into orders Table");
-			System.out.println("exception occured \n"+ e);
-		}
+				
+		Integer transacId =jdbcTemplate.queryForObject(query1,Integer.class);
+		rows = jdbcTemplate.update(query2,transacId);
 
 		if(rows!=0)
 			System.out.println();
@@ -100,13 +81,8 @@ public class TransactionDaoImpl implements TransactionDao{
 		String query1= "select count(*) as monthCount from transactionTable where user_Name=? and month(now())=month(transaction_Date) and year(now())=year(transaction_Date);" ;
 
 			jdbcTemplate.update(query1,customer);
+	        return jdbcTemplate.queryForObject(query1, Integer.class);
 
-			List<Integer> month=jdbcTemplate.query(query1, new TransactionDaoHelper());
-			
-			
-			int x= month.get(0);
-		
-		return x;
 	}
-
 }
+

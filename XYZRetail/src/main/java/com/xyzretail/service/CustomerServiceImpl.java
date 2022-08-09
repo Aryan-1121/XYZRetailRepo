@@ -27,19 +27,30 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerDao.addCustomer(customer);
 	}
 
-	
-
-	
 
 	@Override
 	public boolean validateCustomer(Customer customer) {
-		
-		if(customerDao.validateCustomer(customer)!=null) {
-			return true;
+		Customer cus= customerDao.validateCustomer(customer);
+		if(cus.getUserName().equals(null))	 {
+			System.out.println("incorrect username");
+			return false;
 		}
-		return false;
+		
+		if(cus.getUserName().equals(customer.getUserName())) {
+			
+			if(cus.getUserPassword().equals(customer.getUserPassword())) 
+				return true;
+			
+			else
+				System.out.println("Check your Password and Try again :) ");
+			}
+		
+		else {
+				
+			System.out.println("Check your User Name and Try again :) ");
+			return false;
+		}
+		return false ;
 	}
-
-	
 
 }

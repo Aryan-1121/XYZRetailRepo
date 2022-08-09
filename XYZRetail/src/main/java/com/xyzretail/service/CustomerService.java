@@ -6,7 +6,7 @@ public interface CustomerService {
 
 	
 	
-	boolean addCustomer(  Customer customer);
+	int addCustomer(  Customer customer);
 	//boolean removeCustomer(  Customer  customer);
 	boolean validateCustomer(Customer customer);
 	

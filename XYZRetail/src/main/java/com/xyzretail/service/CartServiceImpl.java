@@ -17,10 +17,11 @@ public class CartServiceImpl implements CartService {
 	private ItemsService itemsService;
 
 	
-	
+	@Autowired
 	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
 		this.itemsCartDao = itemsCartDao;
 	}
+	@Autowired
 	public void setItemsService(ItemsService itemsService) {
 		this.itemsService = itemsService;
 	}

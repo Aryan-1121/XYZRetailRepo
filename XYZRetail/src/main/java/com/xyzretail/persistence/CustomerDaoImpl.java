@@ -15,7 +15,10 @@ import com.xyzretail.bean.Customer;
 @Repository("customerDao")
 public class CustomerDaoImpl implements CustomerDao {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 	@Override
 	public boolean addCustomer(Customer customer) {
 		

@@ -16,11 +16,12 @@ public class CartServiceImpl implements CartService {
 	private ItemsCartDao itemsCartDao;
 	private ItemsService itemsService;
 
-	
-	
+	@Autowired
 	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
 		this.itemsCartDao = itemsCartDao;
 	}
+	
+	@Autowired
 	public void setItemsService(ItemsService itemsService) {
 		this.itemsService = itemsService;
 	}
@@ -47,6 +48,7 @@ public class CartServiceImpl implements CartService {
 		}
 		return tax;
 	}
+	
 	@Override
 	public List<ItemsCart> getAllItemsInCart(String customer) {
 		return itemsCartDao.getAllItemsInCart(customer);
@@ -60,36 +62,31 @@ public class CartServiceImpl implements CartService {
 			System.out.println("enter positive value !!");
 			return false ;
 		}
-//		System.out.println("entered in addItemsToCart in cartServiceImplementation");
-	
 		ItemDetails item=itemsService.searchItemsById(itemId);
-	if(itemsService.searchItemsById(itemId, reqQuantity)) {
+		if(itemsService.searchItemsById(itemId, reqQuantity)) {
 		
-		double tax=getTax(item.getItemCategory());
+			double tax=getTax(item.getItemCategory());
 		
-		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
+			double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
 
-		double totalCost=cost*reqQuantity;
-		if(!itemsCartDao.searchItemById(itemId, customer)){
-			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+			double totalCost=cost*reqQuantity;
+			
+			if(itemsCartDao.searchItemById(itemId, customer)) {
+				ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
+				reqQuantity+=itemCart.getPurchaseQuantity();
+				totalCost+=itemCart.getTotalCost();
+				itemsCartDao.unselectFromCart(itemId, customer);
+			}
+			if(itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost)>0) 
+				return true;
+			return false;		
 		}
 		else {
-			ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
-			reqQuantity+=itemCart.getPurchaseQuantity();
-			totalCost+=itemCart.getTotalCost();
-			itemsCartDao.unselectFromCart(itemId, customer);
-			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+			System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
+			return false;
 		}
 	}
-	else {
 
-		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
-		return false;
-	}
-	}
-
-
-	
 	@Override
 	public void deleteItemFromCart(String customer) {
 		itemsCartDao.deleteItemFromCart(customer);

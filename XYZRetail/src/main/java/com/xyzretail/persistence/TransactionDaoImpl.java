@@ -6,9 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.Transaction;
 
+@Repository("transactionDao")
 public class TransactionDaoImpl implements TransactionDao{
 	
 	
@@ -84,7 +88,7 @@ public class TransactionDaoImpl implements TransactionDao{
 		if(rows!=0)
 			System.out.println();
 		else 
-			System.out.println("coulden't update your Order table  !!");
+			System.out.println("couldn't update your Order table  !!");
 		
 		
 		

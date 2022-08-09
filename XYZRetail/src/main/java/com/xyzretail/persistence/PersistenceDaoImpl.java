@@ -7,8 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.xyzretail.bean.ItemDetails;
 
+@Repository("persistenceDao")
 public class PersistenceDaoImpl implements PersistenceDao {
 
 	@Override

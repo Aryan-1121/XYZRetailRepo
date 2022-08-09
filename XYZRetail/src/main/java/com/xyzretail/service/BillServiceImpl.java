@@ -1,5 +1,8 @@
 package com.xyzretail.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.persistence.ItemsBillDao;
@@ -8,11 +11,22 @@ import com.xyzretail.persistence.ItemsCartDao;
 import com.xyzretail.persistence.ItemsCartDaoImpl;
 import com.xyzretail.persistence.TransactionDao;
 import com.xyzretail.persistence.TransactionDaoImpl;
+
+@Component("billService")
 public class BillServiceImpl implements BillService {
-	TransactionDao transactionDao = new TransactionDaoImpl();
+	TransactionDao transactionDao;
 	//ItemsCartDao itemsCartDao=new ItemsCartDaoImpl();
 
-	private ItemsBillDao bill=new ItemsBillDaoImpl();
+	ItemsBillDao bill;
+	
+	
+	public void setTransactionDao(TransactionDao transactionDao) {
+		this.transactionDao = transactionDao;
+	}
+	public void setBill(ItemsBillDao bill) {
+		this.bill = bill;
+	}
+	
 	@Override
 	public ItemBill generateBill(String customer) {
 		return bill.generateBill(customer); 

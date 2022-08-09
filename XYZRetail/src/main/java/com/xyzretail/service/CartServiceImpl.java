@@ -2,15 +2,30 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.ItemsCartDao;
 import com.xyzretail.persistence.ItemsCartDaoImpl;
 
+@Service("cartService")
 public class CartServiceImpl implements CartService {
-	private ItemsCartDao itemsCartDao=new ItemsCartDaoImpl();
-	private ItemsService itemsService=new ItemsServiceImpl();
+	private ItemsCartDao itemsCartDao;
+	private ItemsService itemsService;
 
+	
+	
+	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
+		this.itemsCartDao = itemsCartDao;
+	}
+	public void setItemsService(ItemsService itemsService) {
+		this.itemsService = itemsService;
+	}
+	
+	
 	private double getTax(String itemCategory) {
 		int tax;
 		switch(itemCategory) {

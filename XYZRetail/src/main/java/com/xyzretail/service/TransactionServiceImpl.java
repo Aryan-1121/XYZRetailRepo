@@ -2,14 +2,23 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.TransactionDao;
 import com.xyzretail.persistence.TransactionDaoImpl;
 
+@Service("transactionService")
 public class TransactionServiceImpl implements TransactionService {
 
-	private TransactionDao transactionDao = new TransactionDaoImpl();
+	private TransactionDao transactionDao;
 	
+	
+	
+	public void setTransactionDao(TransactionDao transactionDao) {
+		this.transactionDao = transactionDao;
+	}
+
 	@Override
 	public boolean performTransaction(String customer) {
 

@@ -1,11 +1,13 @@
 package com.xyzretail.persistence;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.persistence.helper.BasketDaoHelper;
 
@@ -19,34 +21,33 @@ public class PersistenceDaoImpl implements PersistenceDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Override
-	public boolean updateQuantity(int purchasedQuantity) {
-		// TODO Auto-generated method stub
-		return false;
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
+
 
 	@Override
 	public ItemDetails searchItemsById(String id) {
+<<<<<<< HEAD
 		String query ="SELECT * FROM Item_Details where Item_Id= ?";
 			jdbcTemplate.update(query, id);
 			
 			ItemDetails item = (ItemDetails) jdbcTemplate.query(query, new BasketDaoHelper());
+=======
+		String sql="SELECT * FROM Item_Details where Item_Id= ?";
+		ItemDetails item=(ItemDetails) jdbcTemplate.query(sql, new BasketDaoHelper());
+
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
 		return item;
 	}
 
-	@Override
-	public List<ItemDetails> getAllItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
-		
-
 		ItemDetails item=searchItemsById(id);
-
-
 		if(item.getAvailableQuantity()>reqQuantity) {
 			return true;
 		}

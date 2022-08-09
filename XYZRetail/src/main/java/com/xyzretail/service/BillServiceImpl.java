@@ -2,6 +2,7 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemsCart;
@@ -16,15 +17,15 @@ public class BillServiceImpl implements BillService {
 	private ItemBill bill;
 	private ItemsCartDao cart;
 	
-	
+	@Autowired
 	public void setTransactionDao(TransactionDao transactionDao) {
 		this.transactionDao = transactionDao;
 	}
-	
+	@Autowired
 	public void setBill(ItemBill bill) {
 		this.bill = bill;
 	}
-	
+	@Autowired
 	public void setCart(ItemsCartDao cart) {
 		this.cart = cart;
 	}

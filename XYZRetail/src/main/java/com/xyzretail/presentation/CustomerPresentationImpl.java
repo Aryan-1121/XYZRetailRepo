@@ -13,7 +13,7 @@ import com.xyzretail.service.CustomerServiceImpl;
 @Component("cutomerPresentation")
 public class CustomerPresentationImpl implements CustomerPresentation {
 
-	ItemsPresentation itemsPresentation;
+	private ItemsPresentation itemsPresentation;
 	private CustomerService customerService;
 	
 	
@@ -55,9 +55,9 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			Customer customer = new Customer(userName, password);
 			
 			
-			boolean isAdded = customerService.addCustomer(customer);
+			int isAdded = customerService.addCustomer(customer);
 			
-			if(isAdded)
+			if(isAdded>0)
 				System.out.println("Registration Successful !!! \n");
 			else 
 				System.out.println("Something Went Wrong ...\n");

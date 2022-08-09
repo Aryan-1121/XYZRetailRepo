@@ -2,11 +2,11 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.TransactionDao;
-import com.xyzretail.persistence.TransactionDaoImpl;
 
 @Service("transactionService")
 public class TransactionServiceImpl implements TransactionService {
@@ -14,7 +14,7 @@ public class TransactionServiceImpl implements TransactionService {
 	private TransactionDao transactionDao;
 	
 	
-	
+	@Autowired
 	public void setTransactionDao(TransactionDao transactionDao) {
 		this.transactionDao = transactionDao;
 	}

@@ -6,7 +6,6 @@ import com.xyzretail.bean.*;
 
 public interface BasketDao {
 
-	int addItem(ItemDetails item);
 	int updateRecord(String itemID, int quantity);
 	List<ItemDetails> getAllItems();				//done 
 	//ItemDetails searchItemById(String item_id);

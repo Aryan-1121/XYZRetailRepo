@@ -1,19 +1,23 @@
 package com.xyzretail.persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.persistence.helper.BasketDaoHelper;
 
 @Repository("persistenceDao")
 public class PersistenceDaoImpl implements PersistenceDao {
+	
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
 	@Override
 	public boolean updateQuantity(int purchasedQuantity) {
@@ -23,32 +27,10 @@ public class PersistenceDaoImpl implements PersistenceDao {
 
 	@Override
 	public ItemDetails searchItemsById(String id) {
-		ItemDetails item;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley");
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("SELECT * FROM Item_Details where Item_Id= ?");) {
+		String query ="SELECT * FROM Item_Details where Item_Id= ?";
+			jdbcTemplate.update(query, id);
 			
-		
-			preparedStatement.setString(1,id);
-			
-			
-			ResultSet items=preparedStatement.executeQuery();
-			
-			
-			items.next();
-			String itemId = items.getString("item_Id");
-     		String itemCategory=items.getString("item_Category");
-			String itemName = items.getString("Item_Name");
-			double item_Price = items.getDouble("Item_Price");
-			int availableQuantity=items.getInt("Available_Quantity");
-			
-			item=new ItemDetails(itemId,itemCategory,itemName,item_Price,availableQuantity);
-					
-		}catch (SQLException e) {
-			return null;
-		
-		}
+			ItemDetails item = (ItemDetails) jdbcTemplate.query(query, new BasketDaoHelper());
 		return item;
 	}
 

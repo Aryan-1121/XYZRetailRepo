@@ -11,9 +11,6 @@ import com.xyzretail.bean.Customer;
 
 public class CustomerDaoImpl implements CustomerDao {
 
-	
-	
-
 	@Override
 	public boolean addCustomer(Customer customer) {
 		

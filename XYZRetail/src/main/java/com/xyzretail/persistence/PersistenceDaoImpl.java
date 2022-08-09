@@ -1,70 +1,34 @@
 package com.xyzretail.persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.persistence.helper.BasketDaoHelper;
 
 @Repository("persistenceDao")
 public class PersistenceDaoImpl implements PersistenceDao {
 
-	@Override
-	public boolean updateQuantity(int purchasedQuantity) {
-		// TODO Auto-generated method stub
-		return false;
+	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
 	}
+
 
 	@Override
 	public ItemDetails searchItemsById(String id) {
-		ItemDetails item;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley");
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("SELECT * FROM Item_Details where Item_Id= ?");) {
-			
-		
-			preparedStatement.setString(1,id);
-			
-			
-			ResultSet items=preparedStatement.executeQuery();
-			
-			
-			items.next();
-			String itemId = items.getString("item_Id");
-     		String itemCategory=items.getString("item_Category");
-			String itemName = items.getString("Item_Name");
-			double item_Price = items.getDouble("Item_Price");
-			int availableQuantity=items.getInt("Available_Quantity");
-			
-			item=new ItemDetails(itemId,itemCategory,itemName,item_Price,availableQuantity);
-					
-		}catch (SQLException e) {
-			return null;
-		
-		}
+		String sql="SELECT * FROM Item_Details where Item_Id= ?";
+		ItemDetails item=(ItemDetails) jdbcTemplate.query(sql, new BasketDaoHelper());
+
 		return item;
 	}
 
-	@Override
-	public List<ItemDetails> getAllItems() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
-		
-
 		ItemDetails item=searchItemsById(id);
-
-
 		if(item.getAvailableQuantity()>reqQuantity) {
 			return true;
 		}

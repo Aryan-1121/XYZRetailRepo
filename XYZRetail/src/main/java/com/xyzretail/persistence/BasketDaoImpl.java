@@ -19,10 +19,6 @@ public class BasketDaoImpl implements BasketDao{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	@Override
-	public int addItem(ItemDetails item) {
-		return 0;		
-	}
 
 	@Override
 	public int updateRecord(String itemID , int quantity) {

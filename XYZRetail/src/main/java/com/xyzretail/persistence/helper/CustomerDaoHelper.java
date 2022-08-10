@@ -7,16 +7,15 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.xyzretail.bean.Customer;
 
-public class CutomerDaoHelper implements RowMapper<Customer> {
+public class CustomerDaoHelper implements RowMapper<Customer> {
 
 	@Override
 	public Customer mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
 		String UserName = resultSet.getString("User_Name");
 		String UserPassword = resultSet.getString("User_Password");
 		
-		Customer cutomer=new Customer(UserName,UserPassword);
-		return cutomer;
+		Customer customer=new Customer(UserName,UserPassword);
+		return customer;
 	}
 
 }

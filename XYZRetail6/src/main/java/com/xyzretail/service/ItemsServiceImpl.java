@@ -2,31 +2,19 @@ package com.xyzretail.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.persistence.BasketDao;
+import com.xyzretail.persistence.BasketDaoImpl;
 import com.xyzretail.persistence.ItemsCartDao;
+import com.xyzretail.persistence.ItemsCartDaoImpl;
 import com.xyzretail.persistence.PersistenceDao;
+import com.xyzretail.persistence.PersistenceDaoImpl;
 
-@Service("itemsService")
 public class ItemsServiceImpl implements ItemsService {
 
-	private BasketDao basketDao;
-	private PersistenceDao persistenceDao;
-
-	
-	@Autowired
-	public void setBasketDao(BasketDao basketDao) {
-		this.basketDao = basketDao;
-	}
-
-	@Autowired
-	public void setPersistenceDao(PersistenceDao persistenceDao) {
-		this.persistenceDao = persistenceDao;
-	}
-
+	private BasketDao basketDao = new BasketDaoImpl();
+	private PersistenceDao persistenceDao=new PersistenceDaoImpl();
+	private ItemsCartDao itemsCartDao = new ItemsCartDaoImpl();
 
 	@Override
 	public ItemDetails searchItemsById(String itemId) {

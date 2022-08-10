@@ -2,31 +2,15 @@ package com.xyzretail.presentation;
 
 
 import java.util.Scanner;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.xyzretail.bean.Customer;
 import com.xyzretail.service.CustomerService;
 import com.xyzretail.service.CustomerServiceImpl;
 
-@Component("customerPresentationImpl")
 public class CustomerPresentationImpl implements CustomerPresentation {
 
-	private ItemsPresentation itemsPresentation;
-	private CustomerService customerService;
+	ItemsPresentation itemsPresentation=new ItemsPresentationImpl();
+	private CustomerService customerService=new CustomerServiceImpl();
 	
-	
-	@Autowired
-	public void setItemsPresentation(ItemsPresentation itemsPresentation) {
-		this.itemsPresentation = itemsPresentation;
-	}
-	
-	@Autowired
-	public void setCustomerService(CustomerService customerService) {
-		this.customerService = customerService;
-	}
-
 	@Override
 	public void showMenuCustomer() {
 		System.out.println("***** Registration/Login *****");
@@ -55,9 +39,9 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 			Customer customer = new Customer(userName, password);
 			
 			
-			int isAdded = customerService.addCustomer(customer);
+			boolean isAdded = customerService.addCustomer(customer);
 			
-			if(isAdded>0)
+			if(isAdded)
 				System.out.println("Registration Successful !!! \n");
 			else 
 				System.out.println("Something Went Wrong ...\n");
@@ -106,7 +90,7 @@ public class CustomerPresentationImpl implements CustomerPresentation {
 		}	
 	}
 		catch(Exception exception) {
-			System.out.println("exception occured :"+exception);
+			System.out.println("");
 		}
 		
 		

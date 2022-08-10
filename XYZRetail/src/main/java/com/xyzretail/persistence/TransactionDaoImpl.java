@@ -1,12 +1,7 @@
 	package com.xyzretail.persistence;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.xyzretail.bean.Customer;
@@ -15,7 +10,14 @@ import com.xyzretail.bean.Transaction;
 @Repository("transactionDao")
 public class TransactionDaoImpl implements TransactionDao{
 	
+
+	private JdbcTemplate jdbcTemplate;
 	
+	@Autowired
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	@Override
 	public Transaction getTransactionDetails(Customer customerName) {
 		// TODO Auto-generated method stub
@@ -26,18 +28,15 @@ public class TransactionDaoImpl implements TransactionDao{
 	public boolean performTransaction(String customer) {
 
 		int rows = 0;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley");
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("INSERT INTO transactionTable (User_Name, transaction_date, transaction_time)"
-								+ "values(?,current_date(), current_Time())");) {
+		try {
 			
-			preparedStatement.setString(1,customer);
+		String query ="INSERT INTO transactionTable (User_Name, transaction_date, transaction_time) values(?,current_date(), current_Time())";
 			
 			
-			rows = preparedStatement.executeUpdate();			
+			rows =jdbcTemplate.update(query,customer);
+	
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			System.out.println("Transaction couldn't complete");
 			System.out.println("exception occured \n"+ e);
 		}
@@ -59,31 +58,12 @@ public class TransactionDaoImpl implements TransactionDao{
 	public void insertIntoOrderTable(String customer) {
 
 		int rows = 0;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley");
-				PreparedStatement statement = connection
-						.prepareStatement("select max(transactionId ) as maxid from transactionTable;");
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("\r\n" + 
-								"insert ignore into orders \r\n" + 
-								"select t.transactionId , i.itemId, requiredQuantity\r\n" + 
-								"from itemsCart i, transactionTable t\r\n" + 
-								"where (transactionId=? )and t.User_Name=i.User_Name;"
-								); ) {
+		String query1 ="select max(transactionId ) as maxid from transactionTable;";
+		String query2="insert ignore into orders select t.transactionId , i.itemId, requiredQuantity from itemsCart i, transactionTable t where (transactionId=? )and t.User_Name=i.User_Name;";
 			
-			
-			ResultSet resultSet = statement.executeQuery();
-			resultSet.next();
-			int transacId= resultSet.getInt("maxid");		
-			preparedStatement.setInt(1,transacId);
-			
-			
-			rows = preparedStatement.executeUpdate();			
-
-		} catch (SQLException e) {
-			System.out.println(" couldn't insert into orders Table");
-			System.out.println("exception occured \n"+ e);
-		}
+				
+		Integer transacId =jdbcTemplate.queryForObject(query1,Integer.class);
+		rows = jdbcTemplate.update(query2,transacId);
 
 		if(rows!=0)
 			System.out.println();
@@ -97,29 +77,12 @@ public class TransactionDaoImpl implements TransactionDao{
 
 	@Override
 	public int monthCount(String customer) {
+	
+		String query1= "select count(*) as monthCount from transactionTable where user_Name=? and month(now())=month(transaction_Date) and year(now())=year(transaction_Date);" ;
 
-		int month =0;
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/ShoppingBasket", "root",
-				"wiley");
-				PreparedStatement preparedStatement = connection
-						.prepareStatement("select count(*) as monthCount from transactionTable " + 
-								"where user_Name=? and month(now())=month(transaction_Date) and year(now())=year(transaction_Date);" ); ) {
-			
-			
-			preparedStatement.setString(1,customer);
-			ResultSet resultSet = preparedStatement.executeQuery();			
-			
-			resultSet.next();
-			month= resultSet.getInt("monthCount");		
-			
-			
+			jdbcTemplate.update(query1,customer);
+	        return jdbcTemplate.queryForObject(query1, Integer.class);
 
-		} catch (SQLException e) {
-			System.out.println(" couldn't insert into orders Table");
-			System.out.println("exception occured \n"+ e);
-		
-		}
-		return month;
 	}
-
 }
+

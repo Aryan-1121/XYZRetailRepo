@@ -12,19 +12,14 @@ import com.xyzretail.persistence.TransactionDao;
 @Component("billService")
 public class BillServiceImpl implements BillService {
 	TransactionDao transactionDao;
-	//ItemsCartDao itemsCartDao=new ItemsCartDaoImpl();
 
-	private ItemBill bill;
 	private ItemsCartDao cart;
 	
 	@Autowired
 	public void setTransactionDao(TransactionDao transactionDao) {
 		this.transactionDao = transactionDao;
 	}
-	@Autowired
-	public void setBill(ItemBill bill) {
-		this.bill = bill;
-	}
+
 	@Autowired
 	public void setCart(ItemsCartDao cart) {
 		this.cart = cart;

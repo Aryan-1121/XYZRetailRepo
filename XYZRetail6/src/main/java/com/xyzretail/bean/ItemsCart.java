@@ -7,10 +7,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Customer {
-
-	private String userName;
-	private String userPassword;
+public class ItemsCart {
+	
+	private ItemDetails item;
+	private String customer;
+	private int purchaseQuantity;
+	private double salesTax;
+	private double totalCost;
 	
 	
 }

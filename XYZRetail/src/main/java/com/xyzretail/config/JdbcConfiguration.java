@@ -14,7 +14,7 @@ public class JdbcConfiguration {
 	public DriverManagerDataSource mySqlDataSource() {
 		DriverManagerDataSource driverManagerDataSource=new DriverManagerDataSource();
 		driverManagerDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		driverManagerDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/shoppongbasket");
+		driverManagerDataSource.setUrl("jdbc:mysql://127.0.0.1:3306/shoppingbasket");
 		driverManagerDataSource.setUsername("root");
 		driverManagerDataSource.setPassword("wiley");
 		return driverManagerDataSource;

@@ -1,6 +1,5 @@
 
 package com.xyzretail.persistence;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,23 +21,28 @@ public class CustomerDaoImpl implements CustomerDao {
 	@Override
 	public int addCustomer(Customer customer) {
 		
-		String sql="INSERT INTO customer values(?,?)"; 
-		int rows=jdbcTemplate.update(sql, customer.getUserName(),customer.getUserPassword());
+//		String sql="INSERT INTO customer values(?,?)"; 
+//		int rows=jdbcTemplate.update(sql, customer.getUserName(),customer.getUserPassword());
+//		
+//		
+//		return rows;
 		
+		int rows = 0;
+		String query ="INSERT INTO customer values(?,?)";
+		try {				
+			rows = jdbcTemplate.update(query,customer.getUserName(), customer.getUserPassword());
+
+		} catch (Exception e) {
+			System.out.println("This UserName is already taken, try for another one :)");
+		}	
 		return rows;
 	}
 	
 
 	@Override
 	public Customer validateCustomer(Customer customer) {
-	
-		
-//		String sql="SELECT * FROM CUSTOMER WHERE USER_NAME = "+customer.getUserName();
-		String sql = "SELECT * FROM CUSTOMER WHERE USER_NAME = \""+customer.getUserName()+"\"	";
-		jdbcTemplate.execute(sql);
-		List<Customer> cust= jdbcTemplate.query(sql, new CustomerDaoHelper());
-		
-		Customer cus = cust.get(0);
+		String sql = "SELECT * FROM CUSTOMER WHERE USER_NAME = ?";
+		Customer cus = jdbcTemplate.queryForObject(sql, new CustomerDaoHelper(),customer.getUserName());
 		return cus;
 	}
 	

@@ -36,8 +36,17 @@ public class ItemsServiceImpl implements ItemsService {
 	
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
-		return persistenceDao.searchItemsById(id, reqQuantity);
+//		return persistenceDao.searchItemsById(id, reqQuantity);
+		ItemDetails item=searchItemsById(id);
+		if(item.getAvailableQuantity()>reqQuantity) {
+			return true;
+		}
+		System.out.println("We don't have that much quantity in our store :(");
+
+		return false;
 	}
+
+	
 
 	@Override
 	public List<ItemDetails> getAllItems() {

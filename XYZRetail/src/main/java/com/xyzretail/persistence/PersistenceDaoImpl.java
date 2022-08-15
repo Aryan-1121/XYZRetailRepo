@@ -22,25 +22,11 @@ public class PersistenceDaoImpl implements PersistenceDao {
 	@Override
 	public ItemDetails searchItemsById(String id) {
 
-		String query ="SELECT * FROM Item_Details where Item_Id= ?";
-			jdbcTemplate.update(query, id);
-			
-			ItemDetails item = (ItemDetails) jdbcTemplate.query(query, new BasketDaoHelper());
+		String query ="SELECt * from Item_Details where Item_Id= ?";
+//			jdbcTemplate.update(query, id);
+			ItemDetails item =jdbcTemplate.queryForObject(query, new BasketDaoHelper(), id);
 
-	
 		return item;
-	}
-
-
-	@Override
-	public boolean searchItemsById(String id, int reqQuantity) {
-		ItemDetails item=searchItemsById(id);
-		if(item.getAvailableQuantity()>reqQuantity) {
-			return true;
-		}
-		System.out.println("We don't have that much quantity in our store :(");
-
-		return false;
 	}
 
 }

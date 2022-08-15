@@ -1,6 +1,5 @@
 package com.xyzretail.persistence;
 
-
 import com.xyzretail.bean.Customer;
 
 public interface CustomerDao {		// Completed 

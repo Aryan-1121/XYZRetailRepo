@@ -182,7 +182,7 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		}	
 		
 	}catch(NullPointerException nullPointer) {
-		System.out.println("Enter Correct Details ");}
+		System.out.println("Enter Correct Details "+nullPointer);}
 	catch(InputMismatchException ex) {
 		System.out.println("Enter correct input");
 	}

@@ -7,7 +7,7 @@ import com.xyzretail.bean.ItemsCart;
 
 public interface ItemsCartDao {
 	public int addItemToCart(ItemDetails item, String customer, int reqQuantity, double tax, double totalCost );
-	public int deleteItemFromCart(String customer);
+	public void deleteItemFromCart(String customer);
 	List<ItemsCart> getAllItemsInCart(String customer);
 	public int unselectFromCart(String itemId, String customer);
 	public boolean searchItemById(String itemId,String customer);

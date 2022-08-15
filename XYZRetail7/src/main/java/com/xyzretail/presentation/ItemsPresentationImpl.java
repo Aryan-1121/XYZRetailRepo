@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.xyzretail.presentation;
 
 import java.util.InputMismatchException;
@@ -380,5 +380,5 @@ public class ItemsPresentationImpl implements ItemsPresentation{
 		System.out.println(exception);
 	}
 }
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
+
 }

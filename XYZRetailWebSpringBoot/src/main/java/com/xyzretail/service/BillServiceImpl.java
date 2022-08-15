@@ -10,7 +10,7 @@ import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.ItemsCartDaoImpl;
 import com.xyzretail.persistence.TransactionDao;
 
-@Service
+@Service("billService")
 public class BillServiceImpl implements BillService {
 	
 	@Autowired

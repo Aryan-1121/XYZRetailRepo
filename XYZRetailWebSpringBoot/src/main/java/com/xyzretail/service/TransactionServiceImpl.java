@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.TransactionDao;
-@Service
+@Service("transactionService")
 public class TransactionServiceImpl implements TransactionService {
 
 	private TransactionDao transactionDao;

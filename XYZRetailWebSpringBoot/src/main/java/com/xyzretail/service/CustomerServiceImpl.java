@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.xyzretail.bean.Customer;
 import com.xyzretail.persistence.CustomerDao;
-@Service
+@Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 
 	private CustomerDao customerDao;

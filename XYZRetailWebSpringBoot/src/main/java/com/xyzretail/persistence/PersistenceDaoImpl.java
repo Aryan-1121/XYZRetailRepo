@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.persistence.util.ItemsRowMapper;
 
-@Repository
+@Repository("persistenceDao")
 public class PersistenceDaoImpl implements PersistenceDao {
 
 

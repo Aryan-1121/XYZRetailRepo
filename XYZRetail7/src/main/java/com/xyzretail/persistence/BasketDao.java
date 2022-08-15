@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.xyzretail.persistence;
 
 import java.util.List;
@@ -11,3 +12,18 @@ public interface BasketDao {
 	List<ItemDetails> getAllItems();				//done 
 		
 }
+=======
+package com.xyzretail.persistence;
+
+import java.util.List;
+
+import com.xyzretail.bean.*;
+
+public interface BasketDao {
+
+	int addItem(ItemDetails item);
+	void updateRecord(String itemID, int quantity);
+	List<ItemDetails> getAllItems();				//done 
+		
+}
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git

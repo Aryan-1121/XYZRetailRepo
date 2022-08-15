@@ -9,7 +9,6 @@ import com.xyzretail.presentation.CustomerPresentation;
 import com.xyzretail.presentation.CustomerPresentationImpl;
 
 
-
 public class Customer {
 	
 	public static void main(String[] args) {

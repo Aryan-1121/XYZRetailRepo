@@ -45,7 +45,7 @@ public class CartController {
 	}
 	
 	@RequestMapping("/item")
-	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,@RequestParam(value="purchaseQuantity",required = false) int quantity) {
+	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,@RequestParam("quantity") int quantity) {
 		ModelAndView modelAndView=new ModelAndView();
 		
 		String message=null;

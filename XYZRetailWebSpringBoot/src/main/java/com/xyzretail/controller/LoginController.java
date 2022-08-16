@@ -3,6 +3,7 @@ package com.xyzretail.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,7 +15,7 @@ import com.xyzretail.bean.Customer;
 import com.xyzretail.service.CustomerService;
 
 @Controller
-@Component
+@Scope("session")
 public class LoginController {
 
 	@Autowired
@@ -49,8 +50,8 @@ public class LoginController {
 				modelAndView.setViewName("index");
 			}
 			else {
-				modelAndView.addObject("message", "Invalid Credentials");
-				modelAndView.addObject("command", new Customer());
+				modelAndView.addObject("message", "Invalid Credentials ");
+				modelAndView.addObject("command", customer);
 				modelAndView.setViewName("LoginPage");
 			}
 			}

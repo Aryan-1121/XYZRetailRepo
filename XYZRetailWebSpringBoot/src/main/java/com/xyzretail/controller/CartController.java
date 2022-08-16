@@ -44,8 +44,8 @@ public class CartController {
 		}
 	}
 	
-	@RequestMapping("/item")
-	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,@RequestParam(value="purchaseQuantity",required = false) int quantity) {
+	@RequestMapping("/addItem")
+	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,@RequestParam("purchaseQuantity") int quantity) {
 		ModelAndView modelAndView=new ModelAndView();
 		
 		String message=null;
@@ -56,6 +56,7 @@ public class CartController {
 			message="Item's Failed To Add";
 		}
 		modelAndView.addObject("message", message);
+		modelAndView.addObject("command");
 		modelAndView.setViewName("addItems");
 		
 		return modelAndView;

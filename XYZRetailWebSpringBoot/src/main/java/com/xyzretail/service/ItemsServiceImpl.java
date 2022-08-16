@@ -10,7 +10,7 @@ import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.BasketDao;
 import com.xyzretail.persistence.ItemsCartDao;
 import com.xyzretail.persistence.PersistenceDao;
-@Service
+@Service("itemsService")
 public class ItemsServiceImpl implements ItemsService {
 
 	private BasketDao basketDao;

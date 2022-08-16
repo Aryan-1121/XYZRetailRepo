@@ -9,8 +9,8 @@
 <h2>Registration/Login</h2>
 <hr>
 <form action="#" th:action="@{./login}" method="post" th:object="${command}">
-	Enter UserName :<input type="text" th:field="*{userName}"><br><br>
-	Enter password :<input type="password" th:field="*{userPassword}"><br><br>
+	Enter UserName :<input required type="text" th:field="*{userName}"><br><br>
+	Enter password :<input required type="password" th:field="*{userPassword}"><br><br>
 	<input type="submit" name="action" value="Register">
 	<input type="submit" name="action" value="Login">
 	

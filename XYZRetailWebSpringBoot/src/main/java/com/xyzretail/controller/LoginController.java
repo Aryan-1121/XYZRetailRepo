@@ -3,6 +3,7 @@ package com.xyzretail.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.xyzretail.bean.Customer;
 import com.xyzretail.service.CustomerService;
 
 @Controller
+@Component
 public class LoginController {
 
 	@Autowired
@@ -36,7 +38,7 @@ public class LoginController {
 				message="Invalid Registration!!";
 			}
 			modelAndView.addObject("message",message);
-			modelAndView.addObject("command", customer);
+			modelAndView.addObject("command", new Customer());
 			modelAndView.setViewName("LoginPage");
 //			return modelAndView;
 		}

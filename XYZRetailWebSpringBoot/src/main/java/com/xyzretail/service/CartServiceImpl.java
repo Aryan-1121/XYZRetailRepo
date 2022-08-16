@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.ItemsCartDao;
-@Service
+@Service("cartService")
 public class CartServiceImpl implements CartService {
 	private ItemsCartDao itemsCartDao;
 	private ItemsService itemsService;

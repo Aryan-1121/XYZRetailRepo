@@ -11,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.presentation.Cart;
 import com.xyzretail.service.BillService;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.ItemsService;
@@ -21,8 +23,6 @@ public class XyzRetailController {
 	
 	@Autowired
 	private ItemsService itemsService;
-
-
 
 	@Autowired
 	private CartService cartService;
@@ -46,7 +46,13 @@ public class XyzRetailController {
 	@RequestMapping("/generateBill")
 	public ModelAndView generateBillController(@ModelAttribute Customer customer,@ModelAttribute ItemBill bill) {
 		ModelAndView modelAndView=new ModelAndView();
-		//ItemBill itemsBill=
+//		ItemBill itemsBill=bill.generateBill(customer);
+		List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer.getUserName());
+
+		
+//		if (!itemsCarts.isEmpty() && itemsBill!=null ) {
+//			
+//		}
 		
 		return modelAndView;
 		

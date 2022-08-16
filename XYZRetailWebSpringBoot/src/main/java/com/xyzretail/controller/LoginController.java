@@ -49,7 +49,7 @@ public class LoginController {
 				modelAndView.setViewName("index");
 			}
 			else {
-				modelAndView.addObject("message", "Invalid Credentials");
+				modelAndView.addObject("message", "Invalid Credentials ");
 				modelAndView.addObject("command", new Customer());
 				modelAndView.setViewName("LoginPage");
 			}

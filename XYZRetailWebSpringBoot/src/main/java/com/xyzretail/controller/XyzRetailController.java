@@ -33,7 +33,10 @@ public class XyzRetailController {
 	@Autowired
 	private BillService bill;
 	
-	
+	@RequestMapping("/index")
+	public ModelAndView indexController() {
+		return new ModelAndView("Index");
+	}
 	
 	@RequestMapping("/showAllItems")
 	public ModelAndView showAllItemsController() {
@@ -42,6 +45,10 @@ public class XyzRetailController {
 		return new ModelAndView("showAllItem", "items", items);
 	}
 
+	@RequestMapping("/wantToShop")
+	public ModelAndView shopController() {
+		return new ModelAndView("CartPage");
+	}
 	
 	@RequestMapping("/generateBill")
 	public ModelAndView generateBillController(@ModelAttribute Customer customer,@ModelAttribute ItemBill bill) {

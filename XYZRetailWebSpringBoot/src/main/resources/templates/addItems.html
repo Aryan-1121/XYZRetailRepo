@@ -5,14 +5,24 @@
 <title>Add Items</title>
 </head>
 <body>
+<h1>Welcome to Shopping Basket Application</h1><br>
+
 <h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3><br>
 <h1>Add Items To Your Cart : </h1>
-<form action="#" method="post" th:action="@{./addItem}" th:object="${item}" >
 
-Enter Item's ID : <input  th:field="*{itemId}"><br><br>
-Enter Items' Quantities : <input  th:field="*{}">
+<form action="#" method="post" th:action="@{./item}" th:object="${command}" >
+
+Enter Item's ID : <select th:field="*{itemId}">
+<option th:each="id: ${itemId}" th:value="${id}" th:label="${id}">
+</select>
+
+Enter Items' Quantities : <input type="number" th:field="*{purchaseQuantity}" >
 
 
+<br><br>
+<input type="submit" value="Submit">
 </form>
+<a href="./index">Go To Main Page</a>
+<h2 th:text="${message}" style="color: red"></h2>
 </body>
 </html>

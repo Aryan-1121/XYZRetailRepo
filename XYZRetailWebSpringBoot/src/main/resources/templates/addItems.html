@@ -10,13 +10,17 @@
 <h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3><br>
 <h1>Add Items To Your Cart : </h1>
 
-<form action="#" method="post" th:action="@{./item}" th:object="${command}" >
+<form action="#" method="post" th:action="@{./addItem}" th:object="${command}" >
 
 Enter Item's ID : <select th:field="*{itemId}">
 <option th:each="id: ${itemId}" th:value="${id}" th:label="${id}">
 </select>
 
+
 Enter Items' Quantities : <input type="number" th:field="*{quantity}" >
+
+<!-- Enter Items' Quantities : <input type="number" name="purchaseQuantity" value="Purchase Quantity" >-->
+
 
 
 <br><br>

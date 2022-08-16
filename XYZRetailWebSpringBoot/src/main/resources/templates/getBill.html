@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Employee Management System</h1>
+<hr>
+<h3 th:text=" 'HAVE A NICE DAY ' + ${session.user.userName} +'!!' "></h3>
+<hr>
+<table border="1">
+	<tr>
+		<th>Item Name </th>
+		<th>UnitPrice</th>
+		<th>Tax</th>
+		<th>Purchased Quantity</th>
+		<th>TotalCost</th>
+	</tr>
+	<tr>
+		<td th:text="${employeepaySlip.employee.empId}"></td>
+		<td th:text="${employeepaySlip.employee.empName}"></td>
+		<td th:text="${employeepaySlip.hr}"></td>
+		<td th:text="${employeepaySlip.pf}"></td>
+		<td th:text="${employeepaySlip.da}"></td>
+	</tr>
+</table>
+<br><br>
+<a href="./generateBillPage">Generate another payslip</a>
+<br><br>
+
+<a href="./menu">Go To Main Page</a>
+</body>
+</html>

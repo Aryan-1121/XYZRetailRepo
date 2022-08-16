@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,7 +13,6 @@ import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
-import com.xyzretail.presentation.Cart;
 import com.xyzretail.service.BillService;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.ItemsService;
@@ -29,7 +29,7 @@ public class XyzRetailController {
 	
 	@Autowired
 	private TransactionService transactionService;
-	
+
 	@Autowired
 	private BillService bill;
 	
@@ -44,18 +44,31 @@ public class XyzRetailController {
 
 	
 	@RequestMapping("/generateBill")
-	public ModelAndView generateBillController(@ModelAttribute Customer customer,@ModelAttribute ItemBill bill) {
-		ModelAndView modelAndView=new ModelAndView();
-//		ItemBill itemsBill=bill.generateBill(customer);
+	public ModelAndView generateBillController(@ModelAttribute Customer customer /*,@ModelAttribute ItemBill bill*/) {
+		
+		ModelAndView modelAndView = new ModelAndView();
+		ItemBill itemsBill=bill.generateBill(customer.getUserName());
+		
+		
 		List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer.getUserName());
 
 		
-//		if (!itemsCarts.isEmpty() && itemsBill!=null ) {
-//			
-//		}
+		if (!itemsCarts.isEmpty() && itemsBill!=null ) {
+			modelAndView.addObject("itemsCarts", itemsCarts);
+			modelAndView.setViewName("getBill");
+		}
+		else {
+			modelAndView.addObject("message","Your Cart is empty !!");
+			modelAndView.setViewName("Index");
+		}
 		
 		return modelAndView;
 		
+	}
+	
+	@RequestMapping("/shopPage")
+	public ModelAndView ShopPageController() {
+		return new ModelAndView("shop");
 	}
 	
 		

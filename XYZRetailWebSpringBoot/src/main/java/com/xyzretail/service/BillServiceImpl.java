@@ -21,8 +21,6 @@ public class BillServiceImpl implements BillService {
 
 	@Override
 	public ItemBill generateBill(String customer) {
-//		return bill.generateBill(customer); 
-		
 		List<ItemsCart> item=cart.getAllItemsInCart(customer);
 		ItemBill bill;
 		double grandTotal=0;

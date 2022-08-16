@@ -6,5 +6,5 @@ import com.xyzretail.bean.ItemDetails;
 public interface PersistenceDao {
 
 	ItemDetails searchItemsById(String id);
-	boolean searchItemsById(String id,int reqQuantity);
+//	boolean searchItemsById(String id,int reqQuantity);
 }

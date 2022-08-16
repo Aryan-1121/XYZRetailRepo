@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.xyzretail.bean.Customer;
 
-public class CustomerDaoHelper implements RowMapper<Customer> {
+public class CustomerDaoHelper 	implements RowMapper<Customer> {
 
 	@Override
 	public Customer mapRow(ResultSet resultSet, int rowNum) throws SQLException {

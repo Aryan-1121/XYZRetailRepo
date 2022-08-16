@@ -8,6 +8,5 @@ public interface BasketDao {
 
 	int updateRecord(String itemID, int quantity);
 	List<ItemDetails> getAllItems();				//done 
-	//ItemDetails searchItemById(String item_id);
 		
 }

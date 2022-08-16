@@ -62,22 +62,29 @@ public class CartServiceImpl implements CartService {
 		}
 		ItemDetails item=itemsService.searchItemsById(itemId);
 		if(itemsService.searchItemsById(itemId, reqQuantity)) {
-		
+
 			double tax=getTax(item.getItemCategory());
 		
 			double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
 
 			double totalCost=cost*reqQuantity;
 			
-			if(itemsCartDao.searchItemById(itemId, customer)) {
+			
+			if(!itemsCartDao.searchItemById(itemId, customer)){
+				if(itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost)>0) 
+					return true;	
+				return false;
+			}
+			
+			else  {
 				ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
 				reqQuantity+=itemCart.getPurchaseQuantity();
 				totalCost+=itemCart.getTotalCost();
 				itemsCartDao.unselectFromCart(itemId, customer);
-			}
-			if(itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost)>0) 
-				return true;
-			return false;		
+				if(itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost)>0)
+					return true;
+				return false ;
+			}		
 		}
 		else {
 			System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");

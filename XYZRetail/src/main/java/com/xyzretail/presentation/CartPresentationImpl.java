@@ -51,15 +51,17 @@ public class CartPresentationImpl implements CartPresentation {
 					String id=sc.next();
 					System.out.println("Enter the Item's Quantities : ");
 					int requiredQuantity=sc.nextInt();
-					
 					boolean added=cartService.addItemToCart(customer,id, requiredQuantity);
+					System.out.println("boolean added  :  "+added);
 					if(added) {
 						System.out.println("Item added to cart is successfully : "+id+"  "+"  : "+requiredQuantity+"\n");
 						
-					}else{ System.out.println("Enter Correct Item Id or either Item is Not Available\n");}
-					System.out.println("To Add Item Enter 1 : ");
-					chs=sc.nextInt();	
-				}
+					}
+					else{
+						System.out.println("Enter Correct Item Id or either Item is Not Available\n");}
+						System.out.println("To Add Item Enter 1 : ");
+						chs=sc.nextInt();	
+					}
 				break;
 				
 			case 2:
@@ -146,7 +148,7 @@ public class CartPresentationImpl implements CartPresentation {
 		
 		
 		catch(NullPointerException nullPointer) {
-			System.out.println("Enter Correct Details ");}
+			System.out.println("Enter Correct Details cartPresentation "+nullPointer);}
 		catch(InputMismatchException ex) {
 			System.out.println("Enter correct input");
 		}

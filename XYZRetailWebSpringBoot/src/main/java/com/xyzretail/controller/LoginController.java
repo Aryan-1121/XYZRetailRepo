@@ -24,8 +24,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView loginController(@ModelAttribute Customer customer,
-			HttpSession session,@RequestParam("action") String action) {
+	public ModelAndView loginController(@ModelAttribute Customer customer, HttpSession session, @RequestParam("action") String action) {
 		ModelAndView modelAndView=new ModelAndView();
 		if(action.equals("Register")) {
 			
@@ -39,7 +38,7 @@ public class LoginController {
 			modelAndView.addObject("message",message);
 			modelAndView.addObject("command", customer);
 			modelAndView.setViewName("LoginPage");
-			return modelAndView;
+//			return modelAndView;
 		}
 		else if(action.equals("Login")) {
 			if(customerService.validateCustomer(customer)) {

@@ -22,8 +22,6 @@ public class XyzRetailController {
 	@Autowired
 	private ItemsService itemsService;
 
-
-
 	@Autowired
 	private CartService cartService;
 	
@@ -58,6 +56,8 @@ public class XyzRetailController {
 		return modelAndView;
 		
 	}
+	
+	
 	
 		
 }

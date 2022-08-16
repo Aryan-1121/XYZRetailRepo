@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>All Items</title>
+</head>
+<body>
+<h1>SHOPPING BASKET</h1>
+<hr>
+<h2>ITEMS PRESENT IN CART </h2>
+<table border="1">
+	<tr>
+		<th>Item ID</th>
+		<th>Item Name</th>
+		<th>Item Unit Price</th>
+		<th>Tax on each Unit</th>
+		<th>Purchased Quantity</th>
+		<th>Total Cost</th>
+	</tr>
+	<tr th:each="items : ${itemsCart}">
+		<td th:text="${items.item.itemId}"></td>
+		<td th:text="${items.item.itemName}"></td>
+		<td th:text="${items.item.itemPrice}"></td>
+		<td th:text="${items.salesTax}"></td>
+		<td th:text="${items.purchaseQuantity}"></td>
+		<td th:text ="${items.totalCost}"></td>
+	</tr>
+</table>
+
+<br><br>
+<hr>
+<a href="./cart">Go To Cart Menu</a><br><br>
+<a href="./index">Go To Main Page</a>
+
+</body>
+</html>

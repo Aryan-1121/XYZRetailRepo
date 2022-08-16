@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Items</title>
+</head>
+<body>
+<h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3><br>
+<h1>Add Items To Your Cart : </h1>
+<form action="#" method="post" th:action="@{./addItem}" th:object="${item}" >
+
+Enter Item's ID : <input  th:field="*{itemId}"><br><br>
+Enter Items' Quantities : <input  th:field="*{}">
+
+
+</form>
+</body>
+</html>

@@ -49,7 +49,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
-		
+		System.out.println("customer name ="+customer);
 		if (reqQuantity <1 )
 		{
 			System.out.println("enter positive value !!");

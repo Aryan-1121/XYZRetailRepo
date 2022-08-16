@@ -6,16 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xyzretail.bean.ItemDetails;
-import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.persistence.BasketDao;
-import com.xyzretail.persistence.ItemsCartDao;
 import com.xyzretail.persistence.PersistenceDao;
 @Service("itemsService")
 public class ItemsServiceImpl implements ItemsService {
 
 	private BasketDao basketDao;
 	private PersistenceDao persistenceDao;
-	private ItemsCartDao itemsCartDao;
 	
 	
 	@Autowired
@@ -53,29 +50,6 @@ public class ItemsServiceImpl implements ItemsService {
 	public void updateRecord(String itemID, int quantity) {
 		basketDao.updateRecord(itemID, quantity);
 	}
-//	@Override
-//	public boolean searchItemById(String itemId, String customer) {
-//	
-//		List<ItemsCart> cart=itemsCartDao.getAllItemsInCart(customer);
-//		for(ItemsCart item:cart) {
-//			if(item.getItem().getItemId().equalsIgnoreCase(itemId))
-//				return true;
-//		}
-//		return false;
-//	}
-//	@Override
-//	public ItemsCart getItemById(String itemId, String customer) {
-//
-//		List<ItemsCart> cart=itemsCartDao.getAllItemsInCart(customer);
-//		for(ItemsCart item:cart) {
-//			if(item.getItem().getItemId().equalsIgnoreCase(itemId))
-//				return item;
-//		}
-//		return null;
-//	}
-
-
-
 	
 
 }

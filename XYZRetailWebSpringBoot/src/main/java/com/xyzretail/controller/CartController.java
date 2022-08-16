@@ -1,6 +1,9 @@
 package com.xyzretail.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.service.CartService;
+import com.xyzretail.service.ItemsService;
 
 @Controller
 @SessionAttributes("customer")
@@ -21,6 +25,14 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
+	
+	
+	@Autowired
+	private ItemsService itemsService;
+
+	
+	
+	
 	
 	@ModelAttribute("customer")
 	public Customer getCustomer() {
@@ -47,24 +59,58 @@ public class CartController {
 		}
 	}
 	
+	
+	
+//	@ModelAttribute("itemNames")
+//	public List<String> getItemNames(){
+//		List<ItemDetails> items=itemsService.getAllItems();
+//
+//		return (items.stream()).
+//				map(ItemDetails :: getItemName).
+//				distinct().
+//				collect(Collectors.toList());
+//
+//	}
+//	
+	
+	
+	@ModelAttribute("itemIds")
+	public List<String> getItemNames(){
+		List<ItemDetails> items=itemsService.getAllItems();
 
-//	@RequestMapping("/item")
-//	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,@RequestParam("quantity") int quantity) {
-//=======
+		return (items.stream()).
+				map(ItemDetails :: getItemId).
+				distinct().
+				collect(Collectors.toList());
+
+	}
+	
+	
+	@RequestMapping("/addItemPage")
+	public ModelAndView addItem() {
+		return new ModelAndView("addItems", "command", new ItemDetails());
+	}
+	
+	
+
 	@RequestMapping("/addItem")
-	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,@RequestParam("purchaseQuantity") int quantity) {
+	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,
+			@RequestParam("purchaseQuantity") int quantity, HttpSession session) {
 
 		ModelAndView modelAndView=new ModelAndView();
-		
+//		String name="aryan";
+//		session.getAttribute(name);
 		String message=null;
-		if(cartService.addItemToCart(getCustomer().getUserName(), itemDetails.getItemId(), quantity)) {
+		
+		if(cartService.addItemToCart(getCustomer().getUserName(), itemDetails.getItemId(), quantity)) 
+//		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";
-		}
-		else {
+		else 
 			message="Item's Failed To Add";
-		}
+		
+		
 		modelAndView.addObject("message", message);
-		modelAndView.addObject("command");
+		modelAndView.addObject("itemDetails",itemDetails);
 		modelAndView.setViewName("addItems");
 		
 		return modelAndView;

@@ -20,7 +20,7 @@ import com.xyzretail.service.CartService;
 import com.xyzretail.service.ItemsService;
 
 @Controller
-@SessionAttributes("customer")
+
 public class CartController {
 
 	@Autowired
@@ -30,15 +30,9 @@ public class CartController {
 	@Autowired
 	private ItemsService itemsService;
 
-	
-	
-	
-	
-	@ModelAttribute("customer")
-	public Customer getCustomer() {
-		return new Customer();
+	public Customer getCustomer(HttpSession session) {
+		return (Customer)session.getAttribute("customer");
 	}
-	
 	@RequestMapping("/cart")
 	public ModelAndView getCartController() {
 		return new ModelAndView("CartPage");
@@ -47,8 +41,9 @@ public class CartController {
 	
 	
 	@RequestMapping("/seeItemsInCart")
-	public ModelAndView showItemsInCartController() {
-		List<ItemsCart> cart=cartService.getAllItemsInCart(getCustomer().getUserName());
+	public ModelAndView showItemsInCartController(HttpSession session) {
+		//Customer customer=(Customer)session.getAttribute("customer");
+		List<ItemsCart> cart=cartService.getAllItemsInCart(getCustomer(session).getUserName());
 		if(cart!=null)
 			return new ModelAndView("ShowItemsInCart","itemsCart",cart);
 		else {
@@ -94,16 +89,19 @@ public class CartController {
 	
 
 	@RequestMapping("/addItem")
-	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,
+	public ModelAndView addItemsController(@ModelAttribute ItemDetails itemDetails,
 			@RequestParam("purchaseQuantity") int quantity, HttpSession session) {
 
 		ModelAndView modelAndView=new ModelAndView();
 		Customer customer =(Customer)session.getAttribute("customer");
-//		String name="aryan";
-//		session.getAttribute(name);
+		session.setAttribute("itemDetails", itemDetails);
 		String message=null;
 		
-		if(cartService.addItemToCart(customer.getUserName(), itemDetails.getItemId(), quantity)) 
+		ItemDetails iDetails= (ItemDetails)session.getAttribute("itemDetails");
+				
+//		if(cartService.addItemToCart(customer.getUserName(), itemDetails.getItemId(), quantity)) 
+		if(cartService.addItemToCart(customer.getUserName(), iDetails.getItemId(), quantity)) 
+//		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";
 		else 
 			message="Item's Failed To Add";

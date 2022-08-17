@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>Employee Management System</h1>
-<hr>
-<h3 th:text=" 'HAVE A NICE DAY ' + ${session.user.userName} +'!!' "></h3>
+
 <hr>
 <table border="1">
 	<tr>
@@ -26,7 +25,8 @@
 	</tr>
 </table>
 <br><br>
-<a href="./generateBillPage">Generate another payslip</a>
+<hr>
+<h3 th:text=" 'HAVE A NICE DAY ' + ${session.user.userName} +'!!' "></h3>
 <br><br>
 
 <a href="./menu">Go To Main Page</a>

@@ -1,14 +1,13 @@
 package com.xyzretail.persistence;
 
-<<<<<<< HEAD
-=======
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,21 +127,3 @@ public class ItemsCartDaoImpl implements ItemsCartDao {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

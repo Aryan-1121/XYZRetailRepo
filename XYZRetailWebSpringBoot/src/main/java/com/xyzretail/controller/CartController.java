@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xyzretail.bean.Customer;
@@ -89,17 +88,21 @@ public class CartController {
 	
 
 	@RequestMapping("/addItem")
-	public ModelAndView addItemsController(@ModelAttribute ItemDetails itemDetails,
-			@RequestParam("purchaseQuantity") int quantity, HttpSession session) {
+
+	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,
+			@RequestParam("purchaseQuantity") int quantity,@RequestParam("addItems") String action, HttpSession session) {
+
+
 
 		ModelAndView modelAndView=new ModelAndView();
+
+
 		Customer customer =(Customer)session.getAttribute("customer");
 		session.setAttribute("itemDetails", itemDetails);
+
 		String message=null;
-		
-		ItemDetails iDetails= (ItemDetails)session.getAttribute("itemDetails");
-				
-		if(cartService.addItemToCart(customer.getUserName(), iDetails.getItemId(), quantity)) 
+
+		if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";
 		else 
 			message="Item's Failed To Add";
@@ -110,6 +113,7 @@ public class CartController {
 		modelAndView.setViewName("addItems");
 		
 		return modelAndView;
+
 	}
 	
 }

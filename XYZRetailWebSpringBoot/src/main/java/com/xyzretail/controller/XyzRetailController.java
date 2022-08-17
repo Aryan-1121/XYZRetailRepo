@@ -39,9 +39,6 @@ public class XyzRetailController {
 		return new ModelAndView("Index");
 	}
 	
-	
-	
-	
 	@RequestMapping("/showAllItems")
 	public ModelAndView showAllItemsController() {
 		List<ItemDetails> items=itemsService.getAllItems();
@@ -49,9 +46,6 @@ public class XyzRetailController {
 		return new ModelAndView("showAllItem", "items", items);
 	}
 
-	
-	
-	
 	@RequestMapping("/wantToShop")
 	public ModelAndView shopController() {
 		return new ModelAndView("CartPage");
@@ -89,18 +83,5 @@ public class XyzRetailController {
 	public ModelAndView ShopPageController() {
 		return new ModelAndView("shop");
 	}
-
-//	@RequestMapping("/inputIdAndQuantity")
-//	public ModelAndView inputIdAndQuantity() {
-//		return new ModelAndView("InputIdAndQuantity","")
-//	}
-	
-	@ModelAttribute("customer")
-	public Customer getCustomer() {
-		return new Customer();
-	}
-	
-	
-		
 		
 }

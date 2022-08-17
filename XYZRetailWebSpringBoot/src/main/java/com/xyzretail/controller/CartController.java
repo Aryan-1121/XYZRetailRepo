@@ -89,13 +89,30 @@ public class CartController {
 	
 
 	@RequestMapping("/addItem")
+
 	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,
 			@RequestParam("purchaseQuantity") int quantity,@RequestParam("addItems") String action, HttpSession session) {
 
+
+
 		ModelAndView modelAndView=new ModelAndView();
+
+
+		Customer customer =(Customer)session.getAttribute("customer");
+		session.setAttribute("itemDetails", itemDetails);
+
 		String message=null;
+
 		if(action.equals("Submit")) {
 		if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetails.getItemId(), quantity)) 
+		{
+		
+		ItemDetails iDetails= (ItemDetails)session.getAttribute("itemDetails");
+				
+//		if(cartService.addItemToCart(customer.getUserName(), itemDetails.getItemId(), quantity)) 
+		if(cartService.addItemToCart(customer.getUserName(), iDetails.getItemId(), quantity)) 
+//		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
+
 			message="Item's Added Successfully To Your Cart";
 		else 
 			message="Item's Failed To Add";
@@ -106,7 +123,7 @@ public class CartController {
 		modelAndView.setViewName("addItems");
 		
 		return modelAndView;
-	}
+	}}
 		
 	return modelAndView;}
 	

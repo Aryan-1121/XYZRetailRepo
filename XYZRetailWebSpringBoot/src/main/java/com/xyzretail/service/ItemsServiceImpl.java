@@ -33,7 +33,7 @@ public class ItemsServiceImpl implements ItemsService {
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
 		ItemDetails item=searchItemsById(id);
-		System.out.println("id ="+ id +" req qty ="+reqQuantity);
+//		System.out.println("id ="+ id +" req qty ="+reqQuantity);
 		if(item.getAvailableQuantity()>reqQuantity) 
 			return true;
 		System.out.println("We don't have that much quantity in our store :-(");

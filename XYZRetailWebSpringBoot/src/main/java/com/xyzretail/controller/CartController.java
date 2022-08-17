@@ -93,12 +93,14 @@ public class CartController {
 		//Customer customer =(Customer)session.getAttribute("customer");
 		session.setAttribute("itemDetails", itemDetails);
 		String message=null;
+
 		if(action.equals("Submit")) {
 			if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetails.getItemId(), quantity)) 
 			{
-//		ItemDetails iDetails= (ItemDetails)session.getAttribute("itemDetails");
-//		if(cartService.addItemToCart(customer.getUserName(), iDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";}
+
+
+
 		else 
 			{message="Item's Failed To Add";}
 		modelAndView.addObject("message", message);
@@ -106,6 +108,7 @@ public class CartController {
 		modelAndView.setViewName("addItems");
 		
 		return modelAndView;
+
 			}
 		modelAndView.addObject("message", "Invalid Addition of Item to Cart");
 		modelAndView.addObject("itemDetails",new ItemDetails());
@@ -126,11 +129,11 @@ public class CartController {
 			@RequestParam("modifyQuantity") int quantity,@RequestParam("modifyItems") String action, HttpSession session) {
 		
 		ModelAndView modelAndView=new ModelAndView();
-		Customer customer =(Customer)session.getAttribute("customer");
+		//Customer customer =(Customer)session.getAttribute("customer");
 		session.setAttribute("itemsCart", itemsCart);
 		String message=null;
 		if(action.equals("Submit")) {
-			if(cartService.modifyItemsInCart(customer.getUserName(), itemsCart.getItem().getItemId(), quantity)) 
+			if(cartService.modifyItemsInCart(getCustomer(session).getUserName(), itemsCart.getItem().getItemId(), quantity)) 
 			{
 				message="Updated Item Id : "+itemsCart.getItem().getItemId()+ " with new quantity of : "+ quantity;
 			}
@@ -150,7 +153,7 @@ public class CartController {
 		return modelAndView;
 		
 	}
+	}
+
 	
-	
-	
-}
+

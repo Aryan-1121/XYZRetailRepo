@@ -2,6 +2,8 @@ package com.xyzretail.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,7 +34,11 @@ public class XyzRetailController {
 	private TransactionService transactionService;
 
 	@Autowired
-	private BillService bill;
+	private BillService billService;
+	
+	public Customer getCustomer(HttpSession session) {
+		return (Customer)session.getAttribute("customer");
+	}
 	
 	@RequestMapping("/index")
 	public ModelAndView indexController() {
@@ -50,31 +56,55 @@ public class XyzRetailController {
 	public ModelAndView shopController() {
 		return new ModelAndView("CartPage");
 	}
-	
-	@RequestMapping("/generatesTheBill")
-	public ModelAndView generatesTheBillController() {
-		return new ModelAndView("Index","command",new ItemBill());
-	}
+
 	
 	@RequestMapping("/generateBill")
-	public ModelAndView generateBillController(@ModelAttribute("command") Customer customer /*,@ModelAttribute ItemBill bill*/) {
+	public ModelAndView generateBillController(@ModelAttribute ItemBill bill,HttpSession session) {
 		
 		ModelAndView modelAndView = new ModelAndView();
-		ItemBill itemsBill=bill.generateBill(customer.getUserName());
+		ItemBill itemsBill=billService.generateBill(getCustomer(session).getUserName());
 		
 		
-		List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(customer.getUserName());
-
+		List<ItemsCart> itemsCarts =cartService.getAllItemsInCart(getCustomer(session).getUserName());
 		
+		String message=null;
+	
 		if (!itemsCarts.isEmpty() && itemsBill!=null ) {
+			modelAndView.addObject("bill", itemsBill);
+			message="Your Bill Details : ";
 			modelAndView.addObject("itemsCarts", itemsCarts);
+			modelAndView.addObject("message", message);
+			
+			
+			for(ItemsCart item:itemsBill.getCart()) {
+				itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());	
+			}
+		
+			modelAndView.addObject("msg", "Total Amount To Be Paid : ");
+			
+			
+			if(billService.discount(getCustomer(session).getUserName())>0) {
+				modelAndView.addObject("msg1", "Hey Congratulations !!!");
+				modelAndView.addObject("msg2", "You are a Lucky Customer, you have got a discount of 15% for purchasing with us more than 5 times in this month!!!");
+				modelAndView.addObject("msg3", "Your Bill Amount After Discount:");
+				
+			}
+			boolean isComplete=transactionService.performTransaction(getCustomer(session).getUserName());
+			if(isComplete) {
+				modelAndView.addObject("msg4", "Transaction Completed Successfully !!!");
+			}
+			else {
+				modelAndView.addObject("msg5", "Something Went Wrong !!!!!");
+			}
+			transactionService.insertIntoOrderTable(getCustomer(session).getUserName());		// Inserting into order table
+			cartService.deleteItemFromCart(getCustomer(session).getUserName());
 			modelAndView.setViewName("getBill");
 		}
 		else {
 			modelAndView.addObject("message","Your Cart is empty !!");
 			modelAndView.setViewName("Index");
 		}
-		
+	
 		return modelAndView;
 		
 	}

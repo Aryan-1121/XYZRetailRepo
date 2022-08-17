@@ -57,8 +57,13 @@ public class XyzRetailController {
 		return new ModelAndView("CartPage");
 	}
 	
+	@RequestMapping("/generatesTheBill")
+	public ModelAndView generatesTheBillController() {
+		return new ModelAndView("Index","command",new ItemBill());
+	}
+	
 	@RequestMapping("/generateBill")
-	public ModelAndView generateBillController(@ModelAttribute Customer customer /*,@ModelAttribute ItemBill bill*/) {
+	public ModelAndView generateBillController(@ModelAttribute("command") Customer customer /*,@ModelAttribute ItemBill bill*/) {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		ItemBill itemsBill=bill.generateBill(customer.getUserName());

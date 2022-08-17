@@ -58,6 +58,7 @@ public class XyzRetailController {
 	}
 
 	
+	
 	@RequestMapping("/generateBill")
 	public ModelAndView generateBillController(@ModelAttribute ItemBill bill,HttpSession session) {
 		

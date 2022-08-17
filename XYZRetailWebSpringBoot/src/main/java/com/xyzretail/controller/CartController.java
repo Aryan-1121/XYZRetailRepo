@@ -104,7 +104,6 @@ public class CartController {
 		String message=null;
 		
 		if(cartService.addItemToCart(customer.getUserName(), itemDetails.getItemId(), quantity)) 
-//		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";
 		else 
 			message="Item's Failed To Add";

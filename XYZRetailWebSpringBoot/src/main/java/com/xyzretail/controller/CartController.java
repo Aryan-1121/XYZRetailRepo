@@ -54,7 +54,6 @@ public class CartController {
 	}
 	
 	
-	
 //	@ModelAttribute("itemNames")
 //	public List<String> getItemNames(){
 //		List<ItemDetails> items=itemsService.getAllItems();
@@ -66,7 +65,6 @@ public class CartController {
 //
 //	}
 //	
-	
 	
 	@ModelAttribute("itemIds")
 	public List<String> getItemNames(){
@@ -91,41 +89,36 @@ public class CartController {
 
 	public ModelAndView addItemsController(@ModelAttribute("command") ItemDetails itemDetails,
 			@RequestParam("purchaseQuantity") int quantity,@RequestParam("addItems") String action, HttpSession session) {
-
-
-
 		ModelAndView modelAndView=new ModelAndView();
-
-
-		Customer customer =(Customer)session.getAttribute("customer");
+		//Customer customer =(Customer)session.getAttribute("customer");
 		session.setAttribute("itemDetails", itemDetails);
-
 		String message=null;
 
 		if(action.equals("Submit")) {
-		if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetails.getItemId(), quantity)) 
-		{
-		
-		ItemDetails iDetails= (ItemDetails)session.getAttribute("itemDetails");
-				
-//		if(cartService.addItemToCart(customer.getUserName(), itemDetails.getItemId(), quantity)) 
-		if(cartService.addItemToCart(customer.getUserName(), iDetails.getItemId(), quantity)) 
-//		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
+			if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetails.getItemId(), quantity)) 
+			{
+			message="Item's Added Successfully To Your Cart";}
 
-			message="Item's Added Successfully To Your Cart";
+
+
 		else 
-			message="Item's Failed To Add";
-		
-		
+			{message="Item's Failed To Add";}
 		modelAndView.addObject("message", message);
 		modelAndView.addObject("itemDetails",itemDetails);
 		modelAndView.setViewName("addItems");
 		
 		return modelAndView;
-	}}
+
+			}
+		modelAndView.addObject("message", "Invalid Addition of Item to Cart");
+		modelAndView.addObject("itemDetails",new ItemDetails());
+		modelAndView.setViewName("addItems");
+		return modelAndView;
+		}
 		
-	return modelAndView;}
+
 	
+
 	
 	@RequestMapping("/inputItemIdToDelete")
 	public ModelAndView inputItemIdToDeleteController() {
@@ -136,22 +129,65 @@ public class CartController {
 	public ModelAndView deleteItemController(@ModelAttribute("command") ItemsCart itemsCart,HttpSession session,@RequestParam("deleteItems") String action) {
 		ModelAndView modelAndView =new ModelAndView();
 		String message=null;
-		
+		session.setAttribute("itemsCart", itemsCart);
 		if(action.equals("Submit")) {
 			
 		if(cartService.unselectFromCart(itemsCart.getItem().getItemId(), getCustomer(session).getUserName())>0) {
-			ItemsCart itemCart= (ItemsCart)session.getAttribute("itemsCart") {
+
 			message="Items Deleted Successfully";
 		}
+		
 		else {
 			message="Unable To Remove Item";
 		}
 		modelAndView.addObject("message", message);
 		modelAndView.addObject("itemsCart",itemsCart);
-		modelAndView.setViewName("InputItemToDelete");
+		modelAndView.setViewName("InputItemIdToDelete");
 		
 		return modelAndView;
-	}}
+	}
+		modelAndView.addObject("message", "Invalid Deletion of Items From Cart");
+		modelAndView.addObject("itemsCart", new ItemsCart());
+		modelAndView.setViewName("InputItemIdToDelete");
 		return modelAndView;
 }
-}
+
+
+	@RequestMapping("/modifyItemPage")
+	public ModelAndView modifyItem() {
+		return new ModelAndView("modifyItems", "command", new ItemsCart());
+	}
+	
+	
+	@RequestMapping("/modifyItem")
+	public ModelAndView modifyItemsController(@ModelAttribute("command") ItemsCart itemsCart,
+			@RequestParam("modifyQuantity") int quantity,@RequestParam("modifyItems") String action, HttpSession session) {
+		
+		ModelAndView modelAndView=new ModelAndView();
+		//Customer customer =(Customer)session.getAttribute("customer");
+		session.setAttribute("itemsCart", itemsCart);
+		String message=null;
+		if(action.equals("Submit")) {
+			if(cartService.modifyItemsInCart(getCustomer(session).getUserName(), itemsCart.getItem().getItemId(), quantity)) 
+			{
+				message="Updated Item Id : "+itemsCart.getItem().getItemId()+ " with new quantity of : "+ quantity;
+			}
+			else {
+				message="Unable to update your cart";
+			}
+			modelAndView.addObject("message", message);
+			modelAndView.addObject("itemsCart",itemsCart);
+			modelAndView.setViewName("modifyItemsPage");
+	
+			return modelAndView;
+		}
+		modelAndView.addObject("message", "Invalid modification of Item in Cart");
+		modelAndView.addObject("itemsCart",new ItemsCart());
+		modelAndView.setViewName("modifyItems");
+		
+		return modelAndView;
+		
+	}
+	}
+
+

@@ -77,6 +77,15 @@ public class CartController {
 
 	}
 	
+	@ModelAttribute("itemsInCart")
+	public List<String> getItemsInCart(HttpSession session){
+		List<ItemsCart> item=cartService.getAllItemsInCart(getCustomer(session).getUserName());
+		List<ItemDetails> items=item.stream().map(ItemsCart::getItem).distinct().collect(Collectors.toList());
+		return (items.stream()).
+				map(ItemDetails :: getItemId).
+				distinct().
+				collect(Collectors.toList());
+	}
 	
 	@RequestMapping("/addItemPage")
 	public ModelAndView addItem() {
@@ -142,7 +151,7 @@ public class CartController {
 			}
 			modelAndView.addObject("message", message);
 			modelAndView.addObject("itemsCart",itemsCart);
-			modelAndView.setViewName("modifyItemsPage");
+			modelAndView.setViewName("modifyItems");
 	
 			return modelAndView;
 		}

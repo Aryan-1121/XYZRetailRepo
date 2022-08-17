@@ -98,11 +98,12 @@ public class CartController {
 			@RequestParam("purchaseQuantity") int quantity, HttpSession session) {
 
 		ModelAndView modelAndView=new ModelAndView();
+		Customer customer =(Customer)session.getAttribute("customer");
 //		String name="aryan";
 //		session.getAttribute(name);
 		String message=null;
 		
-		if(cartService.addItemToCart(getCustomer().getUserName(), itemDetails.getItemId(), quantity)) 
+		if(cartService.addItemToCart(customer.getUserName(), itemDetails.getItemId(), quantity)) 
 //		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";
 		else 

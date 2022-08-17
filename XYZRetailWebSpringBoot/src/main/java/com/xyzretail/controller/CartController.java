@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xyzretail.bean.Customer;
@@ -127,4 +126,32 @@ public class CartController {
 		
 	return modelAndView;}
 	
+	
+	@RequestMapping("/inputItemIdToDelete")
+	public ModelAndView inputItemIdToDeleteController() {
+		return new ModelAndView("InputItemIdToDelete","command",new ItemsCart());
+	}
+	
+	@RequestMapping("/deleteItem")
+	public ModelAndView deleteItemController(@ModelAttribute("command") ItemsCart itemsCart,HttpSession session,@RequestParam("deleteItems") String action) {
+		ModelAndView modelAndView =new ModelAndView();
+		String message=null;
+		
+		if(action.equals("Submit")) {
+			
+		if(cartService.unselectFromCart(itemsCart.getItem().getItemId(), getCustomer(session).getUserName())>0) {
+			ItemsCart itemCart= (ItemsCart)session.getAttribute("itemsCart") {
+			message="Items Deleted Successfully";
+		}
+		else {
+			message="Unable To Remove Item";
+		}
+		modelAndView.addObject("message", message);
+		modelAndView.addObject("itemsCart",itemsCart);
+		modelAndView.setViewName("InputItemToDelete");
+		
+		return modelAndView;
+	}}
+		return modelAndView;
+}
 }

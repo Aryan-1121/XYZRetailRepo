@@ -11,7 +11,7 @@
 <form action="#" method="post" th:action="@{./modifyItem}" th:object="${command}">
 <br><br>
 Select Item's Name : <select th:field="*{item.itemId}">
-<option th:each="id: ${items.itemId}" th:value="${id}" th:label="${id}" >
+<option th:each="id: ${itemsInCart}" th:value="${id}" th:label="${id}" >
 </select>
 
 <br><br>

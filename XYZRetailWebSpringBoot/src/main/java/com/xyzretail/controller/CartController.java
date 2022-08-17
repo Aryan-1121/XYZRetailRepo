@@ -20,7 +20,7 @@ import com.xyzretail.service.CartService;
 import com.xyzretail.service.ItemsService;
 
 @Controller
-@SessionAttributes("customer")
+
 public class CartController {
 
 	@Autowired
@@ -30,15 +30,9 @@ public class CartController {
 	@Autowired
 	private ItemsService itemsService;
 
-	
-	
-	
-	
-	@ModelAttribute("customer")
-	public Customer getCustomer() {
-		return new Customer();
+	public Customer getCustomer(HttpSession session) {
+		return (Customer)session.getAttribute("customer");
 	}
-	
 	@RequestMapping("/cart")
 	public ModelAndView getCartController() {
 		return new ModelAndView("CartPage");
@@ -47,8 +41,9 @@ public class CartController {
 	
 	
 	@RequestMapping("/seeItemsInCart")
-	public ModelAndView showItemsInCartController() {
-		List<ItemsCart> cart=cartService.getAllItemsInCart(getCustomer().getUserName());
+	public ModelAndView showItemsInCartController(HttpSession session) {
+		//Customer customer=(Customer)session.getAttribute("customer");
+		List<ItemsCart> cart=cartService.getAllItemsInCart(getCustomer(session).getUserName());
 		if(cart!=null)
 			return new ModelAndView("ShowItemsInCart","itemsCart",cart);
 		else {
@@ -102,7 +97,7 @@ public class CartController {
 //		session.getAttribute(name);
 		String message=null;
 		
-		if(cartService.addItemToCart(getCustomer().getUserName(), itemDetails.getItemId(), quantity)) 
+		if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetails.getItemId(), quantity)) 
 //		if(cartService.addItemToCart(name, itemDetails.getItemId(), quantity)) 
 			message="Item's Added Successfully To Your Cart";
 		else 

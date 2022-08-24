@@ -12,6 +12,3 @@ public class Customer {
 	private String userName;
 	private String userPassword;
 }
- //comment
-//comment2
-//commect3

@@ -56,7 +56,16 @@ public class LoginController {
 			}
 			}
 				
+		
 		return modelAndView;
 		
 	}
+	
+
+	@RequestMapping("/logout")
+	 public ModelAndView logoutController(HttpSession session) {
+		session.invalidate();
+		return new ModelAndView("LoginPage","command",new Customer());
+	}
+
 }

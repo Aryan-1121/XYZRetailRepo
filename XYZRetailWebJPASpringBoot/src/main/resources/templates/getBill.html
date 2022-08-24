@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>SHOPPING BASKET</h1>
+
+<hr>
+<h2>Your Bill Details : </h2><hr>
+<table border="1">
+	<tr>
+		<th>Item Id</th>
+		<th>Item Name </th>
+		<th>UnitPrice</th>
+		<th>Tax</th>
+		<th>Purchased Quantity</th>
+		<th>Total Cost</th>
+	</tr>
+	<tr th:each="itemCart: ${itemsCarts}">
+		<td th:text="${itemCart.item.itemId}"></td>
+		<td th:text="${itemCart.item.itemName}"></td>
+		<td th:text="${itemCart.item.itemPrice}"></td>
+		<td th:text="${itemCart.salesTax}"></td>
+		<td th:text="${itemCart.purchaseQuantity}"></td>
+		<td th:text="${itemCart.totalCost}"></td>
+		
+	</tr>
+</table>
+<h2 th:text="${msg} +' Rs.'+ ${bill.grandTotal}"></h2>
+<br><br>
+<hr>
+<h3 th:text="'Transaction Completed Successfully !!'"></h3>
+<!--  <h3 th:text=" 'HAVE A NICE DAY ' + ${session.user.userName} +'!!' "></h3>-->
+<br><br>
+
+<a href="./index">Go To Main Page</a>
+</body>
+</html>

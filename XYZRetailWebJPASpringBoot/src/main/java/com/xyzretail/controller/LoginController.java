@@ -56,10 +56,12 @@ public class LoginController {
 			}
 			}
 				
+		
 		return modelAndView;
 		
 	}
 	
+
 	@RequestMapping("/logout")
 	 public ModelAndView logoutController(HttpSession session) {
 		session.invalidate();

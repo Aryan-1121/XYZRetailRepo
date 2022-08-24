@@ -26,9 +26,9 @@ insert ignore into  item_Details  values
 ('CS-105', "COSMETICS", "Eye liner", 399, 200) ;
 
 
-
+truncate item_Details;
 delete from item_Details;
-
+set sql_safe_updates=0;
 drop table item_Details;
 
 select * from item_Details;

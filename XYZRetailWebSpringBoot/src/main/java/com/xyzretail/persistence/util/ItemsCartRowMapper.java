@@ -12,7 +12,7 @@ import com.xyzretail.persistence.PersistenceDao;
 public class ItemsCartRowMapper implements RowMapper<ItemsCart>{
 
 	@Autowired
-	private PersistenceDao persistenceDao;
+	private PersistenceDao persistenceDao; 
 
 
 	@Override

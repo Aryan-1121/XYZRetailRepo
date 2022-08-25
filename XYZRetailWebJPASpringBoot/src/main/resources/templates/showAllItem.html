@@ -3,12 +3,15 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>All Items</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>SHOPPING BASKET</h1>
-<hr>
+<div class="item">
 <h2>ITEMS PRESENT IN SHOP </h2>
-<table border="1">
+</div>
+<div id="main">
+<table class="timecard">
+	<thead>
 	<tr>
 		<th>Item ID</th>
 		<th>Item Category</th>
@@ -16,18 +19,20 @@
 		<th>Item Price</th>
 		<th>Available Quantity</th>
 	</tr>
+	</thead>
+	<tbody>
 	<tr th:each="item : ${items}">
-		<td th:text="${item.itemId}"></td>
-		<td th:text="${item.itemCategory}"></td>
-		<td th:text="${item.itemName}"></td>
-		<td th:text="${item.itemPrice}"></td>
-		<td th:text="${item.availableQuantity}"></td>
+		<td class="odd" th:text="${item.itemId}"></td>
+		<td class="even" th:text="${item.itemCategory}"></td>
+		<td class="odd" th:text="${item.itemName}"></td>
+		<td class="even" th:text="${item.itemPrice}"></td>
+		<td class="odd" th:text="${item.availableQuantity}"></td>
 	</tr>
+	</tbody>
 </table>
 
-<br><br>
-
-<a href="./index">Go To Main Page</a>
+</div><br>
+<a class="button1" href="./index">Go To Main Page</a>
 
 </body>
 </html>

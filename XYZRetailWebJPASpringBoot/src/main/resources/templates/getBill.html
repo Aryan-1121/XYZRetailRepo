@@ -6,11 +6,14 @@
  <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
-<h1>SHOPPING BASKET</h1>
+<div class ="item">
+<h2>SHOPPING BASKET</h2>
+</div>
 
-<hr>
-<h2>Your Bill Details : </h2><hr>
-<table border="1">
+<div id="main">
+<h3 style="text-align:center;">Your Bill Details : </h3>
+<table class="timecard">
+<thead>
 	<tr>
 		<th>Item Id</th>
 		<th>Item Name </th>
@@ -19,22 +22,24 @@
 		<th>Purchased Quantity</th>
 		<th>Total Cost</th>
 	</tr>
+	</thead>
+	<tbody>
 	<tr th:each="itemCart: ${itemsCarts}">
-		<td th:text="${itemCart.item.itemId}"></td>
-		<td th:text="${itemCart.item.itemName}"></td>
-		<td th:text="${itemCart.item.itemPrice}"></td>
-		<td th:text="${itemCart.salesTax}"></td>
-		<td th:text="${itemCart.purchaseQuantity}"></td>
-		<td th:text="${itemCart.totalCost}"></td>
+		<td class="odd" th:text="${itemCart.item.itemId}"></td>
+		<td class="even" th:text="${itemCart.item.itemName}"></td>
+		<td class="odd" th:text="${itemCart.item.itemPrice}"></td>
+		<td class="even" th:text="${itemCart.salesTax}"></td>
+		<td class="odd" th:text="${itemCart.purchaseQuantity}"></td>
+		<td class="even" th:text="${itemCart.totalCost}"></td>
 		
 	</tr>
+	</tbody>
 </table>
-<h2 th:text="${msg} +' Rs.'+ ${bill.grandTotal}"></h2>
-<br><br>
-<hr>
-<h3 th:text="'Transaction Completed Successfully !!'"></h3>
+</div>
+<h3 style="text-align:center;font-size:30px;font-weight:600;color:white;" th:text="${msg} +' Rs.'+ ${bill.grandTotal}"></h3>
+
+<h2 th:text="'Transaction Completed Successfully !!'" style="color:#1C8D73;"></h2>
 <!--  <h3 th:text=" 'HAVE A NICE DAY ' + ${session.user.userName} +'!!' "></h3>-->
-<br><br>
 
 <a class="button1" href="./index">Go To Main Page</a>
 </body>

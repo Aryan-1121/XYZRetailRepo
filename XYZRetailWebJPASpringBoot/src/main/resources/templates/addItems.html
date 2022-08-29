@@ -13,35 +13,6 @@
 <h1>Welcome to Shopping Basket Application</h1>
 </div>-->
 
-
-
-<div class="item">
-<h2>ITEMS PRESENT IN SHOP </h2>
-</div>
-<div id="main">
-<table class="timecard">
-	<thead>
-	<tr>
-		<th>Item ID</th>
-		<th>Item Category</th>
-		<th>Item Name</th>
-		<th>Item Price</th>
-		<th>Available Quantity</th>
-	</tr>
-	</thead>
-	<tbody>
-	<tr th:each="item : ${items}">
-		<td class="odd" th:text="${item.itemId}"></td>
-		<td class="even" th:text="${item.itemCategory}"></td>
-		<td class="odd" th:text="${item.itemName}"></td>
-		<td class="even" th:text="${item.itemPrice}"></td>
-		<td class="odd" th:text="${item.availableQuantity}"></td>
-	</tr>
-	</tbody>
-</table>
-
-</div>
-
 <div class="menu">
 <h1 id="menuOpt">Add Items To Your Cart : </h1>
 <form action="#" method="post" th:action="@{./addItem}" th:object="${command}">

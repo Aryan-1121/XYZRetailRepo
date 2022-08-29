@@ -17,17 +17,18 @@
 <h1 id="menuOpt">Add Items To Your Cart : </h1>
 <form action="#" method="post" th:action="@{./addItem}" th:object="${command}">
 
-Select Item's Name : <select th:field="*{itemId}">
-<option th:each="id: ${itemIds}" th:value="${id}" th:label="${id}" >
+<label>Select Item's Name : </label><select class="opt" th:field="*{itemId}">
+<option class="opt" th:each="id: ${itemIds}" th:value="${id}" th:label="${id}" >
 </select>
 
 
-Enter Items' Quantities : <input type="number" required name="purchaseQuantity" >
+<br>
 
+<label>Enter Items' Quantities :</label> <input type="number" required name="purchaseQuantity" >
+<br><br>
 <input type="submit" name="addItems" value="Submit">
 </form>
 </div>
-<hr>
 <h2 th:text="${message}" style="color: blue"></h2>
 <br>
 <a class="button1" href="./cart">Go To Cart</a><br><br>

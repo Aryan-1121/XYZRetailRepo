@@ -6,6 +6,11 @@
  <link th:href="@{/css/style.css}" rel="stylesheet" />
 </head>
 <body>
+<br>
+<div class="session">
+<h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3>
+</div>
+<br>
 <div class="item">
 <h2>ITEMS PRESENT IN CART </h2>
 </div>
@@ -34,7 +39,7 @@
 	</tbody>
 </table>
 </div>
-<br>
+<br><br>
 <a class="button1" href="./cart">Go To Cart Menu</a><br><br>
 <a class="button1" href="./index">Go To Main Page</a>
 

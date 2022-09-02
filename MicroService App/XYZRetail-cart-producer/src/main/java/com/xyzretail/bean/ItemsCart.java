@@ -1,5 +1,8 @@
 package com.xyzretail.bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +22,8 @@ public class ItemsCart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int cartid;
-	@OneToMany
-	private String item_id;
+	@OneToMany(targetEntity=ItemDetail.class)
+	private List<ItemDetail> itemDetail =new ArrayList<ItemDetail>();
 	private String user_Name;
 	private int requiredQuantity;
 	private double salesTax;

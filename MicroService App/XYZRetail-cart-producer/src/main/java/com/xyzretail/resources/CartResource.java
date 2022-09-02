@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.service.ItemsCartService;
 
@@ -18,9 +19,9 @@ public class CartResource {
 	@Autowired
 	private ItemsCartService itemsCartService;
 	
-	@GetMapping(path="carts/all",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path="/cart/all",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCartList getAllItemsInCart() {
-		return itemsCartService.getItemsInCart(null);
+		return itemsCartService.getItemsInCart(new Customer("lakshmi","wiley"));
 	}
 	
 

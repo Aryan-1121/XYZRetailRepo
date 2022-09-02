@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemsCartList {
-	List<ItemsCart> itemsCartList;
+	
+	private List<ItemsCart> itemsCartList;
 
 }

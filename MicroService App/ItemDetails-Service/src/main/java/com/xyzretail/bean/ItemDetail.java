@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Item_Detail {
+public class ItemDetail {
 	@Id
 	private String item_Id;
 	private String item_Category;

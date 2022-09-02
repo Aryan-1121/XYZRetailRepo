@@ -3,9 +3,9 @@ package com.xyzretail.model.persistence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.xyzretail.bean.Item_Detail;
+import com.xyzretail.bean.ItemDetail;
 @Repository
-public interface Item_DetailDao extends JpaRepository<Item_Detail, String>{	
+public interface Item_DetailDao extends JpaRepository<ItemDetail, String>{	
 //	
 //	@Modifying
 //	@Transactional

@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item_Details {
-	List<Item_Detail> item_Details;
+public class ItemDetailsList {
+	List<ItemDetail> itemDetails;
 }

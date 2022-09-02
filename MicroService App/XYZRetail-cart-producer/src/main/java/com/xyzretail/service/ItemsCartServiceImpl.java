@@ -23,7 +23,6 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Autowired
 	private ItemsCartList cartList;
 
 	@Override

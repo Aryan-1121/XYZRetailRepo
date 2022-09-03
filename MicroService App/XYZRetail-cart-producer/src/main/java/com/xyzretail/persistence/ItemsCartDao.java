@@ -19,4 +19,7 @@ public interface ItemsCartDao extends JpaRepository<ItemsCart, Integer> {
 	@Transactional
 	@Query("from ItemsCart where userName=:username")
 	public List<ItemsCart> findByUserName(@Param("username") String userName);
+	
+	
+	//public ItemsCart
 }

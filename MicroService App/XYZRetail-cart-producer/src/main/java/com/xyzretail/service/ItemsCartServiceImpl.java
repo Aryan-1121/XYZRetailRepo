@@ -28,6 +28,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	@Override
 	public ItemsCartList getItemsInCart(Customer customer) {
 		List<ItemsCart> cart=itemsCartDao.findByUserName(customer.getUser_Name());
+		
 		cartList.setItemsCartList(cart);
 		return cartList;
 	}

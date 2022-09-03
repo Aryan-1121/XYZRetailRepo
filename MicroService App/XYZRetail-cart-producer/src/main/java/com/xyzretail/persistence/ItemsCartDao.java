@@ -13,6 +13,6 @@ import com.xyzretail.bean.ItemsCart;
 public interface ItemsCartDao extends JpaRepository<ItemsCart, Integer> {
 
 	
-	@Query("from ItemsCart where user_name=:userName")
+	@Query("from ItemsCart where userName=:userName")
 	public List<ItemsCart> findByUserName(@Param("userName") String userName);
 }

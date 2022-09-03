@@ -51,17 +51,17 @@ public class CustomerResource {
 		return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_ACCEPTABLE);
 	
 	}
-
-	
-	
 	
 	@GetMapping(path = "customers/{user_Name}/{user_Password}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer> loginCustomerResource(@PathVariable("user_Name") String user_Name,@PathVariable("user_Password") String user_Password) {
 		Customer customer= customerService.loginCustomer(user_Name, user_Password);
 		if (customer != null)
+			
 			return new ResponseEntity<Customer>(customer , HttpStatus.ACCEPTED);
 		return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_ACCEPTABLE);
 	}
+	
+	
 	
 }
 

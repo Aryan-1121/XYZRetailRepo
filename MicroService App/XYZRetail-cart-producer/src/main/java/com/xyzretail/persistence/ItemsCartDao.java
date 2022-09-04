@@ -1,6 +1,7 @@
 package com.xyzretail.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -17,9 +18,21 @@ public interface ItemsCartDao extends JpaRepository<ItemsCart, Integer> {
 
 	@Modifying
 	@Transactional
+	@Query("Delete from ItemsCart where itemId=:id and userName=:name")
+	public int deleteItemByItemId(@Param("id") String itemId,@Param("name") String customer); 
+	
+
+	@Query("from ItemsCart where itemId=:id and userName=:name")
+	public Optional<ItemsCart> findByItemIdAndUserName(@Param("id") String itemId,@Param("name") String userName);
+	
+
 	@Query("from ItemsCart where userName=:username")
 	public List<ItemsCart> findByUserName(@Param("username") String userName);
 	
-	
-	//public ItemsCart
+
+	@Modifying
+	@Transactional
+	@Query("update itemsCart set requiredQuantity=:q, salesTax=:t, totalCost=:cost where itemId =:id and userName =:name")
+	public int updateByItemId(@Param("q") int requiredQuantity,@Param("t") double salesTax,@Param("cost") double totalCost,@Param("id") String itemId,@Param("name") String userName);
+
 }

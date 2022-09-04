@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.xyzretail.bean.ItemDetail;
 @Repository
 public interface Item_DetailDao extends JpaRepository<ItemDetail, String>{	
-//	
+	
 //	@Modifying
 //	@Transactional
 //	@Query(value = "insert into Customer (user_Name, user_Password) values(?,?)", nativeQuery = true)

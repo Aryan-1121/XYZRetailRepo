@@ -24,6 +24,8 @@ public class Item_DetailServiceImpl implements Item_DetailService{
 		// TODO Auto-generated method stub
 		return item_DetailDao.findById(itemId);
 	}
+	
+	
 
 	
 

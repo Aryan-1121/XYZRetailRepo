@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>All Items</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<br>
+<div class="session">
+<h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3>
+</div>
+<br>
+<div class="item">
+<h2>ITEMS PRESENT IN CART </h2>
+</div>
+
+<div id="main">
+<table class="timecard">
+<thead>
+	<tr>
+		<th>Item ID</th>
+		<th>Item Name</th>
+		<th>Item Unit Price</th>
+		<th>Tax on each Unit</th>
+		<th>Purchased Quantity</th>
+		<th>Total Cost</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="items : ${itemsCart}">
+		<td class="odd" th:text="${items.item.itemId}"></td>
+		<td class="even" th:text="${items.item.itemName}"></td>
+		<td class="odd" th:text="${items.item.itemPrice}"></td>
+		<td class="even" th:text="${items.salesTax}"></td>
+		<td class="odd" th:text="${items.purchaseQuantity}"></td>
+		<td class="even" th:text ="${items.totalCost}"></td>
+	</tr>
+	</tbody>
+</table>
+</div>
+<br><br>
+<a class="button1" href="./cart">Go To Cart Menu</a><br><br>
+<a class="button1" href="./index">Go To Main Page</a>
+
+</body>
+</html>

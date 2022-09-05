@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Modify Items In Cart</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="session">
+<h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3></div>
+
+
+<div class="loginBody">
+<h2>Add Items To Your Cart : </h2>
+<form action="#" method="post" th:action="@{./modifyItem}" th:object="${command}">
+<br>
+<label>Select Item's Name :</label> <select th:field="*{item.itemId}">
+<option th:each="id: ${itemsInCart}" th:value="${id}" th:label="${id}" >
+</select>
+<br>
+
+
+<label>Enter Items' Quantities :</label> <input type="number" required name="modifyQuantity" >
+
+
+<br><br>
+<input type="submit" name="modifyItems" value="Submit">
+</form>
+</div>
+
+<h2 th:text="${message}" style="color: blue"></h2>
+<br>
+<a class="button1" href="./cart">Go To Cart Menu</a><br><br>
+<a class="button1" href="./index">Go To Main Page</a>
+
+</body>
+</html>

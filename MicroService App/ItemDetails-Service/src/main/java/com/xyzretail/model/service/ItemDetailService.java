@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.xyzretail.bean.ItemDetail;
 import com.xyzretail.bean.ItemDetailsList;
 @Service
-public interface Item_DetailService {
+public interface ItemDetailService {
 	List<ItemDetail>  getAllItemDetails();
 	
 	Optional<ItemDetail> findByItemId(String itemId);

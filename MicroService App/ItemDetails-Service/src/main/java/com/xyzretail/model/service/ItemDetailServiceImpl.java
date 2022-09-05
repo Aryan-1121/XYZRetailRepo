@@ -7,28 +7,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xyzretail.bean.ItemDetail;
-import com.xyzretail.model.persistence.Item_DetailDao;
+import com.xyzretail.model.persistence.ItemDetailDao;
 @Service
-public class Item_DetailServiceImpl implements Item_DetailService{
+public class ItemDetailServiceImpl implements ItemDetailService{
 	
 	@Autowired
-	private Item_DetailDao item_DetailDao;
+	private ItemDetailDao itemDetailDao;
 
 	@Override
 	public List<ItemDetail> getAllItemDetails() {
-		return item_DetailDao.findAll();
+		return itemDetailDao.findAll();
 	}
 
 	@Override
 	public Optional<ItemDetail> findByItemId(String itemId) {
 		// TODO Auto-generated method stub
-		return item_DetailDao.findById(itemId);
+		return itemDetailDao.findById(itemId);
 	}
+	
+	
 
 
 	@Override
 	public ItemDetail findByItemId_AndAvailable_Quantity(String itemId, int availableQuantity) {
-		return item_DetailDao.findByItem_IdAndAvailable_Quantity(itemId, availableQuantity);
+	
+			return itemDetailDao.findByItemIdAndAvailableQuantity(itemId, availableQuantity);
+	
 	}
 
 	

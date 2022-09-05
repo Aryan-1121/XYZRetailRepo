@@ -1,11 +1,16 @@
 package com.xyzretail.model.persistence;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.xyzretail.bean.ItemDetail;
 @Repository
-public interface Item_DetailDao extends JpaRepository<ItemDetail, String>{	
+public interface ItemDetailDao extends JpaRepository<ItemDetail, String>{	
 	
 //	@Modifying
 //	@Transactional
@@ -14,7 +19,8 @@ public interface Item_DetailDao extends JpaRepository<ItemDetail, String>{
 
 //	ItemDetail findByItemId(String itemId);
 	
-	ItemDetail findByItem_IdAndAvailable_Quantity(String itemId,int availableQuantity);
+	@Query(value="from ItemDetail where itemId=:itemId and availableQuantity=:availableQuantity")
+	ItemDetail findByItemIdAndAvailableQuantity(@Param("itemId")String itemId,@Param("availableQuantity")int availableQuantity);
 }
 
 

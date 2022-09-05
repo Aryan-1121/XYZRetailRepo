@@ -45,8 +45,8 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	}
 
 	@Override
-	public ItemsCartList getItemsInCart(Customer customer) {
-		List<ItemsCart> cart=itemsCartDao.findByUserName(customer.getUser_Name());
+	public ItemsCartList getItemsInCart(String name) {
+		List<ItemsCart> cart=itemsCartDao.findByUserName(name);
 		ItemsCartList cartList=new ItemsCartList(cart);
 		return cartList;
 	}
@@ -64,19 +64,19 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		
 	}
 
-	@Override
-
-	public ItemsCart updateByItemId(Customer customer, String itemId, int requiredQuantity) {
-	
-		Optional<ItemsCart> it=searchByItemIdAndName(customer, itemId);
-		
-		int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer.getUser_Name());
-		
-		if(rows>0) {
-			return it.get();
-		}
-		return new ItemsCart();
-	}
+//	@Override
+//
+//	public ItemsCart updateByItemId(Customer customer, String itemId, int requiredQuantity) {
+//	
+//		Optional<ItemsCart> it=searchByItemIdAndName(customer, itemId);
+//		
+//		int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer.getUser_Name());
+//		
+//		if(rows>0) {
+//			return it.get();
+//		}
+//		return new ItemsCart();
+//	}
 
 	@Override
 	public Optional<ItemsCart> searchByItemIdAndName(Customer customer, String itemId) {

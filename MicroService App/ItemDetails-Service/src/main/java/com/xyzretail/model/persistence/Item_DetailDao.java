@@ -14,7 +14,7 @@ public interface Item_DetailDao extends JpaRepository<ItemDetail, String>{
 
 //	ItemDetail findByItemId(String itemId);
 	
-	ItemDetail findByItem_IdAndAvailable_Quantity (String itemId,int availableQuantity);
+	ItemDetail findByItem_IdAndAvailable_Quantity(String itemId,int availableQuantity);
 }
 
 

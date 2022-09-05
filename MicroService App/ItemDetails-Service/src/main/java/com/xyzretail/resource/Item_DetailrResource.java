@@ -44,7 +44,7 @@ public class Item_DetailrResource {
 	}
 	
 	@GetMapping(path="/itemDetail/{id}/{quantity}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ItemDetail getItemByIdResource(@Param("id")String itemId,@PathVariable("quantity")int availableQuantity) {
+	public ItemDetail getItemByIdAndQuantityResource(@Param("id")String itemId,@PathVariable("quantity")int availableQuantity) {
 		return item_DetailService.findByItemId_AndAvailable_Quantity(itemId,availableQuantity);
 	}
 	

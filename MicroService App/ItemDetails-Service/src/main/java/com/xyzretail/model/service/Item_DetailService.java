@@ -12,4 +12,6 @@ public interface Item_DetailService {
 	List<ItemDetail>  getAllItemDetails();
 	
 	Optional<ItemDetail> findByItemId(String itemId);
+	
+	ItemDetail findByItemId_AndAvailable_Quantity(String itemId,int availableQuantity);
 }

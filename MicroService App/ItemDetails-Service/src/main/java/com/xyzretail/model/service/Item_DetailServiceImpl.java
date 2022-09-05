@@ -25,6 +25,12 @@ public class Item_DetailServiceImpl implements Item_DetailService{
 		return item_DetailDao.findById(itemId);
 	}
 
+
+	@Override
+	public ItemDetail findByItemId_AndAvailable_Quantity(String itemId, int availableQuantity) {
+		return item_DetailDao.findByItem_IdAndAvailable_Quantity(itemId, availableQuantity);
+	}
+
 	
 
 }

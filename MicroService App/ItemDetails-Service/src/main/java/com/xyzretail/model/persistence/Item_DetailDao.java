@@ -12,8 +12,10 @@ public interface Item_DetailDao extends JpaRepository<ItemDetail, String>{
 //	@Query(value = "insert into Customer (user_Name, user_Password) values(?,?)", nativeQuery = true)
 //	int registerCustomer(String user_Name, String user_Password);
 
+//	ItemDetail findByItemId(String itemId);
+	
+	ItemDetail findByItem_IdAndAvailable_Quantity (String itemId,int availableQuantity);
 }
-
 
 
 

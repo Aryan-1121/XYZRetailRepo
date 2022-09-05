@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Delete Item</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+<div class="session">
+<h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3></div>
+
+
+<div class="loginBody">
+
+<h1>Remove Items From Cart : </h1>
+<form action="#" method="post" th:action="@{./deleteItem}" th:object="${command}" >
+<br><br>
+
+<label>Select Item's Id To Delete :</label> <select th:field="*{item.itemId}">
+<option th:each="id: ${itemsInCart}" th:value="${id}" th:label="${id}" >
+</select>
+<br><br>
+
+<input type="submit" name="deleteItems" value="Submit">
+</form>
+</div>
+
+<h2 th:text="${message}" style="color: blue"></h2>
+<a class="button1" href="./cart">Go To Cart Menu</a><br><br>
+<a class="button1" href="./index">Go To Main Page</a>
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.xyzretail.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.ItemDetail;
-import com.xyzretail.bean.ItemDetailsList;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.persistence.ItemsCartDao;
@@ -68,6 +65,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	}
 
 	@Override
+
 	public ItemsCart updateByItemId(Customer customer, String itemId, int requiredQuantity) {
 	
 		Optional<ItemsCart> it=searchByItemIdAndName(customer, itemId);
@@ -88,6 +86,12 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		return itemsCartDao.findByItemIdAndUserName(itemId, customer.getUser_Name());
 	}
 
+	@Override
+	public ItemsCart addItemtoCart(Customer customer, String itemId, int requiredQuantity) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 //	if(modifiedQuantity <1) {
 //		System.out.println("enter positive value greater than 0");
@@ -106,4 +110,5 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 //		return true;
 //	}
 //	return false;
+
 }

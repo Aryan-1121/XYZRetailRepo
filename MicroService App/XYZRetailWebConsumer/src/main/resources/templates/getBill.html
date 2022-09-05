@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Bill Generated</title>
+ <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div class ="item">
+<h2>SHOPPING BASKET</h2>
+</div>
+
+<div id="main">
+<h3 style="text-align:center;">Your Bill Details : </h3>
+<table class="timecard">
+<thead>
+	<tr>
+		<th>Item Id</th>
+		<th>Item Name </th>
+		<th>UnitPrice</th>
+		<th>Tax</th>
+		<th>Purchased Quantity</th>
+		<th>Total Cost</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="itemCart: ${itemsCarts}">
+		<td class="odd" th:text="${itemCart.item.itemId}"></td>
+		<td class="even" th:text="${itemCart.item.itemName}"></td>
+		<td class="odd" th:text="${itemCart.item.itemPrice}"></td>
+		<td class="even" th:text="${itemCart.salesTax}"></td>
+		<td class="odd" th:text="${itemCart.purchaseQuantity}"></td>
+		<td class="even" th:text="${itemCart.totalCost}"></td>
+		
+	</tr>
+	</tbody>
+</table>
+</div>
+<h3 class="bill" th:text="${msg} +' Rs.'+ ${bill.grandTotal}"></h3>
+
+<h2 id="bill" th:text="'Transaction Completed Successfully !!'" ></h2>
+<!--  <h3 th:text=" 'HAVE A NICE DAY ' + ${session.user.userName} +'!!' "></h3>-->
+
+<a class="button1" href="./index">Go To Main Page</a>
+</body>
+</html>

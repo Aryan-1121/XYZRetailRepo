@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>SHOPPING BASKET</h1>
+<hr>
+<h2>ITEMS PRESENT IN SHOP </h2>
+<table border="1">
+	<tr>
+		<th>Item ID</th>
+		<th>Item Category</th>
+		<th>Item Name</th>
+		<th>Item Price</th>
+		<th>Available Quantity</th>
+	</tr>
+	<tr th:each="item : ${items}">
+		<td th:text="${item.itemId}"></td>
+		<td th:text="${item.itemCategory}"></td>
+		<td th:text="${item.itemName}"></td>
+		<td th:text="${item.itemPrice}"></td>
+		<td th:text="${item.availableQuantity}"></td>
+	</tr>
+</table>
+
+<br><br>
+
+<a href="./login">Go To Main Page</a>
+
+</body>
+</html>

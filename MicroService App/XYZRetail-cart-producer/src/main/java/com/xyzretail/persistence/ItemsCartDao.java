@@ -32,7 +32,13 @@ public interface ItemsCartDao extends JpaRepository<ItemsCart, Integer> {
 
 	@Modifying
 	@Transactional
-	@Query(value="update itemsCart set requiredQuantity=:q, totalCost=:cost where itemId =:id and userName =:name",nativeQuery = true)
+	@Query(value="update ItemsCart set requiredQuantity=:q, totalCost=:cost where itemId =:id and userName =:name",nativeQuery = true)
 	public int updateByItemId(@Param("q") int requiredQuantity,@Param("cost") double totalCost,@Param("id") String itemId,@Param("name") String userName);
 
+
+	@Modifying
+	@Transactional
+	@Query(value="insert into ItemsCart (itemId,itemName,unitPrice,userName,requiredQuantity,salesTax,totalCost) values(:id,:name,:price,:uName,:q,:tax,:cost)",nativeQuery=true)
+	public int addItemToCart(@Param("id") String itemId,@Param("name") String itemName,@Param("price")double unitPrice,@Param("uName")String userName,@Param("q")int requiredQuantity,@Param("tax") double salesTax,@Param("cost")double totalCost);
+	
 }

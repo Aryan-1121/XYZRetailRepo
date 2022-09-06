@@ -47,4 +47,9 @@ public class CartResource {
 		return itemsCartService.updateByItemId(name, itemId, quantity);
 	}
 	
+	@PostMapping(path="cart/add/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ItemsCart addItemInCart(@PathVariable("id") String itemId,@PathVariable("reqQuantity")int quantity,@PathVariable("customer") String name) {
+		return itemsCartService.addItemtoCart(name, itemId, quantity);
+	}
+	
 }

@@ -30,7 +30,9 @@ public class ItemDetailServiceImpl implements ItemDetailService{
 
 	@Override
 	public ItemDetail findByItemId_AndAvailable_Quantity(String itemId, int availableQuantity) {
-		return itemDetailDao.findByItemIdAndAvailableQuantity(itemId, availableQuantity);
+	
+			return itemDetailDao.findByItemIdAndAvailableQuantity(itemId, availableQuantity);
+	
 	}
 
 	

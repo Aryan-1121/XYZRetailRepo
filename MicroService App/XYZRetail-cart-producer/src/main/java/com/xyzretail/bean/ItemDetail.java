@@ -13,10 +13,11 @@ import lombok.NoArgsConstructor;
 @Entity
 public class ItemDetail {
 	@Id
-	private String item_Id;
-	private String item_Category;
-	private String item_Name;
-	private double item_Price;
-	private int available_Quantity;
+	private String itemId;
+	private String itemCategory;
+	private String itemName;
+	private double itemPrice;
+	private int availableQuantity;
+
 
 }

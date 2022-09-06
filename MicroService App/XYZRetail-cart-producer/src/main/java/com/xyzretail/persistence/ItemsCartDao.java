@@ -29,9 +29,10 @@ public interface ItemsCartDao extends JpaRepository<ItemsCart, Integer> {
 	@Query("from ItemsCart where userName=:username")
 	public List<ItemsCart> findByUserName(@Param("username") String userName);
 	
-	@Modifying
-	@Transactional
-	@Query("update itemsCart set requiredQuantity=:q, salesTax=:t, totalCost=:cost where itemId =:id and userName =:name")
-	public int updateByItemId(@Param("q") int requiredQuantity,@Param("t") double salesTax,@Param("cost") double totalCost,@Param("id") String itemId,@Param("name") String userName);
+
+//	@Modifying
+//	@Transactional
+//	@Query("update itemsCart set requiredQuantity=:q, salesTax=:t, totalCost=:cost where itemId =:id and userName =:name")
+//	public int updateByItemId(@Param("q") int requiredQuantity,@Param("t") double salesTax,@Param("cost") double totalCost,@Param("id") String itemId,@Param("name") String userName);
 
 }

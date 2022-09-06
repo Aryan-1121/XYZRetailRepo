@@ -8,8 +8,13 @@ import com.xyzretail.bean.ItemsCartList;
 
 public interface ItemsCartService {
 	
-	public ItemsCartList getItemsInCart(Customer user_name);
+	public ItemsCartList getItemsInCart(String name);
+
+	public ItemsCart addItemtoCart(Customer customer,String itemId,int requiredQuantity);
+	
+
 	public ItemsCart deleteItemByItemId(Customer customer,String itemId);
-	public ItemsCart updateByItemId(Customer customer,String itemId,int requiredQuantity);
+	//public ItemsCart updateByItemId(Customer customer,String itemId,int requiredQuantity);
 	public Optional<ItemsCart> searchByItemIdAndName(Customer customer,String itemId);
+
 }

@@ -1,6 +1,5 @@
 package com.xyzretail.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.bean.ItemDetail;
-import com.xyzretail.bean.ItemDetailsList;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.persistence.ItemsCartDao;
@@ -48,8 +45,8 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	}
 
 	@Override
-	public ItemsCartList getItemsInCart(Customer customer) {
-		List<ItemsCart> cart=itemsCartDao.findByUserName(customer.getUser_Name());
+	public ItemsCartList getItemsInCart(String name) {
+		List<ItemsCart> cart=itemsCartDao.findByUserName(name);
 		ItemsCartList cartList=new ItemsCartList(cart);
 		return cartList;
 	}
@@ -67,18 +64,19 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		
 	}
 
-	@Override
-	public ItemsCart updateByItemId(Customer customer, String itemId, int requiredQuantity) {
-	
-		Optional<ItemsCart> it=searchByItemIdAndName(customer, itemId);
-		
-		int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer.getUser_Name());
-		
-		if(rows>0) {
-			return it.get();
-		}
-		return new ItemsCart();
-	}
+//	@Override
+//
+//	public ItemsCart updateByItemId(Customer customer, String itemId, int requiredQuantity) {
+//	
+//		Optional<ItemsCart> it=searchByItemIdAndName(customer, itemId);
+//		
+//		int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer.getUser_Name());
+//		
+//		if(rows>0) {
+//			return it.get();
+//		}
+//		return new ItemsCart();
+//	}
 
 	@Override
 	public Optional<ItemsCart> searchByItemIdAndName(Customer customer, String itemId) {
@@ -86,6 +84,12 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		
 		
 		return itemsCartDao.findByItemIdAndUserName(itemId, customer.getUser_Name());
+	}
+
+	@Override
+	public ItemsCart addItemtoCart(Customer customer, String itemId, int requiredQuantity) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
@@ -106,4 +110,5 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 //		return true;
 //	}
 //	return false;
+
 }

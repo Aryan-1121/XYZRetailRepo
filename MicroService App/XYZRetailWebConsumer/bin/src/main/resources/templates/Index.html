@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Items Presentation</title>
+</head>
+<body>
+<h3 th:text=" 'Welcome ' + ${session.customer.userName} +'!!' "></h3>
+<hr><br>
+<h1>Menu Options</h1>
+<a href="./showAllItems">Show All Items</a><br><br>
+<a href="">Wants to Shop ?</a><br><br>
+<a href="./generateBill">Generate the Bill</a><br><br>
+</body>
+</html>

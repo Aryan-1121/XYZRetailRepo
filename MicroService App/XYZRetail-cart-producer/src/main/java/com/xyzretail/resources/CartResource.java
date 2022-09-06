@@ -29,11 +29,15 @@ public class CartResource {
 //	@Autowired
 //	private ItemsCartDao itemsCartDao;
 	
-	@GetMapping(path="/cart/all",produces=MediaType.APPLICATION_JSON_VALUE)
-	public /*List<ItemsCart>*/ItemsCartList getAllItemsInCart() {
+	@GetMapping(path="/cart/all/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public /*List<ItemsCart>*/ItemsCartList getAllItemsInCart(@PathVariable("customer")String name) {
 //		List<ItemsCart> cart=itemsCartDao.findByUserName("lakshmi");
 //		return cart;
+<<<<<<< HEAD
 		return itemsCartService.getItemsInCart(new Customer("lakshmi","11"));
+=======
+		return itemsCartService.getItemsInCart(name);
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
 	}
 	
 	@DeleteMapping(path="/cart/delete/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
@@ -41,5 +45,6 @@ public class CartResource {
 		return itemsCartService.deleteItemByItemId(new Customer("lakshmi","11"), itemId);
 	}
 	
+	//@PostMapping(path="cart")
 	
 }

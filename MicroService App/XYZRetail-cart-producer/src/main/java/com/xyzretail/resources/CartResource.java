@@ -33,12 +33,12 @@ public class CartResource {
 	public /*List<ItemsCart>*/ItemsCartList getAllItemsInCart() {
 //		List<ItemsCart> cart=itemsCartDao.findByUserName("lakshmi");
 //		return cart;
-		return itemsCartService.getItemsInCart(new Customer("lakshmi","wiley"));
+		return itemsCartService.getItemsInCart(new Customer("lakshmi","11"));
 	}
 	
 	@DeleteMapping(path="/cart/delete/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCart deleteItemInCart(@PathVariable("id") String itemId) {
-		return itemsCartService.deleteItemByItemId(new Customer("lakshmi","wiley"), itemId);
+		return itemsCartService.deleteItemByItemId(new Customer("lakshmi","11"), itemId);
 	}
 	
 	

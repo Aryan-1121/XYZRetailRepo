@@ -15,6 +15,6 @@ public interface ItemsCartService {
 
 	public ItemsCart deleteItemByItemId(Customer customer,String itemId);
 	//public ItemsCart updateByItemId(Customer customer,String itemId,int requiredQuantity);
-	public Optional<ItemsCart> searchByItemIdAndName(Customer customer,String itemId);
+	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName);
 
 }

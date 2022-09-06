@@ -79,11 +79,8 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 //	}
 
 	@Override
-	public Optional<ItemsCart> searchByItemIdAndName(Customer customer, String itemId) {
-		// TODO Auto-generated method stub
-		
-		
-		return itemsCartDao.findByItemIdAndUserName(itemId, customer.getUser_Name());
+	public Optional<ItemsCart> searchByItemIdAndName( String itemId,String userName) {
+		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
 	}
 
 	@Override

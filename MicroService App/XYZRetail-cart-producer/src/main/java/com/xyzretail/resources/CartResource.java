@@ -41,6 +41,6 @@ public class CartResource {
 		return itemsCartService.deleteItemByItemId(new Customer("lakshmi","wiley"), itemId);
 	}
 	
-	//@PostMapping(path="cart")
+	//@PostMapping(path="cart/")
 	
 }

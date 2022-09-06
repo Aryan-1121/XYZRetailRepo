@@ -28,21 +28,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-<<<<<<< HEAD
-	<!-- 	<dependency>
-=======
-		<!--<dependency>
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-<<<<<<< HEAD
-		</dependency>
-		
-		 -->
-		 
-=======
-		</dependency>-->
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>

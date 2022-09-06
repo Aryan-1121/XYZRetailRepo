@@ -19,7 +19,7 @@ public class ItemsCart {
 	private int cartid;
 	private String itemId;
 	private String itemName;
-	private String unitPrice;
+	private double unitPrice;
 	private String userName;
 	private int requiredQuantity;
 	private double salesTax;

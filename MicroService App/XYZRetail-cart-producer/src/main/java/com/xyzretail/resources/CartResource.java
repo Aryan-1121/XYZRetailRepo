@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -36,11 +37,14 @@ public class CartResource {
 		return itemsCartService.getItemsInCart(name);
 	}
 	
-	@DeleteMapping(path="/cart/delete/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
-	public ItemsCart deleteItemInCart(@PathVariable("id") String itemId) {
-		return itemsCartService.deleteItemByItemId(new Customer("lakshmi","11"), itemId);
+	@DeleteMapping(path="/cart/delete/{id}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ItemsCart deleteItemInCart(@PathVariable("id") String itemId,@PathVariable("customer") String name) {
+		return itemsCartService.deleteItemByItemId(name, itemId);
 	}
 	
-	//@PostMapping(path="cart/")
+	@PostMapping(path="cart/update/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ItemsCart updateItemInCart(@PathVariable("id") String itemId,@PathVariable("reqQuantity")int quantity,@PathVariable("customer") String name) {
+		return itemsCartService.updateByItemId(name, itemId, quantity);
+	}
 	
 }

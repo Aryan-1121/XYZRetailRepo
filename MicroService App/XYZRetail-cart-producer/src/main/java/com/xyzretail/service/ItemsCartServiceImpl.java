@@ -52,31 +52,36 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	}
 
 	@Override
-	public ItemsCart deleteItemByItemId(Customer customer, String itemId) {
+	public ItemsCart deleteItemByItemId(String customer, String itemId) {
 		
-		Optional<ItemsCart> itemOpt=itemsCartDao.findByItemIdAndUserName(itemId, customer.getUser_Name());
+		Optional<ItemsCart> itemOpt=itemsCartDao.findByItemIdAndUserName(itemId, customer);
 		
 		if(itemOpt.isPresent()) {
-			itemsCartDao.deleteItemByItemId(itemId, customer.getUser_Name());
+			itemsCartDao.deleteItemByItemId(itemId, customer);
 			return itemOpt.get();
 		}
 		return new ItemsCart();
 		
 	}
 
-//	@Override
-//
-//	public ItemsCart updateByItemId(Customer customer, String itemId, int requiredQuantity) {
-//	
-//		Optional<ItemsCart> it=searchByItemIdAndName(customer, itemId);
-//		
-//		int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer.getUser_Name());
-//		
-//		if(rows>0) {
-//			return it.get();
-//		}
-//		return new ItemsCart();
-//	}
+	@Override
+	public ItemsCart updateByItemId(String customer, String itemId, int requiredQuantity) {
+	
+		Optional<ItemsCart> item=searchByItemIdAndName(customer, itemId);
+		
+		//int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer);
+		if(item.isPresent()) {
+			ItemsCart itemCart=item.get();
+			double unitCost=itemCart.getUnitPrice();
+			int availQuantity=itemCart.getRequiredQuantity();
+			
+			//double cost=itemCart.getTotalCost()
+		}
+		if(rows>0) {
+			return it.get();
+		}
+		return new ItemsCart();
+	}
 
 	@Override
 	public Optional<ItemsCart> searchByItemIdAndName( String itemId,String userName) {

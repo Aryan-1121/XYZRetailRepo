@@ -13,8 +13,8 @@ public interface ItemsCartService {
 	public ItemsCart addItemtoCart(Customer customer,String itemId,int requiredQuantity);
 	
 
-	public ItemsCart deleteItemByItemId(Customer customer,String itemId);
-	//public ItemsCart updateByItemId(Customer customer,String itemId,int requiredQuantity);
+	public ItemsCart deleteItemByItemId(String customer,String itemId);
+	public ItemsCart updateByItemId(String customer,String itemId,int requiredQuantity);
 	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName);
 
 }

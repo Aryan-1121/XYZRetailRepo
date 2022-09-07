@@ -50,18 +50,18 @@ public class CartResource {
 		return itemsCartService.updateByItemId(name, itemId, quantity);
 	}
 	
-<<<<<<< HEAD
+
 	@GetMapping(path="/cart/all/{itemId}/{userName}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public Optional<ItemsCart> getbyIdAndUserName(@PathVariable("itemId")String itemId, @PathVariable("userName") String userName) {
 //		Optional<ItemsCart> ic =itemsCartDao.findByItemIdAndUserName(itemId, userName);
 //		System.out.println("this isi find by item id and username :"+ic);
 //		return ic;
 		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
-=======
+	}
 	@PostMapping(path="cart/add/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCart addItemInCart(@PathVariable("id") String itemId,@PathVariable("reqQuantity")int quantity,@PathVariable("customer") String name) {
 		return itemsCartService.addItemtoCart(name, itemId, quantity);
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
+
 	}
 	
 }

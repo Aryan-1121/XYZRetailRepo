@@ -1,22 +1,18 @@
 package com.xyzretail.resources;
 
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.persistence.ItemsCartDao;
@@ -61,6 +57,7 @@ public class CartResource {
 	@PostMapping(path="cart/add/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCart addItemInCart(@PathVariable("id") String itemId,@PathVariable("reqQuantity")int quantity,@PathVariable("customer") String name) {
 		return itemsCartService.addItemtoCart(name, itemId, quantity);
+
 	}
 	
 }

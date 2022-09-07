@@ -129,7 +129,6 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	}
 	
 	
-
 //	if(modifiedQuantity <1) {
 //		System.out.println("enter positive value greater than 0");
 //		return false;

@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemDetail;
-import com.xyzretail.bean.ItemDetailsList;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.persistence.ItemsCartDao;
@@ -21,7 +19,13 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+<<<<<<< HEAD
+	
+	//private ItemsCartList cartList;
+	
+=======
 		
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 	
 	private double getTax(String itemCategory) {
 		int tax;
@@ -74,8 +78,12 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		if(item.isPresent()) {
 			ItemsCart itemCart=item.get();
 			double unitCost=itemCart.getUnitPrice();//price of item in cart
-			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+(requiredQuantity),ItemDetail.class);
+
+			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
+			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity,ItemDetail.class);
+
 			System.out.println(itemDetail);
+
 			if(itemDetail!=null) {
 				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
 				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
@@ -96,55 +104,90 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	}	
 	
 	@Override
+	public Optional<ItemsCart> searchByItemIdAndName( String itemId,String userName) {
+		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
+	}
+	
+	@Override
 	public ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity) {
 		
 		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);
-		
+		if(requiredQuantity>0) {
 		if(item.isPresent()) {
-		ItemsCart itemCart=item.get();
-		ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
-		if(itemDetail!=null) {
-			double totalCost=(itemDetail.getItemPrice()*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
-			int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
-			if(rows>0) {
-				return searchByItemIdAndName(itemId, customer).get();
+			ItemsCart itemCart=item.get();
+			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
+			System.out.println(itemDetail);
+			if(itemDetail!=null) {
+				double totalCost=itemDetail.getItemPrice()*(itemCart.getRequiredQuantity()+requiredQuantity)*getTax(itemDetail.getItemCategory())*(double)0.01;
+				requiredQuantity+=itemCart.getRequiredQuantity();
+				int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
+				if(rows>0) {
+					return searchByItemIdAndName(itemId, customer).get();
+				}
+				else {
+					return new ItemsCart();
+				}
 			}
 			else {
 				return itemCart;
 			}
 		}
 		else {
-			return itemCart;
-		}
-		}else {
-			return new ItemsCart();
+			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
+			System.out.println(itemDetail);
+			if(itemDetail!=null) {
+				double totalCost=(itemDetail.getItemPrice()*requiredQuantity)*(getTax(itemDetail.getItemCategory())*(double)0.01);	
+				int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
+				if(rows>0) {
+					return searchByItemIdAndName(itemId, customer).get();
+				}
+				else {
+					return new ItemsCart();
+				}
+			}
 		}
 		
-	}
-				
-	@Override
-	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName) {
-		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
+		}
+		return null;
+		
 	}
 	
 	
-
-//	if(modifiedQuantity <1) {
-//		System.out.println("enter positive value greater than 0");
-//		return false;
-//	}
-//	if(itemsService.searchItemsById(itemId, modifiedQuantity) && itemsCartDao.searchItemById(itemId, customer)) {
-//		ItemDetails item=itemsService.searchItemsById(itemId);	
+	
+	
+//	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
+////		System.out.println("customer name ="+customer);
+//		if (reqQuantity <1 )
+//		{
+//			System.out.println("enter positive value !!");
+//			return false ;
+//		}
+//		ItemDetails item=itemsService.searchItemsById(itemId);
+//		if(itemsService.searchItemsById(itemId, reqQuantity)) {
+//		
 //		double tax=getTax(item.getItemCategory());
 //		
 //		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
 //
-//		double totalCost=cost*modifiedQuantity;
-//
-//		itemsCartDao.modifyQuantityOfCartItems(customer, itemId, modifiedQuantity, tax ,totalCost);
+//		double totalCost=cost*reqQuantity;
 //		
-//		return true;
+//		
+//		if(!itemsCartDao.searchItemById(itemId, customer)){
+//			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+//		}
+//		else {
+//			ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
+//			reqQuantity+=itemCart.getPurchaseQuantity();
+//			totalCost+=itemCart.getTotalCost();
+//			itemsCartDao.unselectFromCart(itemId, customer);
+//			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
+//		}
 //	}
-//	return false;
+//	else {
+//
+//		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
+//		return false;
+//	}
+//	}
 
 }

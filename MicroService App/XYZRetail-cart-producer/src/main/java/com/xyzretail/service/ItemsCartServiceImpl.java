@@ -3,6 +3,8 @@ package com.xyzretail.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -74,16 +76,20 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		if(item.isPresent()) {
 			ItemsCart itemCart=item.get();
 			double unitCost=itemCart.getUnitPrice();//price of item in cart
-			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+(requiredQuantity),ItemDetail.class);
-			System.out.println(itemDetail);
+			System.out.println(itemCart);
+			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
+			System.out.println("asdlfhljfdjf%%%%***************"+itemDetail);
 			if(itemDetail!=null) {
 				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
 				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
 				if(rows>0) {
+					System.out.println(searchByItemIdAndName(itemId, customer).get());
 					return searchByItemIdAndName(itemId, customer).get();
 				}
-				else 
+				else {
+					System.out.println(itemCart);
 					return itemCart;
+				}
 				
 			}
 			else 

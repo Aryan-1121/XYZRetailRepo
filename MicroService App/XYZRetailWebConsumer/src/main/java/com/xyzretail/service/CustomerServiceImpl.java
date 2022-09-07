@@ -1,39 +1,43 @@
 package com.xyzretail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.Customer;
-import com.xyzretail.persistence.CustomerDao;
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {
 
-	private CustomerDao customerDao;
+//	private CustomerDao customerDao;
 	
 	@Autowired
-	public void setCustomerDao(CustomerDao customerDao) {
-		this.customerDao = customerDao;
-	}
+	private RestTemplate restTemplate;
+	
+//	@Autowired
+//	public void setCustomerDao(CustomerDao customerDao) {
+//		this.customerDao = customerDao;
+//	}
 
 	@Override
 	public boolean addCustomer(Customer customer) {
+		
+		ResponseEntity<Customer> cust=restTemplate.getForEntity("http://customer-service/customers", Customer.class);
 
-		return customerDao.addCustomer(customer);
+		if(cust.getBody()!=null)
+			return true;
+		return false;
 	}
+	
 	@Override
 	public boolean validateCustomer(Customer customer) {
 //	return customerDao.validateCustomer(customer);
 	
-	Customer cus= customerDao.validateCustomer(customer);
-	if(cus==null)	 
+	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
+	if(cus.getStatusCode()!=HttpStatus.ACCEPTED) {
 		return false;
-	
-	
-	else if (cus.getUserName().equals(customer.getUserName())) {	
-		if(cus.getUserPassword().equals(customer.getUserPassword())) 
-			return true;
-		return false ;
 	}
-	return false;
+	return true;
 	}
-	}
+}

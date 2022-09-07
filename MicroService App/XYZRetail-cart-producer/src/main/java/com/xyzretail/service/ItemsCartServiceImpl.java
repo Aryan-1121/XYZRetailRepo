@@ -19,13 +19,6 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
-<<<<<<< HEAD
-	
-	//private ItemsCartList cartList;
-	
-=======
-		
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 	
 	private double getTax(String itemCategory) {
 		int tax;
@@ -79,8 +72,8 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			ItemsCart itemCart=item.get();
 			double unitCost=itemCart.getUnitPrice();//price of item in cart
 
-			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
-			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity,ItemDetail.class);
+			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3			
+			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+(requiredQuantity),ItemDetail.class);
 
 			System.out.println(itemDetail);
 
@@ -151,8 +144,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		return null;
 		
 	}
-	
-	
+
 	
 	
 //	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {

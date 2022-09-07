@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemDetail;
+import com.xyzretail.bean.ItemDetailsList;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.persistence.ItemsCartDao;
@@ -69,6 +70,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	
 		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);	
 		System.out.println(item);
+
 		if(item.isPresent()) {
 			ItemsCart itemCart=item.get();
 			double unitCost=itemCart.getUnitPrice();//price of item in cart
@@ -92,18 +94,40 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			return new ItemsCart();
 		
 	}	
+	
+	@Override
+	public ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity) {
+		
+		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);
+		
+		if(item.isPresent()) {
+		ItemsCart itemCart=item.get();
+		ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
+		if(itemDetail!=null) {
+			double totalCost=(itemDetail.getItemPrice()*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
+			int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
+			if(rows>0) {
+				return searchByItemIdAndName(itemId, customer).get();
+			}
+			else {
+				return itemCart;
+			}
+		}
+		else {
+			return itemCart;
+		}
+		}else {
+			return new ItemsCart();
+		}
+		
+	}
 				
 	@Override
 	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName) {
 		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
 	}
-
-	@Override
-	public ItemsCart addItemtoCart(Customer customer, String itemId, int requiredQuantity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
+	
 
 //	if(modifiedQuantity <1) {
 //		System.out.println("enter positive value greater than 0");

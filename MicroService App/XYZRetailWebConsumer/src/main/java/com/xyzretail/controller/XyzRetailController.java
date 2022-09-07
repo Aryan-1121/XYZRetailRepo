@@ -1,17 +1,17 @@
-//package com.xyzretail.controller;
-//
-//import java.util.List;
-//
-//import javax.servlet.http.HttpSession;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.SessionAttributes;
-//import org.springframework.web.servlet.ModelAndView;
-//
-//import com.xyzretail.bean.Customer;
+package com.xyzretail.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.xyzretail.bean.Customer;
 //import com.xyzretail.bean.ItemBill;
 //import com.xyzretail.bean.ItemDetails;
 //import com.xyzretail.bean.ItemsCart;
@@ -19,11 +19,11 @@
 //import com.xyzretail.service.CartService;
 //import com.xyzretail.service.ItemsService;
 //import com.xyzretail.service.TransactionService;
-//
-//@Controller
-//@SessionAttributes("customer")
-//public class XyzRetailController {
-//	
+
+@Controller
+@SessionAttributes("customer")
+public class XyzRetailController {
+	
 //	@Autowired
 //	private ItemsService itemsService;
 //
@@ -36,29 +36,29 @@
 //	@Autowired
 //	private BillService billService;
 //	
-//	public Customer getCustomer(HttpSession session) {
-//		return (Customer)session.getAttribute("customer");
-//	}
-//	
-//	@RequestMapping("/index")
-//	public ModelAndView indexController() {
-//		return new ModelAndView("Index");
-//	}
-//	
+	public Customer getCustomer(HttpSession session) {
+		return (Customer)session.getAttribute("customer");
+	}
+	
+	@RequestMapping("/index")
+	public ModelAndView indexController() {
+		return new ModelAndView("Index");
+	}
+	
 //	@RequestMapping("/showAllItems")
 //	public ModelAndView showAllItemsController() {
 //		List<ItemDetails> items=itemsService.getAllItems();
 //		
 //		return new ModelAndView("showAllItem", "items", items);
 //	}
-//
-//	@RequestMapping("/wantToShop")
-//	public ModelAndView shopController() {
-//		return new ModelAndView("CartPage");
-//	}
-//
-//	
-//	
+
+	@RequestMapping("/wantToShop")
+	public ModelAndView shopController() {
+		return new ModelAndView("CartPage");
+	}
+
+	
+	
 //	@RequestMapping("/generateBill")
 //	public ModelAndView generateBillController(@ModelAttribute ItemBill bill,HttpSession session) {
 //		
@@ -109,10 +109,10 @@
 //		return modelAndView;
 //		
 //	}
-//
-//	@RequestMapping("/shopPage")
-//	public ModelAndView ShopPageController() {
-//		return new ModelAndView("shop");
-//	}
-//		
-//}
+
+	@RequestMapping("/shopPage")
+	public ModelAndView ShopPageController() {
+		return new ModelAndView("shop");
+	}
+		
+}

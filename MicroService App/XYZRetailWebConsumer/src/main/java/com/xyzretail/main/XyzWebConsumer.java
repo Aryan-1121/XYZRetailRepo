@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(scanBasePackages ="com.xyzretail")
-@EntityScan(basePackages = "com.xyzretail")
+@EntityScan(basePackages = "com.xyzretail.bean")
 @EnableEurekaClient
-public class XyzRetailWebSpringBootApplication {
+public class XyzWebConsumer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(XyzRetailWebSpringBootApplication.class, args);
+		SpringApplication.run(XyzWebConsumer.class, args);
 	}
 	
 	@Bean

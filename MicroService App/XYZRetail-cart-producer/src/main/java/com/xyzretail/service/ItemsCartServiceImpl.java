@@ -25,8 +25,6 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	//private ItemsCartList cartList;
 	
 	
-	
-	
 	private double getTax(String itemCategory) {
 		int tax;
 		switch(itemCategory) {

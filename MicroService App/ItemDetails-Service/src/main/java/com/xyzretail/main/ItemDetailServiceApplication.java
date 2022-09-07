@@ -13,9 +13,9 @@ import org.springframework.web.client.RestTemplate;
 @EntityScan(basePackages = "com.xyzretail.bean")
 @EnableJpaRepositories(basePackages = "com.xyzretail.model.persistence")
 //@EnableEurekaClient
-public class CustomerServiceApplication {
+public class ItemDetailServiceApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(CustomerServiceApplication.class, args);
+		SpringApplication.run(ItemDetailServiceApplication.class, args);
 	}
 
 	@Bean

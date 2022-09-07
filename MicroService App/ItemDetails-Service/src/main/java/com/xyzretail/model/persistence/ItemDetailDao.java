@@ -1,7 +1,6 @@
 package com.xyzretail.model.persistence;
 
-import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,8 +17,7 @@ public interface ItemDetailDao extends JpaRepository<ItemDetail, String>{
 //	int registerCustomer(String user_Name, String user_Password);
 
 //	ItemDetail findByItemId(String itemId);
-	
-	@Query(value="from ItemDetail where itemId=:itemId and availableQuantity=:availableQuantity")
+	@Query("from ItemDetail where itemId=:itemId and availableQuantity>=:availableQuantity")
 	ItemDetail findByItemIdAndAvailableQuantity(@Param("itemId")String itemId,@Param("availableQuantity")int availableQuantity);
 }
 

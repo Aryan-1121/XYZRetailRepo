@@ -19,18 +19,8 @@ public class ItemDetailResource {
 	@Autowired
 	private ItemDetailService itemDetailService;
 	
-	
-//	@GetMapping(path="/Item_Details", produces = MediaType.APPLICATION_JSON_VALUE)
-//	public Item_Details getAllItem_Detailesource() {
-//		return new Item_Details(item_DetailService.getAllItemDetails());
-////		if(item_Details != null)
-////			return new ResponseEntity<Item_Details> (item_Details, HttpStatus.FOUND);
-////		return new ResponseEntity<Item_Details>(new Item_Details(), HttpStatus.NOT_FOUND);
-//	}
-	
-	
 	@GetMapping(path="/itemDetail", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ItemDetailsList> getAllItem_Detailesource() {
+	public ResponseEntity<ItemDetailsList> getAllItemDetailResource() {
 		ItemDetailsList itemDetailsList =new ItemDetailsList(itemDetailService.getAllItemDetails());
 		return new ResponseEntity<ItemDetailsList> (itemDetailsList,HttpStatus.FOUND );
 

@@ -19,9 +19,13 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+<<<<<<< HEAD
 	
 	//private ItemsCartList cartList;
 	
+=======
+		
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 	
 	private double getTax(String itemCategory) {
 		int tax;
@@ -68,30 +72,36 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	@Override
 	public ItemsCart updateByItemId(String customer, String itemId, int requiredQuantity) {
 	
-		Optional<ItemsCart> item=searchByItemIdAndName(itemId,customer);
-		
-		//int rows=itemsCartDao.updateByItemId(requiredQuantity,it.get().getSalesTax(), it.get().getTotalCost(), itemId, customer);
+		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);	
+		System.out.println(item);
+
 		if(item.isPresent()) {
 			ItemsCart itemCart=item.get();
 			double unitCost=itemCart.getUnitPrice();//price of item in cart
+<<<<<<< HEAD
 			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
 			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity,ItemDetail.class);
+=======
+			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+(requiredQuantity),ItemDetail.class);
+			System.out.println(itemDetail);
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 			if(itemDetail!=null) {
-				//int updatedQuantity=requiredQuantity;
 				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
 				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
 				if(rows>0) {
 					return searchByItemIdAndName(itemId, customer).get();
 				}
-				else {
+				else 
 					return itemCart;
-				}
+				
 			}
-			else
+			else 
 				return itemCart;
+			
 		}
-		else
+		else 
 			return new ItemsCart();
+		
 	}	
 	
 	@Override
@@ -143,6 +153,13 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		
 	}
 				
+<<<<<<< HEAD
+=======
+	@Override
+	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName) {
+		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
+	}
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo
 	
 	
 	

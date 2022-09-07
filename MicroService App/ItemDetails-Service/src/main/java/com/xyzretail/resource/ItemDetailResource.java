@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xyzretail.bean.ItemDetail;
 import com.xyzretail.bean.ItemDetailsList;
+import com.xyzretail.model.persistence.ItemDetailDao;
 import com.xyzretail.model.service.ItemDetailService;
 
 @RestController
 public class ItemDetailResource {
 	@Autowired
 	private ItemDetailService itemDetailService;
+//	@Autowired
+//	private ItemDetailDao itemDetailDao;
 	
 	@GetMapping(path="/itemDetail", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ItemDetailsList> getAllItemDetailResource() {
@@ -32,7 +35,8 @@ public class ItemDetailResource {
 	}
 	
 	@GetMapping(path="/itemDetail/{id}/{quantity}",produces = MediaType.APPLICATION_JSON_VALUE)
-	public ItemDetail getItemByIdAndQuantityResource(@Param("id")String itemId,@PathVariable("quantity")int availableQuantity) {
+	public ItemDetail getItemByIdAndQuantityResource(@PathVariable("id")String itemId,@PathVariable("quantity")int availableQuantity) {
+
 		return itemDetailService.findByItemId_AndAvailable_Quantity(itemId, availableQuantity);
 	}
 	

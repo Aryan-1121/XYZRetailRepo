@@ -3,6 +3,7 @@ package com.xyzretail.service;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -69,51 +70,52 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	@Override
 	public ItemsCart updateByItemId(String customer, String itemId, int requiredQuantity) {
 	
-//		
-//		ItemsCart cart=searchByItemIdAndName(itemId, customer);
-//		if(requiredQuantity<1) {
-//			return null;
-//		}
-//		ItemDetail itemdetail=itemDetailService.findByItemId(itemId);
-//		ItemDetail isPresent=itemDetailService.findByItemId_AndAvailable_Quantity(itemId, requiredQuantity);
-//		if(isPresent!=null && cart!=null) {
-//			double tax=getTax(itemdetail.getItemCategory());
-//			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
-//			double totalCost=cost*requiredQuantity;
-//			if(itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer)>0)
-//				return searchByItemIdAndName(itemId, customer);
-//		}
-//		return new ItemsCart();
-//		}
-
-		ItemsCart itemCart=searchByItemIdAndName(itemId, customer);
-		if(itemCart!=null) {
-			
-			double unitCost=itemCart.getUnitPrice();//price of item in cart
-			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
-
-			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
-
-
-			if(itemDetail!=null) {
-				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
-				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
-				if(rows>0) {
-					//System.out.println(searchByItemIdAndName(itemId, customer).get());
-					return searchByItemIdAndName(itemId, customer);
-				}
-				else {
-					System.out.println(itemCart);
-					return itemCart;
-				}
-				
-			}
-			else 
-				return itemCart;
-			
+		
+		ItemsCart cart=searchByItemIdAndName(itemId, customer);
+		if(requiredQuantity<1) {
+			return null;
 		}
-		else 
-			return new ItemsCart();}
+		ItemDetail itemdetail=itemDetailService.findByItemId(itemId);
+		ItemDetail isPresent=itemDetailService.findByItemId_AndAvailable_Quantity(itemId, requiredQuantity);
+		if(isPresent!=null && cart!=null) {
+			double tax=getTax(itemdetail.getItemCategory());
+			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
+			double totalCost=cost*requiredQuantity;
+			if(itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer)>0)
+				return searchByItemIdAndName(itemId, customer);
+		}
+		return null;
+		}
+
+//		ItemsCart itemCart=searchByItemIdAndName(itemId, customer);
+//		if(itemCart!=null) {
+//			
+//			double unitCost=itemCart.getUnitPrice();//price of item in cart
+//			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
+////			ItemDetail itemDetail=restTemplate.put("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, HttpStatus., uriVariables);			
+//			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
+//
+//
+//			if(itemDetail!=null) {
+//				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
+//				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
+//				if(rows>0) {
+//					//System.out.println(searchByItemIdAndName(itemId, customer).get());
+//					return searchByItemIdAndName(itemId, customer);
+//				}
+//				else {
+//					System.out.println(itemCart);
+//					return itemCart;
+//				}
+//				
+//			}
+//			else 
+//				return itemCart;
+//			
+//		}
+//		else 
+//			return new ItemsCart();
+//		}
 		
 	
 	@Override

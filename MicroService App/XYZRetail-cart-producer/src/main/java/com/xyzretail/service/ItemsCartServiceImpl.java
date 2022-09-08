@@ -73,9 +73,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		if(item.isPresent()) {
 			ItemsCart itemCart=item.get();
 			double unitCost=itemCart.getUnitPrice();//price of item in cart
-			System.out.println(itemCart);
-			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
-			System.out.println("asdlfhljfdjf%%%%***************"+itemDetail);
+			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
 
 			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
 
@@ -114,7 +112,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		if(requiredQuantity>0) {
 		if(item.isPresent()) {
 			ItemsCart itemCart=item.get();
-			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
+			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
 			System.out.println(itemDetail);
 			if(itemDetail!=null) {
 				double totalCost=itemDetail.getItemPrice()*(itemCart.getRequiredQuantity()+requiredQuantity)*getTax(itemDetail.getItemCategory())*(double)0.01;
@@ -132,7 +130,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			}
 		}
 		else {
-			ItemDetail itemDetail=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
+			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
 			System.out.println(itemDetail);
 			if(itemDetail!=null) {
 				double totalCost=(itemDetail.getItemPrice()*requiredQuantity)*(getTax(itemDetail.getItemCategory())*(double)0.01);	

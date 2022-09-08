@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xyzretail.bean.ItemDetails;
+//import com.xyzretail.bean.ItemDetails;
 //import com.xyzretail.persistence.BasketDao;
 //import com.xyzretail.persistence.PersistenceDao;
 @Service("itemsService")
@@ -42,10 +42,10 @@ public class ItemsServiceImpl implements ItemsService {
 //	
 //	
 
-	@Override
-	public List<ItemDetails> getAllItems() {
-		return basketDao.getAllItems();
-	}
+//	@Override
+//	public List<ItemDetails> getAllItems() {
+//		return basketDao.getAllItems();
+//	}
 
 //	@Override
 //	public void updateRecord(String itemID, int quantity) {

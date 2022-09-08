@@ -2,7 +2,7 @@ package com.xyzretail.service;
 
 import java.util.List;
 
-import com.xyzretail.bean.ItemDetails;
+//import com.xyzretail.bean.ItemDetails;
 import com.xyzretail.bean.ItemsCart;
 
 
@@ -16,6 +16,6 @@ public interface ItemsService {
 //	boolean searchItemById(String itemId, String customer);
 //	ItemsCart getItemById(String itemId,String customer) ;
 
-	List<ItemDetails> getAllItems();
+//	List<ItemDetails> getAllItems();
 
 }

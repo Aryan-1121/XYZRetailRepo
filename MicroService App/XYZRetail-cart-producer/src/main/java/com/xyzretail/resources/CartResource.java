@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 import com.xyzretail.persistence.ItemsCartDao;
+import com.xyzretail.service.BillService;
 import com.xyzretail.service.ItemsCartService;
 
 @RestController
@@ -25,9 +27,13 @@ public class CartResource {
 	private RestTemplate restTemplate;
 	@Autowired
 	private ItemsCartService itemsCartService;
-	
+//	
 	@Autowired
 	private ItemsCartDao itemsCartDao;
+
+	@Autowired
+	private BillService bill;
+	
 	
 	@GetMapping(path="/cart/all/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public /*List<ItemsCart>*/ItemsCartList getAllItemsInCart(@PathVariable("customer")String name) {
@@ -61,9 +67,13 @@ public class CartResource {
 
 	}
 	
-	@DeleteMapping(path="cart/deleteall/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path="cart/delete/all/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCartList deleteAllItemsInCart(@PathVariable("customer") String customer) {
 		return itemsCartService.deleteAllItemsInCart(customer);
 	}
 	
+	@GetMapping(path="cart/bill/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ItemBill generateBill(@PathVariable("customer") String customer) {
+		return bill.generateBill(customer);
+	}
 }

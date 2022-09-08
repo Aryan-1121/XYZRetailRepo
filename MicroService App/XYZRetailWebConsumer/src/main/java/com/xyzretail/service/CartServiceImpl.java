@@ -1,120 +1,87 @@
-//package com.xyzretail.service;
-//
-//import java.util.List;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import com.xyzretail.bean.ItemDetails;
-//import com.xyzretail.bean.ItemsCart;
+package com.xyzretail.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.xyzretail.bean.ItemDetail;
+import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.bean.ItemsCartList;
 //import com.xyzretail.persistence.ItemsCartDao;
-//@Service("cartService")
-//public class CartServiceImpl implements CartService {
+@Service("cartService")
+public class CartServiceImpl implements CartService {
 //	private ItemsCartDao itemsCartDao;
-//	private ItemsService itemsService;
+	private ItemsService itemsService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 //	
 //	@Autowired
 //	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
 //		this.itemsCartDao = itemsCartDao;
 //	}
-//	@Autowired
-//	public void setItemsService(ItemsService itemsService) {
-//		this.itemsService = itemsService;
-//	}
-//	private double getTax(String itemCategory) {
-//		int tax;
-//		switch(itemCategory) {
-//		case "Books":
-//		
-//			tax=0;
-//			break;
-//		case "CD"  :
-//		
-//			tax=10;
-//			break;
-//		case "COSMETICS":
-//		
-//			tax=12;
-//			break;
-//		default:
-//			tax=0;
-//			break;
-//		}
-//		return tax;
-//	}
-//	@Override
-//	public List<ItemsCart> getAllItemsInCart(String customer) {
-//		return itemsCartDao.getAllItemsInCart(customer);
-//	}
-//
-//	@Override
-//	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
-////		System.out.println("customer name ="+customer);
-//		if (reqQuantity <1 )
-//		{
-//			System.out.println("enter positive value !!");
-//			return false ;
-//		}
-//		ItemDetails item=itemsService.searchItemsById(itemId);
-//		if(itemsService.searchItemsById(itemId, reqQuantity)) {
-//		
-//		double tax=getTax(item.getItemCategory());
-//		
-//		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
-//
-//		double totalCost=cost*reqQuantity;
-//		
-//		
-//		if(!itemsCartDao.searchItemById(itemId, customer)){
-//			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
-//		}
-//		else {
-//			ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
-//			reqQuantity+=itemCart.getPurchaseQuantity();
-//			totalCost+=itemCart.getTotalCost();
-//			itemsCartDao.unselectFromCart(itemId, customer);
-//			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
-//		}
-//	}
-//	else {
-//
-//		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
-//		return false;
-//	}
-//	}
-//
-//
-//	
-//	@Override
-//	public void deleteItemFromCart(String customer) {
-//		itemsCartDao.deleteItemFromCart(customer);
-//	}
-//
-//	@Override
-//	public int unselectFromCart(String itemId, String customer) {
-//		return itemsCartDao.unselectFromCart(itemId, customer);
-//		
-//	}
-//
-//	@Override
-//	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
-//		if(modifiedQuantity <1) {
-//			System.out.println("enter positive value greater than 0");
-//			return false;
-//		}
-//		if(itemsService.searchItemsById(itemId, modifiedQuantity) && itemsCartDao.searchItemById(itemId, customer)) {
-//			ItemDetails item=itemsService.searchItemsById(itemId);	
-//			double tax=getTax(item.getItemCategory());
-//			
-//			double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
-//
-//			double totalCost=cost*modifiedQuantity;
-//	
-//			itemsCartDao.modifyQuantityOfCartItems(customer, itemId, modifiedQuantity, tax ,totalCost);
-//			
-//			return true;
-//		}
-//		return false;
-//	}
-//
-//}
+	@Autowired
+	public void setItemsService(ItemsService itemsService) {
+		this.itemsService = itemsService;
+	}
+	
+	@Override
+	public List<ItemsCart> getAllItemsInCart(String customer) {
+		ItemsCartList cartList= restTemplate.getForObject("http://itemsCart-service/cart/all/"+customer, ItemsCartList.class);
+		System.out.println(cartList);
+		if(cartList!=null)
+			return cartList.getItemsCartList();
+		return null;
+	}
+
+	@Override
+	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
+		
+		ItemsCart itemCart=restTemplate.postForObject("http://itemsCart-service/cart/all/"+itemId+reqQuantity+customer, itemId, ItemsCart.class);
+		
+		if(itemCart!=null) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+
+
+	
+	@Override
+	public void deleteItemFromCart(String customer) {
+		restTemplate.delete("http://itemsCart-service/cart/delete/all/"+customer, ItemsCartList.class);
+		
+	}
+
+	@Override
+	public int unselectFromCart(String itemId, String customer) {
+		restTemplate.delete("http://itemsCart-service/cart/delete/"+itemId+customer, ItemsCart.class);
+		return 1;
+	}
+
+	@Override
+	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
+		if(getItemByIDandUser(itemId,customer)) {
+			restTemplate.put("http://itemsCart-service/cart/update/"+ itemId+modifiedQuantity+customer,ItemsCart.class);
+			return true;	
+		}
+		return false;
+	}
+
+	@Override
+	public boolean getItemByIDandUser(String itemId, String customer) {
+		ItemsCart item=restTemplate.getForObject("http://itemsCart-service/cart/all/"+itemId+customer, ItemsCart.class);
+		if(item!=null) {
+			return true;
+		}
+		return false;
+	
+	}
+		
+}

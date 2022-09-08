@@ -3,9 +3,13 @@ package com.xyzretail.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-//import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemDetail;
+import com.xyzretail.bean.ItemDetailsList;
+
 //import com.xyzretail.persistence.BasketDao;
 //import com.xyzretail.persistence.PersistenceDao;
 @Service("itemsService")
@@ -13,6 +17,8 @@ public class ItemsServiceImpl implements ItemsService {
 
 //	private BasketDao basketDao;
 //	private PersistenceDao persistenceDao;
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	
 //	@Autowired
@@ -23,34 +29,49 @@ public class ItemsServiceImpl implements ItemsService {
 //	public void setPersistenceDao(PersistenceDao persistenceDao) {
 //		this.persistenceDao = persistenceDao;
 //	}
-//
-//	@Override
-//	public ItemDetails searchItemsById(String itemId) {
-//		return persistenceDao.searchItemsById(itemId);
-//	}
-//	
-//	
-//	@Override
-//	public boolean searchItemsById(String id, int reqQuantity) {
-//		ItemDetails item=searchItemsById(id);
-////		System.out.println("id ="+ id +" req qty ="+reqQuantity);
-//		if(item.getAvailableQuantity()>reqQuantity) 
-//			return true;
-//		System.out.println("We don't have that much quantity in our store :-(");
-//		return false;
-//	}
-//	
-//	
 
-//	@Override
-//	public List<ItemDetails> getAllItems() {
-//		return basketDao.getAllItems();
-//	}
+	@Override
+	public ItemDetail searchItemsById(String itemId) {
+		ItemDetail item=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId,ItemDetail.class);
+		if(item!=null) {
+			return item;
+		}
+		return new ItemDetail();
+	}
+	
+	
+	@Override
+	public boolean searchItemsById(String id, int reqQuantity) {
+		ItemDetail item=searchItemsById(id);
+		if(item!=null) {
+		ItemDetail item1=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+id+reqQuantity,ItemDetail.class);
+		if(item1!=null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		}
+		return false;
+		
+	}
 
-//	@Override
-//	public void updateRecord(String itemID, int quantity) {
-//		basketDao.updateRecord(itemID, quantity);
-//	}
+	@Override
+	public void updateRecord(String itemID, int quantity) {
+	}
+
+
+	@Override
+	public List<ItemDetail> getAllItems() {
+		ResponseEntity<ItemDetailsList> itemDetailsList=restTemplate.getForEntity("http://itemDetails-service/itemDetail",ItemDetailsList.class);
+		List<ItemDetail> itemDetails=itemDetailsList.getBody().getItemDetails();
+		System.out.println(itemDetailsList);
+		System.out.println(itemDetails);
+		return itemDetails;
+
+	}
+
 	
 
 }

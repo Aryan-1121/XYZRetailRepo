@@ -4,7 +4,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +40,6 @@ public class LoginController {
 			modelAndView.addObject("message",message);
 			modelAndView.addObject("command", new Customer());
 			modelAndView.setViewName("LoginPage");
-//			return modelAndView;
 		}
 		else if(action.equals("Login")) {
 			if(customerService.validateCustomer(customer)) {
@@ -54,9 +52,7 @@ public class LoginController {
 				modelAndView.addObject("command", customer);
 				modelAndView.setViewName("LoginPage");
 			}
-			}
-				
-		
+		}	
 		return modelAndView;
 		
 	}

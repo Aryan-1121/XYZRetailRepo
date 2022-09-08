@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Customer {
 	@Id
-	private String user_Name;
-	private String user_Password;
+	private String userName;
+	private String userPassword;
 
 }

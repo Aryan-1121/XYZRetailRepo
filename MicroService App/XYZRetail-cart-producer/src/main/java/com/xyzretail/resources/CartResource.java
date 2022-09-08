@@ -61,4 +61,9 @@ public class CartResource {
 
 	}
 	
+	@DeleteMapping(path="cart/deleteall/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ItemsCartList deleteAllItemsInCart(@PathVariable("customer") String customer) {
+		return itemsCartService.deleteAllItemsInCart(customer);
+	}
+	
 }

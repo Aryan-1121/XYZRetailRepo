@@ -24,23 +24,21 @@ public class CustomerResource {
 	public Customers getAllCustomerResource() {
 		return new Customers(customerService.getAllCustomer());
 	}
-//	
-//	
-//	
-//	@GetMapping(path = "/customers/{user_Name}",produces = MediaType.APPLICATION_JSON_VALUE)
-//	public ResponseEntity<Customer> getCustomerByUserNameResource(@PathVariable("user_Name") String user_Name) {
-//		Customer customer = customerService.customerByName(user_Name);
-//		if(customer != null) {
-//			return new ResponseEntity<Customer>(customer , HttpStatus.FOUND);
-//		}
-//		
-//		return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_FOUND);
-//	}
+	
+	@GetMapping(path = "/customers/{user_Name}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Customer> getCustomerByUserNameResource(@PathVariable("user_Name") String user_Name) {
+		Customer customer = customerService.customerByName(user_Name);
+		if(customer != null) {
+			return new ResponseEntity<Customer>(customer , HttpStatus.FOUND);
+		}
+		
+		return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_FOUND);
+	}
 	
 	
 	@PostMapping(path = "/customers", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer>  registerCustomerResource(@RequestBody  Customer customer) {
-		Customer cus = customerService.customerByName(customer.getUser_Name());
+		Customer cus = customerService.customerByName(customer.getUserName());
 		boolean isRegistered=false;
 		if(cus==null)
 			 isRegistered= customerService.registerCustomer(customer);

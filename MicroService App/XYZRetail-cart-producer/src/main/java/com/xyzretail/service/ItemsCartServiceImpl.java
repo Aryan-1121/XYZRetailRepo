@@ -67,38 +67,52 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	@Override
 	public ItemsCart updateByItemId(String customer, String itemId, int requiredQuantity) {
 	
-		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);	
-		System.out.println(item);
-
-		if(item.isPresent()) {
-			ItemsCart itemCart=item.get();
-			double unitCost=itemCart.getUnitPrice();//price of item in cart
-			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
-
-			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
-
-
-			if(itemDetail!=null) {
-				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
-				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
-				if(rows>0) {
-					System.out.println(searchByItemIdAndName(itemId, customer).get());
-					return searchByItemIdAndName(itemId, customer).get();
-				}
-				else {
-					System.out.println(itemCart);
-					return itemCart;
-				}
-				
-			}
-			else 
-				return itemCart;
-			
+		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);
+		//System.out.println(item);
+		ItemsCart cart=item.get();
+		if(requiredQuantity<1) {
+			return null;
 		}
-		else 
-			return new ItemsCart();
+		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/"+itemId, ItemDetail.class);
+		boolean isPresent=restTemplate.getForObject("http://localhost:8083/"+itemId+"/"+requiredQuantity, Boolean.class);
+		if(isPresent) {
+			double tax=getTax(itemdetail.getItemCategory());
+			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
+			double totalCost=cost*requiredQuantity;
+			if(itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer)>0)
+				return searchByItemIdAndName(itemId, customer).get();
+		}
+		return null;
+		}
+//
+//		if(item.isPresent()) {
+//			ItemsCart itemCart=item.get();
+//			double unitCost=itemCart.getUnitPrice();//price of item in cart
+//			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
+//
+//			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
+//
+//
+//			if(itemDetail!=null) {
+//				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
+//				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
+//				if(rows>0) {
+//					System.out.println(searchByItemIdAndName(itemId, customer).get());
+//					return searchByItemIdAndName(itemId, customer).get();
+//				}
+//				else {
+//					System.out.println(itemCart);
+//					return itemCart;
+//				}
+//				
+//			}
+//			else 
+//				return itemCart;
+//			
+//		}
+//		else 
+//			return new ItemsCart();
 		
-	}	
 	
 	@Override
 	public Optional<ItemsCart> searchByItemIdAndName( String itemId,String userName) {

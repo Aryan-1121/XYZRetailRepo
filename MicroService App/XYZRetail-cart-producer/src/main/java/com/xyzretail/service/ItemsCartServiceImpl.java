@@ -109,45 +109,69 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 	public ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity) {
 		
 		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);
-		if(requiredQuantity>0) {
-		if(item.isPresent()) {
-			ItemsCart itemCart=item.get();
-			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
-			System.out.println(itemDetail);
-			if(itemDetail!=null) {
-				double totalCost=itemDetail.getItemPrice()*(itemCart.getRequiredQuantity()+requiredQuantity)*getTax(itemDetail.getItemCategory())*(double)0.01;
-				requiredQuantity+=itemCart.getRequiredQuantity();
-				int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
-				if(rows>0) {
+		if(requiredQuantity<0) {
+			return null;
+		}
+		ItemsCart itemsCart=item.get();
+		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/"+itemId, ItemDetail.class);
+		boolean isPresent=restTemplate.getForObject("http://localhost:8083/"+itemId+"/"+requiredQuantity, Boolean.class);
+		if(isPresent) {
+			double tax=getTax(itemdetail.getItemCategory());
+			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
+			double totalCost=cost*requiredQuantity;
+			
+			if(itemsCart==null) {
+				if(itemsCartDao.addItemToCart(itemId, itemdetail.getItemName(), itemdetail.getItemPrice(),customer, requiredQuantity,tax, totalCost)>0)
 					return searchByItemIdAndName(itemId, customer).get();
-				}
-				else {
-					return new ItemsCart();
-				}
 			}
 			else {
-				return itemCart;
+				requiredQuantity+=itemsCart.getRequiredQuantity();
+				totalCost+=itemsCart.getTotalCost();
+				itemsCartDao.deleteItemByItemId(itemId, customer);
+				if(itemsCartDao.addItemToCart(itemId, itemdetail.getItemName(), itemdetail.getItemPrice(),customer, requiredQuantity,tax, totalCost)>0)
+					return searchByItemIdAndName(itemId, customer).get();
+				
 			}
 		}
 		else {
-			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
-			System.out.println(itemDetail);
-			if(itemDetail!=null) {
-				double totalCost=(itemDetail.getItemPrice()*requiredQuantity)*(getTax(itemDetail.getItemCategory())*(double)0.01);	
-				int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
-				if(rows>0) {
-					return searchByItemIdAndName(itemId, customer).get();
-				}
-				else {
-					return new ItemsCart();
-				}
-			}
-		}
-		
+			return null;
 		}
 		return null;
-		
-	}
+		}
+//		if(item.isPresent()) {
+//			ItemsCart itemCart=item.get();
+//			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
+//			System.out.println(itemDetail);
+//			if(itemDetail!=null) {
+//				double totalCost=itemDetail.getItemPrice()*(itemCart.getRequiredQuantity()+requiredQuantity)*getTax(itemDetail.getItemCategory())*(double)0.01;
+//				requiredQuantity+=itemCart.getRequiredQuantity();
+//				int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
+//				if(rows>0) {
+//					return searchByItemIdAndName(itemId, customer).get();
+//				}
+//				else {
+//					return new ItemsCart();
+//				}
+//			}
+//			else {
+//				return itemCart;
+//			}
+//		}
+//		else {
+//			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, ItemDetail.class);
+//			System.out.println(itemDetail);
+//			if(itemDetail!=null) {
+//				double totalCost=(itemDetail.getItemPrice()*requiredQuantity)*(getTax(itemDetail.getItemCategory())*(double)0.01);	
+//				int rows=itemsCartDao.addItemToCart(itemId, itemDetail.getItemName(), itemDetail.getItemPrice(), customer, requiredQuantity, getTax(itemDetail.getItemCategory()), totalCost);
+//				if(rows>0) {
+//					return searchByItemIdAndName(itemId, customer).get();
+//				}
+//				else {
+//					return new ItemsCart();
+//				}
+//			}
+//		}
+	
 
 	@Override
 	public ItemsCartList deleteAllItemsInCart(String customer) {

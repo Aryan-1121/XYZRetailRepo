@@ -83,7 +83,7 @@ public class XyzRetailController {
 //			
 //			
 //			for(ItemsCart item:itemsBill.getCart()) {
-//				itemsService.updateRecord(item.getItem().getItemId(), item.getPurchaseQuantity());	
+//				itemsService.updateRecord(item.getItemId(), item.getRequiredQuantity());	
 //			}
 //		
 //			modelAndView.addObject("msg", "Total Amount To Be Paid : ");
@@ -115,9 +115,10 @@ public class XyzRetailController {
 //		
 //	}
 
-	@RequestMapping("/shopPage")
-	public ModelAndView ShopPageController() {
-		return new ModelAndView("shop");
-	}
-		
+//	@RequestMapping("/shopPage")
+//	public ModelAndView ShopPageController() {
+//		return new ModelAndView("shop");
+//	}
+//		
 }
+

@@ -1,21 +1,19 @@
 package com.xyzretail.bean;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 
-public class Transaction {
+public class Orders {
+	
 	
 	private int transactionId;
-	private String userName;
-	private Date date;
-	private Time time;
+	private String itemId;
+	private int purchasedQuantity;
 	
 }
+

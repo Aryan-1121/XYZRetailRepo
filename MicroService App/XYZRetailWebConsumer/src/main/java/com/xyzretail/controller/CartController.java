@@ -43,7 +43,7 @@ public class CartController {
 	@RequestMapping("/seeItemsInCart")
 	public ModelAndView showItemsInCartController(HttpSession session) {
 		Customer customer=(Customer)session.getAttribute("customer");
-		ItemsCartList cart=cartService.getAllItemsInCart(getCustomer(session).getUserName());
+		List<ItemsCart> cart=cartService.getAllItemsInCart(getCustomer(session).getUserName());
 		if(cart!=null)
 			return new ModelAndView("ShowItemsInCart","itemsCart",cart);
 		else {
@@ -79,18 +79,18 @@ public class CartController {
 	
 //	@ModelAttribute("itemsInCart")
 //	public List<String> getItemsInCart(HttpSession session){
-//		List<ItemsCart> item=(List<ItemsCart>) cartService.getAllItemsInCart(getCustomer(session).getUserName());
+//		List<ItemsCart> item=cartService.getAllItemsInCart(getCustomer(session).getUserName());
 //		List<ItemDetail> items=item.stream().map(ItemsCart :: getItem).distinct().collect(Collectors.toList());
 //		return (items.stream()).
 //				map(ItemDetail :: getItemId).
 //				distinct().
 //				collect(Collectors.toList());
 //	}
-	
-	@RequestMapping("/addItemPage")
-	public ModelAndView addItem() {
-		return new ModelAndView("addItems", "command", new ItemDetail());
-	}
+//	
+//	@RequestMapping("/addItemPage")
+//	public ModelAndView addItem() {
+//		return new ModelAndView("addItems", "command", new ItemDetail());
+//	}
 //	
 //	
 //

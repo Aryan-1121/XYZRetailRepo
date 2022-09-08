@@ -28,11 +28,11 @@ public class CartServiceImpl implements CartService {
 	}
 	
 	@Override
-	public ItemsCartList getAllItemsInCart(String customer) {
-		ItemsCartList cartList= restTemplate.getForObject("http://itemCart-service/cart/all/"+customer, ItemsCartList.class);
+	public List<ItemsCart> getAllItemsInCart(String customer) {
+		ItemsCartList cartList= restTemplate.getForObject("http://itemsCart-service/cart/all/"+customer, ItemsCartList.class);
 		System.out.println(cartList);
 		if(cartList!=null)
-			return cartList;
+			return cartList.getItemsCartList();
 		return null;
 	}
 

@@ -26,31 +26,11 @@ public class CartServiceImpl implements CartService {
 	public void setItemsService(ItemsService itemsService) {
 		this.itemsService = itemsService;
 	}
-	private double getTax(String itemCategory) {
-		int tax;
-		switch(itemCategory) {
-		case "Books":
-		
-			tax=0;
-			break;
-		case "CD"  :
-		
-			tax=10;
-			break;
-		case "COSMETICS":
-		
-			tax=12;
-			break;
-		default:
-			tax=0;
-			break;
-		}
-		return tax;
-	}
+	
 	@Override
 	public ItemsCartList getAllItemsInCart(String customer) {
-//		return itemsCartDao.getAllItemsInCart(customer);
 		ItemsCartList cartList= restTemplate.getForObject("http://itemCart-service/cart/all/"+customer, ItemsCartList.class);
+		System.out.println(cartList);
 		if(cartList!=null)
 			return cartList;
 		return null;
@@ -67,12 +47,12 @@ public class CartServiceImpl implements CartService {
 		ItemDetail item=itemsService.searchItemsById(itemId);
 		if(itemsService.searchItemsById(itemId, reqQuantity)) {
 		
-		double tax=getTax(item.getItemCategory());
+//		double tax=getTax(item.getItemCategory());
 		
-		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
-
-		double totalCost=cost*reqQuantity;
-		
+//		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
+//
+//		double totalCost=cost*reqQuantity;
+//		
 		
 //		if(!itemsCartDao.searchItemById(itemId, customer)){
 //			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);

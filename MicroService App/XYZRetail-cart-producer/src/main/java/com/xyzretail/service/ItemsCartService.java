@@ -12,6 +12,7 @@ public interface ItemsCartService {
 	public ItemsCart updateByItemId(String customer,String itemId,int requiredQuantity);
 	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName);
 
-	ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity);
+	public ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity);
+	public ItemsCartList deleteAllItemsInCart(String customer);
 
 }

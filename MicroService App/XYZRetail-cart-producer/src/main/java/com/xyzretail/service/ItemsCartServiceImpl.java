@@ -150,6 +150,13 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		return null;
 		
 	}
+
+	@Override
+	public ItemsCartList deleteAllItemsInCart(String customer) {
+		if(itemsCartDao.deleteAllByUserName(customer)>0)
+			return getItemsInCart(customer);
+		return new ItemsCartList();
+	}
 				
 
 	

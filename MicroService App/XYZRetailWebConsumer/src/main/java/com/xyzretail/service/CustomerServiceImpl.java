@@ -22,12 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public boolean addCustomer(Customer customer) {
-		
-		ResponseEntity<Customer> cust=restTemplate.getForEntity("http://customer-service/customers", Customer.class);
-
-		if(cust.getBody()!=null)
+		ResponseEntity<Customer> cust=restTemplate.postForEntity("http://customer-service/customers",customer, Customer.class);
 			return true;
-		return false;
+		
 	}
 	
 	@Override

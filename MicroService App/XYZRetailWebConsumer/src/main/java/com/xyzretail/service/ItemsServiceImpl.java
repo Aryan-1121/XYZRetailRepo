@@ -1,20 +1,20 @@
-//package com.xyzretail.service;
-//
-//import java.util.List;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import com.xyzretail.bean.ItemDetails;
+package com.xyzretail.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.xyzretail.bean.ItemDetails;
 //import com.xyzretail.persistence.BasketDao;
 //import com.xyzretail.persistence.PersistenceDao;
-//@Service("itemsService")
-//public class ItemsServiceImpl implements ItemsService {
-//
+@Service("itemsService")
+public class ItemsServiceImpl implements ItemsService {
+
 //	private BasketDao basketDao;
 //	private PersistenceDao persistenceDao;
-//	
-//	
+	
+	
 //	@Autowired
 //	public void setBasketDao(BasketDao basketDao) {
 //		this.basketDao = basketDao;
@@ -41,18 +41,18 @@
 //	}
 //	
 //	
-//
-//	@Override
-//	public List<ItemDetails> getAllItems() {
-//		return basketDao.getAllItems();
-//	}
-//
+
+	@Override
+	public List<ItemDetails> getAllItems() {
+		return basketDao.getAllItems();
+	}
+
 //	@Override
 //	public void updateRecord(String itemID, int quantity) {
 //		basketDao.updateRecord(itemID, quantity);
 //	}
-//	
-//
-//}
-//
-//
+	
+
+}
+
+

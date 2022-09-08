@@ -3,13 +3,17 @@ package com.xyzretail.service;
 import java.util.List;
 
 import com.xyzretail.bean.ItemDetail;
-import com.xyzretail.bean.ItemsCart;
+
+
 
 
 public interface ItemsService {
 
 	
 	
+	boolean searchItemsById(String itemId,int reqQuantity);
+	public void updateRecord(String itemID , int quantity);
+	ItemDetail searchItemsById(String itemId);
 //	boolean searchItemsById(String itemId,int reqQuantity);
 //	public void updateRecord(String itemID , int quantity);
 //	ItemDetails searchItemsById(String itemId);

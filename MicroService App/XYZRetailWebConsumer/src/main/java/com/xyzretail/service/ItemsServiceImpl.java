@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.ItemDetail;
 import com.xyzretail.bean.ItemDetailsList;
+
 //import com.xyzretail.persistence.BasketDao;
 //import com.xyzretail.persistence.PersistenceDao;
 @Service("itemsService")
@@ -28,11 +29,27 @@ public class ItemsServiceImpl implements ItemsService {
 //	public void setPersistenceDao(PersistenceDao persistenceDao) {
 //		this.persistenceDao = persistenceDao;
 //	}
-//
-//	@Override
-//	public ItemDetails searchItemsById(String itemId) {
+
+	@Override
+	public ItemDetail searchItemsById(String itemId) {
 //		return persistenceDao.searchItemsById(itemId);
-//	}
+		return null;
+	}
+	
+	
+	@Override
+	public boolean searchItemsById(String id, int reqQuantity) {
+		ItemDetail item=searchItemsById(id);
+//		System.out.println("id ="+ id +" req qty ="+reqQuantity);
+		if(item.getAvailableQuantity()>reqQuantity) 
+			return true;
+		System.out.println("We don't have that much quantity in our store :-(");
+		return false;
+	}
+
+	@Override
+	public void updateRecord(String itemID, int quantity) {
+	}
 //	
 //	
 //	@Override
@@ -43,21 +60,19 @@ public class ItemsServiceImpl implements ItemsService {
 //			return true;
 //		System.out.println("We don't have that much quantity in our store :-(");
 //		return false;
-//	}
 //	
 //	
+//	
+
 
 	@Override
 	public List<ItemDetail> getAllItems() {
 		ResponseEntity<ItemDetailsList> itemDetailsList=restTemplate.getForEntity("http://itemDetails-service/itemDetail",ItemDetailsList.class);
 		List<ItemDetail> itemDetails=itemDetailsList.getBody().getItemDetails();
 		return itemDetails;
+
 	}
 
-//	@Override
-//	public void updateRecord(String itemID, int quantity) {
-//		basketDao.updateRecord(itemID, quantity);
-//	}
 	
 
 }

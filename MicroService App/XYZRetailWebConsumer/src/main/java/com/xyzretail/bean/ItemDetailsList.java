@@ -1,5 +1,4 @@
 package com.xyzretail.bean;
-
 import java.util.List;
 
 import lombok.AllArgsConstructor;

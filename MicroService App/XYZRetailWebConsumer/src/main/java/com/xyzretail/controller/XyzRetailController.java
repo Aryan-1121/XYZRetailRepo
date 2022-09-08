@@ -6,14 +6,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xyzretail.bean.Customer;
-
+import com.xyzretail.bean.ItemBill;
 //import com.xyzretail.bean.ItemBill;
 import com.xyzretail.bean.ItemDetail;
+import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.service.BillService;
 //import com.xyzretail.service.BillService;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.ItemsService;
@@ -35,9 +38,9 @@ public class XyzRetailController {
 //	@Autowired
 //	private TransactionService transactionService;
 //
-//	@Autowired
-//	private BillService billService;
-//	
+	@Autowired
+	private BillService billService;
+	
 	public Customer getCustomer(HttpSession session) {
 		return (Customer)session.getAttribute("customer");
 	}

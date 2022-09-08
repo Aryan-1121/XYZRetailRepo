@@ -32,37 +32,34 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public ItemDetail searchItemsById(String itemId) {
-//		return persistenceDao.searchItemsById(itemId);
-		return null;
+		ItemDetail item=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+itemId,ItemDetail.class);
+		if(item!=null) {
+			return item;
+		}
+		return new ItemDetail();
 	}
 	
 	
 	@Override
 	public boolean searchItemsById(String id, int reqQuantity) {
 		ItemDetail item=searchItemsById(id);
-//		System.out.println("id ="+ id +" req qty ="+reqQuantity);
-		if(item.getAvailableQuantity()>reqQuantity) 
+		if(item!=null) {
+		ItemDetail item1=restTemplate.getForObject("http://itemDetails-service/itemDetail/"+id+reqQuantity,ItemDetail.class);
+		if(item1!=null) {
 			return true;
-		System.out.println("We don't have that much quantity in our store :-(");
+		}
+		else {
+			return false;
+		}
+		
+		}
 		return false;
+		
 	}
 
 	@Override
 	public void updateRecord(String itemID, int quantity) {
 	}
-//	
-//	
-//	@Override
-//	public boolean searchItemsById(String id, int reqQuantity) {
-//		ItemDetails item=searchItemsById(id);
-////		System.out.println("id ="+ id +" req qty ="+reqQuantity);
-//		if(item.getAvailableQuantity()>reqQuantity) 
-//			return true;
-//		System.out.println("We don't have that much quantity in our store :-(");
-//		return false;
-//	
-//	
-//	
 
 
 	@Override

@@ -1,8 +1,10 @@
 package com.xyzretail.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,73 +40,48 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
-//		System.out.println("customer name ="+customer);
-		if (reqQuantity <1 )
-		{
-			System.out.println("enter positive value !!");
-			return false ;
+		
+		ItemsCart itemCart=restTemplate.postForObject("http://itemsCart-service/cart/all/"+itemId+reqQuantity+customer, itemId, ItemsCart.class);
+		
+		if(itemCart!=null) {
+			return true;
 		}
-		ItemDetail item=itemsService.searchItemsById(itemId);
-		if(itemsService.searchItemsById(itemId, reqQuantity)) {
 		
-//		double tax=getTax(item.getItemCategory());
+		return false;
 		
-//		double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
-//
-//		double totalCost=cost*reqQuantity;
-//		
-		
-//		if(!itemsCartDao.searchItemById(itemId, customer)){
-//			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
-//		}
-//		else {
-//			ItemsCart itemCart=itemsCartDao.getItemById(itemId, customer);
-//			reqQuantity+=itemCart.getPurchaseQuantity();
-//			totalCost+=itemCart.getTotalCost();
-//			itemsCartDao.unselectFromCart(itemId, customer);
-//			return itemsCartDao.addItemToCart(item,customer, reqQuantity, tax, totalCost);
-//		}
-//	}
-//	else {
-//
-//		System.out.println(reqQuantity+" "+ item.getItemName() +" is Not available in our Stock :( ");
-//		return false;
-	}
-		return false ;
 	}
 
 
 	
 	@Override
 	public void deleteItemFromCart(String customer) {
-//		itemsCartDao.deleteItemFromCart(customer);
+		restTemplate.delete("http://itemsCart-service/cart/delete/all/"+customer, ItemsCartList.class);
+		
 	}
 
 	@Override
 	public int unselectFromCart(String itemId, String customer) {
-//		return itemsCartDao.unselectFromCart(itemId, customer);
-		return 0;
+		restTemplate.delete("http://itemsCart-service/cart/delete/"+itemId+customer, ItemsCart.class);
+		return 1;
 	}
 
 	@Override
 	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
-//		if(modifiedQuantity <1) {
-//			System.out.println("enter positive value greater than 0");
-//			return false;
-//		}
-//		if(itemsService.searchItemsById(itemId, modifiedQuantity) && itemsCartDao.searchItemById(itemId, customer)) {
-//			ItemDetails item=itemsService.searchItemsById(itemId);	
-//			double tax=getTax(item.getItemCategory());
-//			
-//			double cost=(item.getItemPrice()*(double)(tax*0.01))+item.getItemPrice();
-//
-//			double totalCost=cost*modifiedQuantity;
-//	
-//			itemsCartDao.modifyQuantityOfCartItems(customer, itemId, modifiedQuantity, tax ,totalCost);
-//			
-//			return true;
-//		}
+		if(getItemByIDandUser(itemId,customer)) {
+			restTemplate.put("http://itemsCart-service/cart/update/"+ itemId+modifiedQuantity+customer,ItemsCart.class);
+			return true;	
+		}
 		return false;
+	}
+
+	@Override
+	public boolean getItemByIDandUser(String itemId, String customer) {
+		ItemsCart item=restTemplate.getForObject("http://itemsCart-service/cart/all/"+itemId+customer, ItemsCart.class);
+		if(item!=null) {
+			return true;
+		}
+		return false;
+	
 	}
 		
 }

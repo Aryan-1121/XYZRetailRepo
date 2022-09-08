@@ -66,7 +66,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 
 	@Override
 	public ItemsCart updateByItemId(String customer, String itemId, int requiredQuantity) {
-	
+
 		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);
 		//System.out.println(item);
 		ItemsCart cart=item.get();
@@ -151,7 +151,10 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			return null;
 		}
 		return null;
-		}
+		
+	}
+
+		
 //		if(item.isPresent()) {
 //			ItemsCart itemCart=item.get();
 //			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
@@ -187,6 +190,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 //		}
 	
 
+
 	@Override
 	public ItemsCartList deleteAllItemsInCart(String customer) {
 		if(itemsCartDao.deleteAllByUserName(customer)>0)
@@ -194,6 +198,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		return new ItemsCartList();
 	}
 				
+
 
 	
 	

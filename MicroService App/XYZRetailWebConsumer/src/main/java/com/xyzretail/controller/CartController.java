@@ -87,10 +87,10 @@ public class CartController {
 //				collect(Collectors.toList());
 //	}
 //	
-//	@RequestMapping("/addItemPage")
-//	public ModelAndView addItem() {
-//		return new ModelAndView("addItems", "command", new ItemDetail());
-//	}
+	@RequestMapping("/addItemPage")
+	public ModelAndView addItem() {
+		return new ModelAndView("addItems", "command", new ItemDetail());
+	}
 //	
 //	
 //

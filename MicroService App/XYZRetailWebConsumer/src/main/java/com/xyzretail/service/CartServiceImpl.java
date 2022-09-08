@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,24 +34,24 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<ItemsCart> getAllItemsInCart(String customer) {
 		ItemsCartList cartList= restTemplate.getForObject("http://itemDetails-Cart-service/cart/all/"+customer, ItemsCartList.class);
-		System.out.println(cartList);
 		if(cartList!=null)
 			return cartList.getItemsCartList();
 		return null;
 	}
 
 	@Override
+	@Nullable
 	public boolean addItemToCart(String customer,String itemId, int reqQuantity) {
 		
 //		ItemsCart itemCart=restTemplate.postForObject("http://itemsCart-service/cart/add/"+itemId+"/"+reqQuantity+"/"+customer, ItemsCart.class);
-		URI itemCart=restTemplate.postForLocation("http://itemDetails-Cart-service/cart/add/"+itemId+"/"+reqQuantity+"/"+customer, ItemsCart.class);
+		URI itemCart =restTemplate.postForLocation("http://itemDetails-Cart-service/cart/add/"+itemId+"/"+reqQuantity+"/"+customer,ItemsCart.class);
 
+		System.out.println(itemCart);
+//		if(itemCart!=null) {
+//			return true;
+//		}
 		
-		if(itemCart!=null) {
-			return true;
-		}
-		
-		return false;
+		return true;
 		
 	}
 
@@ -68,18 +69,25 @@ public class CartServiceImpl implements CartService {
 		return 1;
 	}
 
+	
+	
+	
 	@Override
 	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
 		if(getItemByIDandUser(itemId,customer)) {
-			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+modifiedQuantity+customer,ItemsCart.class);
+			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);
 			return true;	
 		}
 		return false;
 	}
+	
+	
+	
+	
 
 	@Override
 	public boolean getItemByIDandUser(String itemId, String customer) {
-		ItemsCart item=restTemplate.getForObject("http://itemDetails-Cart-service/cart/all/"+itemId+customer, ItemsCart.class);
+		ItemsCart item=restTemplate.getForObject("http://itemDetails-Cart-service/cart/all/"+itemId+"/"+customer, ItemsCart.class);
 		if(item!=null) {
 			return true;
 		}

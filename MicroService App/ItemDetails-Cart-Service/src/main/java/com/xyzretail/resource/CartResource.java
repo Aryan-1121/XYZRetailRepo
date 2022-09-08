@@ -47,7 +47,7 @@ public class CartResource {
 	
 	
 	
-	@PutMapping(path="cart/update/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path="/cart/update/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCart updateItemInCart(@PathVariable("id") String itemId,@PathVariable("reqQuantity")int quantity,@PathVariable("customer") String name) {
 		return itemsCartService.updateByItemId(name, itemId, quantity);
 	}

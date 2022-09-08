@@ -14,7 +14,7 @@
 <h2>Add Items To Your Cart : </h2>
 <form action="#" method="post" th:action="@{./modifyItem}" th:object="${command}">
 <br>
-<label>Select Item's Name :</label> <select th:field="*{item.itemId}">
+<label>Select Item's Name :</label> <select th:field="*{itemId}">
 <option th:each="id: ${itemsInCart}" th:value="${id}" th:label="${id}" >
 </select>
 <br>

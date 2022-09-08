@@ -17,7 +17,7 @@
 <form action="#" method="post" th:action="@{./deleteItem}" th:object="${command}" >
 <br><br>
 
-<label>Select Item's Id To Delete :</label> <select th:field="*{item.itemId}">
+<label>Select Item's Id To Delete :</label> <select th:field="*{itemId}">
 <option th:each="id: ${itemsInCart}" th:value="${id}" th:label="${id}" >
 </select>
 <br><br>

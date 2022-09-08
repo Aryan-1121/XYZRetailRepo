@@ -131,6 +131,8 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		ItemDetail itemdetail=itemDetailService.findByItemId(itemId);
 		ItemDetail isPresent=itemDetailService.findByItemId_AndAvailable_Quantity(itemId, requiredQuantity);
 		if(isPresent!=null) {
+			System.out.println(" adding ");
+
 			double tax=getTax(itemdetail.getItemCategory());
 			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
 			double totalCost=cost*requiredQuantity;
@@ -140,6 +142,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 					return searchByItemIdAndName(itemId, customer);
 			}
 			else {
+				System.out.println("alreasy exist -> adding ");
 				requiredQuantity+=itemsCart.getRequiredQuantity();
 				totalCost+=itemsCart.getTotalCost();
 				itemsCartDao.deleteItemByItemId(itemId, customer);
@@ -148,9 +151,11 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 				
 			}
 		}
-		else {
-			return null;
-		}
+//		else {
+//			System.out.println("returning null");
+//			return null;
+//		}
+		System.out.println("returnnig new itemsCart");
 		return new ItemsCart();
 		}
 //		if(item.isPresent()) {

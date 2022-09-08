@@ -105,7 +105,8 @@ public class CartController {
 		if(action.equals("Submit")) {
 			if(cartService.addItemToCart(getCustomer(session).getUserName(), itemDetail.getItemId(), quantity)) 
 			{
-			message="Item's Added Successfully To Your Cart";}
+			message="Item's Added Successfully To Your Cart";
+			}
 
 
 

@@ -66,8 +66,6 @@ public class ItemsServiceImpl implements ItemsService {
 	public List<ItemDetail> getAllItems() {
 		ResponseEntity<ItemDetailsList> itemDetailsList=restTemplate.getForEntity("http://itemDetails-Cart-service/itemDetail",ItemDetailsList.class);
 		List<ItemDetail> itemDetails=itemDetailsList.getBody().getItemDetails();
-		System.out.println(itemDetailsList);
-		System.out.println(itemDetails);
 		return itemDetails;
 
 	}

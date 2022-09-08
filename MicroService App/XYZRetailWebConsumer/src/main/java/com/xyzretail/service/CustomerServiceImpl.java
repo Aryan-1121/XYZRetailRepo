@@ -8,43 +8,30 @@ import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.Customer;
 @Service("customerService")
-public class CustomerServiceImpl implements CustomerService {
-
-//	private CustomerDao customerDao;
-	
+public class CustomerServiceImpl implements CustomerService {	
 	@Autowired
 	private RestTemplate restTemplate;
 	
-//	@Autowired
-//	public void setCustomerDao(CustomerDao customerDao) {
-//		this.customerDao = customerDao;
-//	}
-
 	@Override
 	public boolean addCustomer(Customer customer) {
-		
-		ResponseEntity<Customer> cust=restTemplate.getForEntity("http://customer-service/customers", Customer.class);
+//		"{\"firstName\" : \"John\", \"lastName\" : \"Smith\"}"
+		System.out.println(customer);
+		ResponseEntity<Customer> cust=restTemplate.postForEntity("http://customer-service/customers/",customer, Customer.class);
+//		Customer cust=restTemplate.postForObject("http://customer-service/customers",customer, Customer.class);
 
-		if(cust.getBody()!=null)
+		System.out.println(cust);
+		if(cust.getStatusCode() == HttpStatus.ACCEPTED)
 			return true;
 		return false;
 	}
 	
 	@Override
 	public boolean validateCustomer(Customer customer) {
-//	return customerDao.validateCustomer(customer);
-		System.out.println(customer);
 	
-	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
+	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUser_Name()+"/"+customer.getUser_Password(), Customer.class); 
 	if(cus.getStatusCode()!=HttpStatus.ACCEPTED) {
 		return false;
 	}
-	System.out.println(cus);
-	return true;
-	
-//	if(cus.getBody()!=null)
-//		return true;
-//	return false;
-	
+	return true;	
 	}
 }

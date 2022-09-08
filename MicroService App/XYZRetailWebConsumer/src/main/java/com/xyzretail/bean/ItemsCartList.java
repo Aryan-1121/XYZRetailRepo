@@ -1,17 +1,16 @@
 package com.xyzretail.bean;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class Customer {
+public class ItemsCartList {
+	
+	private List<ItemsCart> itemsCartList;
 
-	private String user_Name;
-	private String user_Password;
 }
- //comment
-//comment2
-//commect3

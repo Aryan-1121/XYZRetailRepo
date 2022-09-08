@@ -13,23 +13,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xyzretail.bean.Customer;
 //import com.xyzretail.bean.ItemBill;
-//import com.xyzretail.bean.ItemDetails;
-//import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemsCart;
 //import com.xyzretail.service.BillService;
-//import com.xyzretail.service.CartService;
-//import com.xyzretail.service.ItemsService;
+import com.xyzretail.service.CartService;
+import com.xyzretail.service.ItemsService;
 //import com.xyzretail.service.TransactionService;
 
 @Controller
 @SessionAttributes("customer")
 public class XyzRetailController {
 	
-//	@Autowired
-//	private ItemsService itemsService;
-//
-//	@Autowired
-//	private CartService cartService;
-//	
+	@Autowired
+	private ItemsService itemsService;
+
+	@Autowired
+	private CartService cartService;
+	
 //	@Autowired
 //	private TransactionService transactionService;
 //
@@ -45,12 +45,12 @@ public class XyzRetailController {
 		return new ModelAndView("Index");
 	}
 	
-//	@RequestMapping("/showAllItems")
-//	public ModelAndView showAllItemsController() {
-//		List<ItemDetails> items=itemsService.getAllItems();
-//		
-//		return new ModelAndView("showAllItem", "items", items);
-//	}
+	@RequestMapping("/showAllItems")
+	public ModelAndView showAllItemsController() {
+		List<ItemDetails> items=itemsService.getAllItems();
+		
+		return new ModelAndView("showAllItem", "items", items);
+	}
 
 	@RequestMapping("/wantToShop")
 	public ModelAndView shopController() {

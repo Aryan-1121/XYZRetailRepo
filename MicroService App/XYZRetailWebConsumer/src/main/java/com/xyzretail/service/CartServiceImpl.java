@@ -65,7 +65,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int unselectFromCart(String itemId, String customer) {
-		restTemplate.delete("http://itemDetails-Cart-service/cart/delete/"+itemId+customer, ItemsCart.class);
+		restTemplate.delete("http://itemDetails-Cart-service/cart/delete/"+itemId+"/"+customer, ItemsCart.class);
 		return 1;
 	}
 

@@ -15,6 +15,7 @@ public class CustomerServiceImpl implements CustomerService {
 	private RestTemplate restTemplate;
 	
 	@Override
+
 	public boolean addCustomer(Customer customer) {
 //		"{\"firstName\" : \"John\", \"lastName\" : \"Smith\"}"
 		System.out.println(customer);
@@ -24,20 +25,21 @@ public class CustomerServiceImpl implements CustomerService {
 //		System.out.println(cust);
 //		if(cust.getStatusCode() == HttpStatus.ACCEPTED)
 //		System.out.println(customer);
-		
 		//ResponseEntity<Customer> cust=restTemplate.exchange("http://customer-service/customers",HttpMethod.POST,customer, Customer.class);
 		if(cust.getBody()!=null)
+
 			return true;
 		return false;
+		
 	}
 	
 	@Override
 	public boolean validateCustomer(Customer customer) {
-	
 	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
 	if(cus.getStatusCode()!=HttpStatus.ACCEPTED) {
 		return false;
 	}
-	return true;	
+	return true;
+
 	}
 }

@@ -2,7 +2,9 @@ package com.xyzretail.service;
 
 import java.util.List;
 
+import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemDetail;
+
 
 
 
@@ -21,5 +23,6 @@ public interface ItemsService {
 //	ItemsCart getItemById(String itemId,String customer) ;
 
 	List<ItemDetail> getAllItems();
+
 
 }

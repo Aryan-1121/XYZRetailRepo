@@ -66,23 +66,23 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 
 	@Override
 	public ItemsCart updateByItemId(String customer, String itemId, int requiredQuantity) {
-	
+
 		Optional<ItemsCart> item=searchByItemIdAndName(itemId, customer);
 		//System.out.println(item);
 		ItemsCart cart=item.get();
 		if(requiredQuantity<1) {
 			return null;
 		}
-		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/"+itemId, ItemDetail.class);
-		boolean isPresent=restTemplate.getForObject("http://localhost:8083/"+itemId+"/"+requiredQuantity, Boolean.class);
-		if(isPresent) {
+		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId, ItemDetail.class);
+		boolean isPresent=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, Boolean.class);
+		if(isPresent && cart!=null) {
 			double tax=getTax(itemdetail.getItemCategory());
 			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
 			double totalCost=cost*requiredQuantity;
 			if(itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer)>0)
 				return searchByItemIdAndName(itemId, customer).get();
 		}
-		return null;
+		return new ItemsCart();
 		}
 //
 //		if(item.isPresent()) {
@@ -127,10 +127,15 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			return null;
 		}
 		ItemsCart itemsCart=item.get();
+<<<<<<< HEAD
 		System.out.println(itemsCart);
 		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/"+itemId, ItemDetail.class);
 		System.out.println(itemdetail);
 		boolean isPresent=restTemplate.getForObject("http://localhost:8083/"+itemId+"/"+requiredQuantity, Boolean.class);
+=======
+		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId, ItemDetail.class);
+		boolean isPresent=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, Boolean.class);
+>>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
 		if(isPresent) {
 			double tax=getTax(itemdetail.getItemCategory());
 			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
@@ -153,7 +158,10 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			return null;
 		}
 		return null;
-		}
+		
+	}
+
+		
 //		if(item.isPresent()) {
 //			ItemsCart itemCart=item.get();
 //			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
@@ -189,6 +197,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 //		}
 	
 
+
 	@Override
 	public ItemsCartList deleteAllItemsInCart(String customer) {
 		if(itemsCartDao.deleteAllByUserName(customer)>0)
@@ -196,6 +205,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		return new ItemsCartList();
 	}
 				
+
 
 	
 	

@@ -60,13 +60,14 @@ public class CartResource {
 //		return ic;
 		return itemsCartDao.findByItemIdAndUserName(itemId, userName);
 	}
+
 	@PostMapping(path="cart/add/{id}/{reqQuantity}/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCart addItemInCart(@PathVariable("id") String itemId,@PathVariable("reqQuantity")int quantity,@PathVariable("customer") String name) {
 		return itemsCartService.addItemtoCart(name, itemId, quantity);
 
 	}
 	
-	@DeleteMapping(path="cart/deleteall/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(path="cart/delete/all/{customer}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemsCartList deleteAllItemsInCart(@PathVariable("customer") String customer) {
 		return itemsCartService.deleteAllItemsInCart(customer);
 	}

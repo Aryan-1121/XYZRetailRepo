@@ -2,7 +2,6 @@ package com.xyzretail.service;
 
 import java.util.Optional;
 
-import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 

@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customer loginCustomer(String user_Name, String user_Password) {
 		Customer cus = customerDao.findById(user_Name).orElse(null);		// check if entered username is present or not in table
 		if(cus!= null)					// if username is present 
-			if(user_Password.equals(cus.getUser_Password()))    		// check the password enetred is matching or not with table
+			if(user_Password.equals(cus.getUserPassword()))    		// check the password enetred is matching or not with table
 				return customerDao.findById(user_Name).get();						// if username and password matches return the customer  // (or we could have returned true :(   )
 		return null;									// if password or username doesnt match return null
 	}

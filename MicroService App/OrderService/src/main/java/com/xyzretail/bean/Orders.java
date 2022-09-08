@@ -16,7 +16,7 @@ public class Orders {
 	@Id
 	private int transactionId;
 	private String itemId;
-	private int purchased_Quantity;
+	private int purchasedQuantity;
 	
 }
 

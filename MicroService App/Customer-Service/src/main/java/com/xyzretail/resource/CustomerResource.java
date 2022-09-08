@@ -38,7 +38,7 @@ public class CustomerResource {
 	
 	@PostMapping(path = "/customers", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer>  registerCustomerResource(@RequestBody  Customer customer) {
-		Customer cus = customerService.customerByName(customer.getUser_Name());
+		Customer cus = customerService.customerByName(customer.getUserName());
 		boolean isRegistered=false;
 		if(cus==null)
 			 isRegistered= customerService.registerCustomer(customer);

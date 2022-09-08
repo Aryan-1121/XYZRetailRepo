@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public boolean addCustomer(Customer customer) {
+		System.out.println(customer);
 		
 		ResponseEntity<Customer> cust=restTemplate.postForEntity("http://customer-service/customers",customer, Customer.class);
 		//ResponseEntity<Customer> cust=restTemplate.exchange("http://customer-service/customers",HttpMethod.POST,customer, Customer.class);
@@ -35,11 +36,18 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public boolean validateCustomer(Customer customer) {
 //	return customerDao.validateCustomer(customer);
+		System.out.println(customer);
 	
-	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
+	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUser_Name()+"/"+customer.getUser_Password(), Customer.class); 
 	if(cus.getStatusCode()!=HttpStatus.ACCEPTED) {
 		return false;
 	}
+	System.out.println(cus);
 	return true;
+	
+//	if(cus.getBody()!=null)
+//		return true;
+//	return false;
+	
 	}
 }

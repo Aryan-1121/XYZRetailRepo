@@ -3,9 +3,12 @@ package com.xyzretail.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemDetail;
+import com.xyzretail.bean.ItemDetailsList;
 //import com.xyzretail.persistence.BasketDao;
 //import com.xyzretail.persistence.PersistenceDao;
 @Service("itemsService")
@@ -13,6 +16,8 @@ public class ItemsServiceImpl implements ItemsService {
 
 //	private BasketDao basketDao;
 //	private PersistenceDao persistenceDao;
+	@Autowired
+	private RestTemplate restTemplate;
 	
 	
 //	@Autowired
@@ -43,8 +48,10 @@ public class ItemsServiceImpl implements ItemsService {
 //	
 
 	@Override
-	public List<ItemDetails> getAllItems() {
-		return basketDao.getAllItems();
+	public List<ItemDetail> getAllItems() {
+		ResponseEntity<ItemDetailsList> itemDetailsList=restTemplate.getForEntity("http://itemDetails-service/itemDetail",ItemDetailsList.class);
+		List<ItemDetail> itemDetails=itemDetailsList.getBody().getItemDetails();
+		return itemDetails;
 	}
 
 //	@Override

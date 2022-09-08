@@ -1,19 +1,24 @@
 package com.xyzretail.bean;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+
 public class ItemsCart {
 	
-	private ItemDetails item;
-	private String customer;
-	private int purchaseQuantity;
+	
+	private int cartid;
+	private String itemId;
+	private String itemName;
+	private double unitPrice;
+	private String userName;
+	private int requiredQuantity;
 	private double salesTax;
 	private double totalCost;
-	
 	
 }

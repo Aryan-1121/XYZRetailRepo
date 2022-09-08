@@ -34,7 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public boolean validateCustomer(Customer customer) {
 	
-	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUser_Name()+"/"+customer.getUser_Password(), Customer.class); 
+	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
 	if(cus.getStatusCode()!=HttpStatus.ACCEPTED) {
 		return false;
 	}

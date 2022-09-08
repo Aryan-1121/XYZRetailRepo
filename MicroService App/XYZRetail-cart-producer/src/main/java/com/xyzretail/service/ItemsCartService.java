@@ -2,7 +2,6 @@ package com.xyzretail.service;
 
 import java.util.Optional;
 
-import com.xyzretail.bean.Customer;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 
@@ -13,6 +12,7 @@ public interface ItemsCartService {
 	public ItemsCart updateByItemId(String customer,String itemId,int requiredQuantity);
 	public Optional<ItemsCart> searchByItemIdAndName(String itemId,String userName);
 
-	ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity);
+	public ItemsCart addItemtoCart(String customer, String itemId, int requiredQuantity);
+	public ItemsCartList deleteAllItemsInCart(String customer);
 
 }

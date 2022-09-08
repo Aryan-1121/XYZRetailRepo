@@ -39,7 +39,7 @@ public class CartController {
 	@RequestMapping("/seeItemsInCart")
 	public ModelAndView showItemsInCartController(HttpSession session) {
 		Customer customer=(Customer)session.getAttribute("customer");
-		ItemsCartList cart=cartService.getAllItemsInCart(getCustomer(session).getUser_Name());
+		ItemsCartList cart=cartService.getAllItemsInCart(getCustomer(session).getUserName());
 		if(cart!=null)
 			return new ModelAndView("ShowItemsInCart","itemsCart",cart);
 		else {

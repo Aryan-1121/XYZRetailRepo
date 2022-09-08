@@ -6,15 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xyzretail.bean.Customer;
 //import com.xyzretail.bean.ItemBill;
-import com.xyzretail.bean.ItemDetails;
-import com.xyzretail.bean.ItemsCart;
+import com.xyzretail.bean.ItemDetail;
 //import com.xyzretail.service.BillService;
 import com.xyzretail.service.CartService;
 import com.xyzretail.service.ItemsService;
@@ -47,7 +45,7 @@ public class XyzRetailController {
 	
 	@RequestMapping("/showAllItems")
 	public ModelAndView showAllItemsController() {
-		List<ItemDetails> items=itemsService.getAllItems();
+		List<ItemDetail> items=itemsService.getAllItems();
 		
 		return new ModelAndView("showAllItem", "items", items);
 	}

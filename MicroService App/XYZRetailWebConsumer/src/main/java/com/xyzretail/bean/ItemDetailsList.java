@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemDetailsList {
-	List<ItemDetails> itemDetails;
+	List<ItemDetail> itemDetails;
 }

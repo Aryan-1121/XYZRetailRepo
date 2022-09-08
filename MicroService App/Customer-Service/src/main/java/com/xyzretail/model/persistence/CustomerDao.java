@@ -12,7 +12,7 @@ public interface CustomerDao extends JpaRepository<Customer, String>{
 	
 	@Modifying
 	@Transactional
-	@Query(value = "insert into Customer (user_Name, user_Password) values(?,?)", nativeQuery = true)
+	@Query(value = "insert into Customer (userName, userPassword) values(?,?)", nativeQuery = true)
 	int registerCustomer(String user_Name, String user_Password);
 
 }

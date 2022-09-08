@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.xyzretail.bean.ItemDetails;
+import com.xyzretail.bean.ItemDetail;
 import com.xyzretail.bean.ItemsCart;
 import com.xyzretail.bean.ItemsCartList;
 //import com.xyzretail.persistence.ItemsCartDao;
@@ -64,7 +64,7 @@ public class CartServiceImpl implements CartService {
 			System.out.println("enter positive value !!");
 			return false ;
 		}
-		ItemDetails item=itemsService.searchItemsById(itemId);
+		ItemDetail item=itemsService.searchItemsById(itemId);
 		if(itemsService.searchItemsById(itemId, reqQuantity)) {
 		
 		double tax=getTax(item.getItemCategory());

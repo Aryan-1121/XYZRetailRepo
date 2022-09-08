@@ -12,8 +12,8 @@
 <div class="loginBody">
 <h2>Registration/Login</h2>
 <form action="#" th:action="@{./login}" method="post" th:object="${command}">
-	<label>Enter Your Name :</label> <input placeholder="Enter Your Name" required type="text" th:field="*{user_Name}"><br><br>
-	<label>Enter Password  :</label> <input placeholder="Enter Your Password" required type="password" th:field="*{user_Password}"><br><br>
+	<label>Enter Your Name :</label> <input placeholder="Enter Your Name" required type="text" th:field="*{userName}"><br><br>
+	<label>Enter Password  :</label> <input placeholder="Enter Your Password" required type="password" th:field="*{userPassword}"><br><br>
 	<input type="submit" name="action" value="Register">
 	<input type="submit" name="action" value="Login">
 	<br><br>

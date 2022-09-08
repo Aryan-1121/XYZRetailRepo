@@ -77,15 +77,14 @@ public class CartController {
 
 	}
 	
-//	@ModelAttribute("itemsInCart")
-//	public List<String> getItemsInCart(HttpSession session){
-//		List<ItemsCart> item=cartService.getAllItemsInCart(getCustomer(session).getUserName());
-//		List<ItemDetail> items=item.stream().map(ItemsCart :: getItem).distinct().collect(Collectors.toList());
-//		return (items.stream()).
-//				map(ItemDetail :: getItemId).
-//				distinct().
-//				collect(Collectors.toList());
-//	}
+	@ModelAttribute("itemsInCart")
+	public List<String> getItemsInCart(HttpSession session){
+		List<ItemsCart> item=cartService.getAllItemsInCart(getCustomer(session).getUserName());
+		//List<ItemDetail> items=item.stream().map(ItemsCart :: getItem).distinct().collect(Collectors.toList());
+		return (item.stream()).
+				map(ItemsCart :: getItemId).
+				distinct().collect(Collectors.toList());
+	}
 //	
 	@RequestMapping("/addItemPage")
 	public ModelAndView addItem() {

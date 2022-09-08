@@ -25,11 +25,11 @@
 	</thead>
 	<tbody>
 	<tr th:each="itemCart: ${itemsCarts}">
-		<td class="odd" th:text="${itemCart.item.itemId}"></td>
-		<td class="even" th:text="${itemCart.item.itemName}"></td>
-		<td class="odd" th:text="${itemCart.item.itemPrice}"></td>
+		<td class="odd" th:text="${itemCart.itemId}"></td>
+		<td class="even" th:text="${itemCart.itemName}"></td>
+		<td class="odd" th:text="${itemCart.itemPrice}"></td>
 		<td class="even" th:text="${itemCart.salesTax}"></td>
-		<td class="odd" th:text="${itemCart.purchaseQuantity}"></td>
+		<td class="odd" th:text="${itemCart.requiredQuantity}"></td>
 		<td class="even" th:text="${itemCart.totalCost}"></td>
 		
 	</tr>

@@ -33,11 +33,13 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public boolean validateCustomer(Customer customer) {
 //	return customerDao.validateCustomer(customer);
-	
-	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
+		
+	ResponseEntity<Customer> cus=restTemplate.getForEntity("http://customer-service/customers/"+customer.getUserName()+"/"+customer.getUserPassword(), Customer.class); 
 	if(cus.getStatusCode()!=HttpStatus.ACCEPTED) {
 		return false;
 	}
 	return true;
+
+	
 	}
 }

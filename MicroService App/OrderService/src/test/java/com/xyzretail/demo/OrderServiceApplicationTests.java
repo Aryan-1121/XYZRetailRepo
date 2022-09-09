@@ -1,13 +1,10 @@
-package com.xyzretail.main;
+package com.xyzretail.demo;
 
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,38 +20,30 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.xyzretail.bean.Transaction;
-import com.xyzretail.persistence.TransactionDao;
-import com.xyzretail.service.TransactionerviceImpl;
-
+import com.xyzretail.bean.Orders;
+import com.xyzretail.persistence.OrderDao;
+import com.xyzretail.service.OrderServiceImpl;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-class XyzRetailCartProducerApplicationTests {
-	
+class OrderServiceApplicationTests {
+
 	@InjectMocks
 	@Autowired
-	private TransactionerviceImpl transactionerviceImpl;
-	
+	private OrderServiceImpl orderServiceImpl;
 	
 	@Mock
-	private TransactionDao transactionDao;
+	private OrderDao orderDao;
 	
-	private List<Transaction> transaction=new ArrayList<>();
+	private List<Orders> order=new ArrayList<>();
 	
 	private AutoCloseable closeable;
 	
-	Date date;
-
-	
-//	private int transactionId;
-//	private String userName;
-//	private Date date;
-//	private Time time;
-	
 	@BeforeEach
 	void setUp() throws Exception{
-		transaction.add(new Transaction(1,"User001",new Date(2022, 11, 16),new Time(18,35,37)));
+		order.add(new Orders(1,100,"B-101",6));
+		order.add(new Orders(2,101,"C-101",10));
+		order.add(new Orders(3,102,"CS-101",2));
 		
 		closeable=MockitoAnnotations.openMocks(this);
 	}
@@ -63,12 +52,17 @@ class XyzRetailCartProducerApplicationTests {
 	void tearDown() throws Exception {
 		closeable.close();
 	}
-
+	
+	@DisplayName("Saving Order")
 	@Test
 	void R001_T001() {
-		Mockito.when(transactionDao.save(new Transaction(1,"User001",new Date(2022, 11, 16),new Time(18,35,37)))).thenReturn(transaction.get(0));
-		assertTrue(transactionerviceImpl.saveTransaction(transaction.get(0)));
+		Mockito.when(orderDao.save(new Orders(1,100,"B-101",6))).thenReturn(order.get(0));
+		Mockito.when(orderDao.save(new Orders(2,101,"C-101",10))).thenReturn(order.get(1));
+		Mockito.when(orderDao.save(new Orders(3,102,"CS-101",2))).thenReturn(order.get(2));
 	
+		assertEquals(order.get(0), orderServiceImpl.saveOrder(new Orders(1,100,"B-101",6)));
 	}
+	
+	
 
 }

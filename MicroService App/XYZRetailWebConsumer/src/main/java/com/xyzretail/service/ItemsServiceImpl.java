@@ -44,7 +44,7 @@ public class ItemsServiceImpl implements ItemsService {
 	public boolean searchItemsById(String id, int reqQuantity) {
 		ItemDetail item=searchItemsById(id);
 		if(item!=null) {
-		ItemDetail item1=restTemplate.getForObject("http://itemDetails-Cart-service/itemDetail/"+id+reqQuantity,ItemDetail.class);
+		ItemDetail item1=restTemplate.getForObject("http://itemDetails-Cart-service/itemDetail/"+id+"/"+reqQuantity,ItemDetail.class);
 		if(item1!=null) {
 			return true;
 		}
@@ -59,6 +59,7 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public void updateRecord(String itemID, int quantity) {
+		
 	}
 
 

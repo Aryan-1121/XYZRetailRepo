@@ -122,14 +122,14 @@ public class XyzRetailController {
 //				modelAndView.addObject("msg3", "Your Bill Amount After Discount:");
 //				
 //			}
-			boolean isComplete=transactionService.performTransaction(getCustomer(session).getUserName());
-			if(isComplete) {
+//			boolean isComplete=transactionService.performTransaction(getCustomer(session).getUserName());
+//			if(isComplete) {
 				modelAndView.addObject("msg4", "Transaction Completed Successfully !!!");
-			}
-			else {
-				modelAndView.addObject("msg5", "Something Went Wrong !!!!!");
-			}
-			transactionService.insertIntoOrderTable(getCustomer(session).getUserName());		// Inserting into order table
+//			}
+//			else {
+//				modelAndView.addObject("msg5", "Something Went Wrong !!!!!");
+//			}
+//			transactionService.insertIntoOrderTable(getCustomer(session).getUserName());		// Inserting into order table
 			cartService.deleteItemFromCart(getCustomer(session).getUserName());
 			modelAndView.setViewName("getBill");
 		}

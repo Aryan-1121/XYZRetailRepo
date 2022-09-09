@@ -19,6 +19,9 @@ public interface ItemDetailDao extends JpaRepository<ItemDetail, String>{
 //	ItemDetail findByItemId(String itemId);
 	@Query("from ItemDetail where itemId=:itemId and availableQuantity>=:availableQuantity")
 	ItemDetail findByItemIdAndAvailableQuantity(@Param("itemId")String itemId,@Param("availableQuantity")int availableQuantity);
+	
+	@Query(value="update itemDetail set availableQuantity=availableQuantity - ? where itemId=?",nativeQuery = true)
+	int updateRecord(int quantity,String itemID );
 }
 
 

@@ -127,15 +127,12 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			return null;
 		}
 		ItemsCart itemsCart=item.get();
-<<<<<<< HEAD
+
 		System.out.println(itemsCart);
 		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/"+itemId, ItemDetail.class);
 		System.out.println(itemdetail);
 		boolean isPresent=restTemplate.getForObject("http://localhost:8083/"+itemId+"/"+requiredQuantity, Boolean.class);
-=======
-		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId, ItemDetail.class);
-		boolean isPresent=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, Boolean.class);
->>>>>>> branch 'master' of https://github.com/Nagalakshmi-S/XYZRetailRepo.git
+
 		if(isPresent) {
 			double tax=getTax(itemdetail.getItemCategory());
 			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();

@@ -127,6 +127,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 			return null;
 		}
 		ItemsCart itemsCart=item.get();
+
 		System.out.println(itemsCart);
 		ItemDetail itemdetail=restTemplate.getForObject("http://localhost:8083/"+itemId, ItemDetail.class);
 		System.out.println(itemdetail);

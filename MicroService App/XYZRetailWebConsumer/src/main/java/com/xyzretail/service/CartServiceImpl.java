@@ -75,8 +75,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
 		if(getItemByIDandUser(itemId,customer)) {
-			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);
-			return true;	
+			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);	
 		}
 		return false;
 	}

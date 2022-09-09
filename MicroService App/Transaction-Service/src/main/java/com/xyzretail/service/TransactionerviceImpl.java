@@ -20,7 +20,6 @@ public class TransactionerviceImpl implements TransactionService{
 		return true;
 	}
 
-
 	@Override
 	public boolean saveTransactionByUserName(String userName) {
 			transactionDao.saveTransactionByUserName(userName);
@@ -36,8 +35,7 @@ public class TransactionerviceImpl implements TransactionService{
 	@Override
 	public List<Transaction> getAllTransaction() {
 		return transactionDao.findAll();
-				}
-
+	}
 
 	@Override
 	public List<Transaction> getTransactionByName(String userName) {

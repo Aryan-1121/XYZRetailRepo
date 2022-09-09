@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xyzretail.bean.ItemDetail;
@@ -45,6 +46,14 @@ public class ItemDetailResource {
 			return true;
 		else 
 			return false;
+	}
+	
+	@PutMapping(path="/itemDetail/{id}/{quantity}",produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean updateRecord(@PathVariable("id")String itemId,@PathVariable("quantity") int quantity) {
+		ItemDetail item=itemDetailService.updateRecord(itemId, quantity);
+		if(item!=null)
+			return true;
+		return false;
 	}
 	
 }

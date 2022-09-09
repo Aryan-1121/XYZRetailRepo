@@ -129,7 +129,7 @@ public class XyzRetailController {
 			else {
 				modelAndView.addObject("msg5", "Something Went Wrong !!!!!");
 			}
-			transactionService.insertIntoOrderTable(getCustomer(session).getUserName());		// Inserting into order table
+//			transactionService.insertIntoOrderTable(getCustomer(session).getUserName());		// Inserting into order table
 			cartService.deleteItemFromCart(getCustomer(session).getUserName());
 			modelAndView.setViewName("getBill");
 		}

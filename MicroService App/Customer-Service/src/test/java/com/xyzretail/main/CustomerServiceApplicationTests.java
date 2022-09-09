@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -60,18 +61,21 @@ class CustomerServiceApplicationTests {
 		closeable.close();
 	}
 
+	@DisplayName("Get Existed Customer List")
 	@Test
 	void R001_T001() {
 		Mockito.when(customerDao.findAll()).thenReturn(customer);
 		assertIterableEquals(customer, customerServiceImpl.getAllCustomer());
 	}
 	
+	@DisplayName("Get Non-Existed Customer")
 	@Test
 	void R001_T002() {
 		Mockito.when(customerDao.findAll()).thenReturn(null);
 		assertEquals(null, customerServiceImpl.getAllCustomer());
 	}
 	
+	@DisplayName("Register Existed Customer")
 	@Test
 	void R002_T001() {
 		Mockito.when(customerDao.registerCustomer("User001", "Password001")).thenReturn(0);
@@ -80,14 +84,16 @@ class CustomerServiceApplicationTests {
 		assertTrue(customerServiceImpl.registerCustomer(new Customer("User001", "Password001")));
 		
 	}
-//	
+
+	@DisplayName("Register Non-Existed Customer")
 	@Test
 	void R002_T002() {
-		Mockito.when(customerDao.registerCustomer("User004", "Password004")).thenReturn(1);
+		Mockito.when(customerDao.save(new Customer("User004", "Password004"))).thenReturn(customer.get(0));
 		assertTrue(customerServiceImpl.registerCustomer(new Customer("User004","Password004")));
 		
 	}
 	
+	@DisplayName("Login Valid Customer")
 	@Test
 	void R003_T001() {
 		Mockito.when(customerDao.findById("User001")).thenReturn(Optional.of(customer.get(0)));
@@ -96,7 +102,7 @@ class CustomerServiceApplicationTests {
 		assertEquals(customer.get(0), customerServiceImpl.loginCustomer("User001","Password001"));
 	}
 	
-
+	@DisplayName("Login Invalid Customer")
 	@Test
 	void R003_T002() {
 		Mockito.when(customerDao.findById("User001")).thenReturn(Optional.of(customer.get(0)));
@@ -105,10 +111,30 @@ class CustomerServiceApplicationTests {
 		assertNotEquals(customer.get(0), customerServiceImpl.loginCustomer("User001","Password002"));
 	}
 	
-
+	@DisplayName("Login Unregistered Customer")
 	@Test
 	void R003_T003(){
 		Mockito.when(customerDao.findById("User004")).thenReturn(Optional.of(customer.get(0)));
 		assertNotEquals(customer.get(0), customerServiceImpl.loginCustomer("User004","Password004"));
+	}
+	
+	@DisplayName("Get Existed Customer By Name")
+	@Test
+	void R004_T001() {
+		Mockito.when(customerDao.findById("User001")).thenReturn(Optional.of(customer.get(0)));
+		assertEquals(customer.get(0),customerServiceImpl.customerByName("User001"));
+	}
+	
+	@DisplayName("Get Non-Existed Customer By Name")
+	@Test
+	void R004_T002() {
+		Mockito.when(customerDao.findById("User004")).thenReturn(Optional.of(customer.get(0)));
+		assertNotEquals(null,customerServiceImpl.customerByName("User004"));
+	}
+	
+	@DisplayName("Get Null Customer By Name")
+	@Test
+	void R004_T003() {
+		Mockito.when(customerDao.findById(null)).thenThrow(new NullPointerException());
 	}
 }

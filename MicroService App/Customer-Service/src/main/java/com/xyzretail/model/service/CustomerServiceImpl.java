@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public boolean registerCustomer(Customer customer) {
-		Customer cus= customerDao.findById(customer.getUserName()).get();		// check if username is already present in the table or not
+		Customer cus= customerDao.findById(customer.getUserName()).orElse(null);		// check if username is already present in the table or not
 		if (cus== null) {			// if username is not present i.e.  null
 			customerDao.save(customer);
 			return true;

@@ -22,6 +22,11 @@ public class TransactionerviceImpl implements TransactionService{
 
 
 	@Override
+	public boolean saveTransactionByUserName(String userName) {
+			transactionDao.saveTransactionByUserName(userName);
+		return true;
+	}
+	@Override
 	public int getMaxTransactionId() {
 
 		return transactionDao.getMaxTransactionId();

@@ -59,7 +59,7 @@ public class CartServiceImpl implements CartService {
 	
 	@Override
 	public void deleteItemFromCart(String customer) {
-		restTemplate.delete("http://itemDetails-Cart-service/cart/delete/all/"+customer, ItemsCartList.class);
+		restTemplate.delete("http://itemDetails-Cart-service/cart/deleteall/"+customer, ItemsCartList.class);
 		
 	}
 

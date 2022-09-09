@@ -9,5 +9,6 @@ public interface TransactionService {
 	int getMaxTransactionId();
 	List<Transaction> getAllTransaction();
 	List<Transaction> getTransactionByName(String userName);
+	boolean saveTransactionByUserName(String userName);
 	
 }

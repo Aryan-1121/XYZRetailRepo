@@ -18,18 +18,15 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	public boolean performTransaction(String customer) {
-		Transaction tr=restTemplate.postForObject("http://transaction-service/transactions",customer, Transaction.class);
-		if(tr!=null) {
-			return true;
-		}
-		return false;
+		boolean tr=restTemplate.postForObject("http://transaction-service/transactions",customer, Boolean.class);
+		return tr;
 	}
 
 
 
 	@Override
 	public void insertIntoOrderTable(String customer) {
-	
+		
 		
 	}
 

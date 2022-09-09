@@ -59,7 +59,7 @@ public class CartServiceImpl implements CartService {
 	
 	@Override
 	public void deleteItemFromCart(String customer) {
-		restTemplate.delete("http://itemDetails-Cart-service/cart/delete/all/"+customer, ItemsCartList.class);
+		restTemplate.delete("http://itemDetails-Cart-service/cart/deleteall/"+customer, ItemsCartList.class);
 		
 	}
 
@@ -75,8 +75,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
 		if(getItemByIDandUser(itemId,customer)) {
-			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);
-			return true;	
+			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);	
 		}
 		return false;
 	}

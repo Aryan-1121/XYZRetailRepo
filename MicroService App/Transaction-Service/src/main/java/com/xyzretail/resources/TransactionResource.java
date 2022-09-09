@@ -32,6 +32,11 @@ public class TransactionResource {
 		return transactionService.saveTransaction(transaction);		
 	}
 	
+	@PostMapping(path = "/transactions/{userName}", produces = MediaType.APPLICATION_JSON_VALUE)//, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public boolean  performTransactionByPathVariableResource(@PathVariable("userName") String userName) {
+		return transactionService.saveTransactionByUserName(userName);		
+	}
+	
 	@GetMapping(path = "/transactions", produces =MediaType.APPLICATION_JSON_VALUE )
 	public int getTransactionIdResource() {
 		return transactionService.getMaxTransactionId();

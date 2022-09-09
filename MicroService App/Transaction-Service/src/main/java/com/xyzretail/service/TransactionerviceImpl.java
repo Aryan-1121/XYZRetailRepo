@@ -16,14 +16,17 @@ public class TransactionerviceImpl implements TransactionService{
 
 	@Override
 	public boolean saveTransaction(Transaction transaction) {
-			transactionDao.save(transaction);
-		return true;
+			Transaction rows=transactionDao.save(transaction);
+			if(rows!=null)
+				return true;
+			return false;
 	}
 
 	@Override
 	public boolean saveTransactionByUserName(String userName) {
-			transactionDao.saveTransactionByUserName(userName);
-		return true;
+		if(transactionDao.saveTransactionByUserName(userName)>0)
+			return true;
+		return false;
 	}
 	@Override
 	public int getMaxTransactionId() {

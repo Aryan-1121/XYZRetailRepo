@@ -77,13 +77,14 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		}
 		ItemDetail itemdetail=itemDetailService.findByItemId(itemId);
 		ItemDetail isPresent=itemDetailService.findByItemId_AndAvailable_Quantity(itemId, requiredQuantity);
-		if(isPresent!=null && cart!=null) {
-			double tax=getTax(itemdetail.getItemCategory());
-			double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
-			double totalCost=cost*requiredQuantity;
-			if(itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer)>0)
-				return searchByItemIdAndName(itemId, customer);
-		}
+		
+			if(isPresent!=null && cart!=null) {
+				double tax=getTax(itemdetail.getItemCategory());
+				double cost=(itemdetail.getItemPrice()*(double)(tax*0.01))+itemdetail.getItemPrice();
+				double totalCost=cost*requiredQuantity;
+				if(itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer)>0)
+					return searchByItemIdAndName(itemId, customer);
+			}
 		return null;
 		}
 

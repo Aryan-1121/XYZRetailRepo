@@ -1,6 +1,8 @@
 package com.xyzretail.model.service;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,18 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Override
 	public List<Customer> getAllCustomer() {
+		
 		return customerDao.findAll();
 	}
 
-	@Override
+//	@Override
+//	public boolean registerCustomer(Customer customer) {			
+//		Optional<Customer> cus = customerDao.findById(customer.getUserName());		// check if entered username is present or not in table
+//		if (cus.isPresent()) {
+//			return false ;		
+//		}
+//		customerDao.save(customer);
+//		return true;
 	public boolean registerCustomer(Customer customer) {
 		Customer cus= customerDao.findById(customer.getUserName()).orElse(null);		// check if username is already present in the table or not
 		if (cus== null) {			// if username is not present i.e.  null
@@ -34,6 +44,18 @@ public class CustomerServiceImpl implements CustomerService{
 		
 	}
 
+	
+//	@Override
+//	public boolean registerCustomer(Customer customer) {
+//		Customer cus= customerDao.findById(customer.getUserName()).get();		// check if username is already present in the table or not
+//		if (cus!=null) {			// if username is not present i.e.  null
+//			int rows=customerDao.registerCustomer(customer.getUserName(), customer.getUserPassword());		// return the customer (bcs it is a new customer )
+//			if(rows>0) {
+//				return true;
+//			}
+//		}	
+//		return false;
+//	}
 	@Override
 	public Customer loginCustomer(String user_Name, String user_Password) {
 		Customer cus = customerDao.findById(user_Name).orElse(null);		// check if entered username is present or not in table

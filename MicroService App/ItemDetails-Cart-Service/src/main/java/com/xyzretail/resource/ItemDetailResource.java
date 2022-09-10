@@ -33,6 +33,7 @@ public class ItemDetailResource {
 	@GetMapping(path="/itemDetail/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ItemDetail getItemByIdResource(@PathVariable("id")String itemId) {
 		ItemDetail item=itemDetailService.findByItemId(itemId);
+		System.out.println(itemId);
 		if(item!=null)
 			return item;
 		else
@@ -50,7 +51,7 @@ public class ItemDetailResource {
 	
 	@PutMapping(path="/itemDetail/{id}/{quantity}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public boolean updateRecord(@PathVariable("id")String itemId,@PathVariable("quantity") int quantity) {
-		ItemDetail item=itemDetailService.updateRecord(itemId, quantity);
+		ItemDetail item=itemDetailService.updateRecord(itemId,quantity);
 		if(item!=null)
 			return true;
 		return false;

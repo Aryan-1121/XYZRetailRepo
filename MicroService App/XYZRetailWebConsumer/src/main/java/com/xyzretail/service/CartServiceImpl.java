@@ -2,10 +2,8 @@ package com.xyzretail.service;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +15,8 @@ import com.xyzretail.bean.ItemsCartList;
 @Service("cartService")
 public class CartServiceImpl implements CartService {
 //	private ItemsCartDao itemsCartDao;
-	private ItemsService itemsService;
+//	@Autowired
+//	private ItemsService itemsService;
 	
 	@Autowired
 	private RestTemplate restTemplate;
@@ -26,10 +25,11 @@ public class CartServiceImpl implements CartService {
 //	public void setItemsCartDao(ItemsCartDao itemsCartDao) {
 //		this.itemsCartDao = itemsCartDao;
 //	}
-	@Autowired
-	public void setItemsService(ItemsService itemsService) {
-		this.itemsService = itemsService;
-	}
+	
+//	@Autowired
+//	public void setItemsService(ItemsService itemsService) {
+//		this.itemsService = itemsService;
+//	}
 	
 	@Override
 	public List<ItemsCart> getAllItemsInCart(String customer) {
@@ -70,10 +70,16 @@ public class CartServiceImpl implements CartService {
 	}
 
 	
-	
+	//-----------------------------------------------------------------------------------------------------
 	
 	@Override
 	public boolean modifyItemsInCart(String customer, String itemId, int modifiedQuantity) {
+		ItemDetail item1=restTemplate.getForObject("http://itemDetails-Cart-service/itemDetail/"+itemId,ItemDetail.class);
+
+		System.out.println(item1);
+		if (item1.getAvailableQuantity() < modifiedQuantity)
+			return false ;
+		else
 		if(getItemByIDandUser(itemId,customer)) {
 			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);	
 		}
@@ -81,7 +87,7 @@ public class CartServiceImpl implements CartService {
 	}
 	
 	
-	
+	//----------------------------------------------------------------------------------------------------
 	
 
 	@Override

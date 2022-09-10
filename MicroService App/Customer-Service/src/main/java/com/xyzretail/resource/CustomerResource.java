@@ -40,9 +40,8 @@ public class CustomerResource {
 	public ResponseEntity<Customer>  registerCustomerResource(@RequestBody  Customer customer) {
 		Customer cus = customerService.customerByName(customer.getUserName());
 		boolean isRegistered=false;
-		if(cus==null)
-			 isRegistered= customerService.registerCustomer(customer);
-		if(isRegistered) {
+		if(cus==null) {
+			customerService.registerCustomer(customer);
 			return new ResponseEntity<Customer>(customer , HttpStatus.ACCEPTED);
 		}
 		

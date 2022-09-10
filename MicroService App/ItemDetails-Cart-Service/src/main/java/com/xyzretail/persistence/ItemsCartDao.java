@@ -48,3 +48,4 @@ public interface ItemsCartDao extends JpaRepository<ItemsCart, Integer> {
 	public int deleteAllByUserName(@Param("customer")String customer);
 	
 }
+

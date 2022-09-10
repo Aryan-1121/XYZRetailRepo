@@ -142,10 +142,10 @@ public class XyzRetailController {
 		
 	}
 
-//	@RequestMapping("/shopPage")
-//	public ModelAndView ShopPageController() {
-//		return new ModelAndView("shop");
-//	}
-//		
+	@RequestMapping("/shopPage")
+	public ModelAndView ShopPageController() {
+		return new ModelAndView("shop");
+	}
+		
 }
 

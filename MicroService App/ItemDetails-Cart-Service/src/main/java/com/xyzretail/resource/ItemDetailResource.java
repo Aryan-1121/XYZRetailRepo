@@ -33,6 +33,7 @@ public class ItemDetailResource {
 	@GetMapping(path="/itemDetail/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ItemDetail getItemByIdResource(@PathVariable("id")String itemId) {
 		ItemDetail item=itemDetailService.findByItemId(itemId);
+		System.out.println(itemId);
 		if(item!=null)
 			return item;
 		else

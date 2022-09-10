@@ -1,8 +1,6 @@
 package com.xyzretail.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,20 +15,13 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 
 	public boolean addCustomer(Customer customer) {
-//		"{\"firstName\" : \"John\", \"lastName\" : \"Smith\"}"
-		System.out.println(customer);
 		ResponseEntity<Customer> cust=restTemplate.postForEntity("http://customer-service/customers/",customer, Customer.class);
-//		Customer cust=restTemplate.postForObject("http://customer-service/customers",customer, Customer.class);
-
-//		System.out.println(cust);
-//		if(cust.getStatusCode() == HttpStatus.ACCEPTED)
-//		System.out.println(customer);
-		//ResponseEntity<Customer> cust=restTemplate.exchange("http://customer-service/customers",HttpMethod.POST,customer, Customer.class);
-		if(cust.getBody()!=null)
-
+//		if(cust.getBody()!=null)
+//			return true;
+//		return false;
+		if(cust.getBody().getUserName()!=null)
 			return true;
 		return false;
-		
 	}
 	
 	@Override

@@ -88,35 +88,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		return null;
 		}
 
-//		ItemsCart itemCart=searchByItemIdAndName(itemId, customer);
-//		if(itemCart!=null) {
-//			
-//			double unitCost=itemCart.getUnitPrice();//price of item in cart
-//			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
-////			ItemDetail itemDetail=restTemplate.put("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, HttpStatus., uriVariables);			
-//			//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
-//
-//
-//			if(itemDetail!=null) {
-//				double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
-//				int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
-//				if(rows>0) {
-//					//System.out.println(searchByItemIdAndName(itemId, customer).get());
-//					return searchByItemIdAndName(itemId, customer);
-//				}
-//				else {
-//					System.out.println(itemCart);
-//					return itemCart;
-//				}
-//				
-//			}
-//			else 
-//				return itemCart;
-//			
-//		}
-//		else 
-//			return new ItemsCart();
-//		}
+
 		
 	
 	@Override
@@ -161,6 +133,45 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 		System.out.println("returnnig new itemsCart");
 		return new ItemsCart();
 		}
+	
+
+	@Override
+	public ItemsCartList deleteAllItemsInCart(String customer) {
+		if(itemsCartDao.deleteAllByUserName(customer)>0)
+			return getItemsInCart(customer);
+		return new ItemsCartList();
+	}
+	
+//	ItemsCart itemCart=searchByItemIdAndName(itemId, customer);
+//	if(itemCart!=null) {
+//		
+//		double unitCost=itemCart.getUnitPrice();//price of item in cart
+//		ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity ,ItemDetail.class);
+////		ItemDetail itemDetail=restTemplate.put("http://localhost:8083/itemDetail/"+itemId+"/"+requiredQuantity, HttpStatus., uriVariables);			
+//		//int availQuantity=itemCart.getRequiredQuantity();//quantity in cart->8 required 3
+//
+//
+//		if(itemDetail!=null) {
+//			double totalCost=(unitCost*requiredQuantity)*getTax(itemDetail.getItemCategory())*0.01;
+//			int rows=itemsCartDao.updateByItemId(requiredQuantity, totalCost, itemId, customer);
+//			if(rows>0) {
+//				//System.out.println(searchByItemIdAndName(itemId, customer).get());
+//				return searchByItemIdAndName(itemId, customer);
+//			}
+//			else {
+//				System.out.println(itemCart);
+//				return itemCart;
+//			}
+//			
+//		}
+//		else 
+//			return itemCart;
+//		
+//	}
+//	else 
+//		return new ItemsCart();
+//	}
+			
 //		if(item.isPresent()) {
 //			ItemsCart itemCart=item.get();
 //			ItemDetail itemDetail=restTemplate.getForObject("http://localhost:8083/itemDetail/"+itemId+"/"+(itemCart.getRequiredQuantity()+requiredQuantity), ItemDetail.class);
@@ -195,14 +206,7 @@ public class ItemsCartServiceImpl implements ItemsCartService {
 //			}
 //		}
 	
-
-	@Override
-	public ItemsCartList deleteAllItemsInCart(String customer) {
-		if(itemsCartDao.deleteAllByUserName(customer)>0)
-			return getItemsInCart(customer);
-		return new ItemsCartList();
-	}
-				
+	
 
 	
 	

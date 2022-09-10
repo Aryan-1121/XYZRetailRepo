@@ -14,6 +14,6 @@ public interface ItemDetailService {
 	ItemDetail findByItemId(String itemId);
 	
 	ItemDetail findByItemId_AndAvailable_Quantity(String itemId,int availableQuantity);
-	
+
 	ItemDetail updateRecord(String itemId,int quantity);
 }

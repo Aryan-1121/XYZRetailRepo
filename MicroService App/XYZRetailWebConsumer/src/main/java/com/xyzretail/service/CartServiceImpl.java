@@ -81,8 +81,7 @@ public class CartServiceImpl implements CartService {
 			return false ;
 		else
 		if(getItemByIDandUser(itemId,customer)) {
-			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);
-			return true;	
+			restTemplate.put("http://itemDetails-Cart-service/cart/update/"+ itemId+"/"+modifiedQuantity+"/"+customer,ItemsCart.class);	
 		}
 		return false;
 	}

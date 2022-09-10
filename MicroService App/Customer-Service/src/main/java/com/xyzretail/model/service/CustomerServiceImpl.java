@@ -26,14 +26,22 @@ public class CustomerServiceImpl implements CustomerService{
 		return customerDao.findAll();
 	}
 
-	@Override
-	public boolean registerCustomer(Customer customer) {			
-		Optional<Customer> cus = customerDao.findById(customer.getUserName());		// check if entered username is present or not in table
-		if (cus.isPresent()) {
-			return false ;		
+//	@Override
+//	public boolean registerCustomer(Customer customer) {			
+//		Optional<Customer> cus = customerDao.findById(customer.getUserName());		// check if entered username is present or not in table
+//		if (cus.isPresent()) {
+//			return false ;		
+//		}
+//		customerDao.save(customer);
+//		return true;
+	public boolean registerCustomer(Customer customer) {
+		Customer cus= customerDao.findById(customer.getUserName()).orElse(null);		// check if username is already present in the table or not
+		if (cus== null) {			// if username is not present i.e.  null
+			customerDao.save(customer);
+			return true;
 		}
-		customerDao.save(customer);
-		return true;
+		return false;		// return the customer (bcs it is a new customer )
+		
 	}
 
 	

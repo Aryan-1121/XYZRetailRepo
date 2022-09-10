@@ -23,10 +23,13 @@ public class TransactionServiceImpl implements TransactionService {
 //	}
 
 	
+//	@Override
+//	public boolean performTransaction(String userName) {
+//		boolean tr=restTemplate.postForObject("http://transaction-service/transaction/",userName, Boolean.class);
+//		
 	@Override
-	public boolean performTransaction(String userName) {
-		boolean tr=restTemplate.postForObject("http://transaction-service/transaction/",userName, Boolean.class);
-		
+	public boolean performTransaction(String customer) {
+		boolean tr=restTemplate.postForObject("http://transaction-service/transactions",customer, Boolean.class);
 		return tr;
 	}
 

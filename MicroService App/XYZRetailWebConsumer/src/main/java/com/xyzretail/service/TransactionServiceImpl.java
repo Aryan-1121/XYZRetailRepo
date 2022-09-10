@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.xyzretail.bean.Transaction;
+
 @Service("transactionService")
 public class TransactionServiceImpl implements TransactionService {
 
@@ -23,15 +25,18 @@ public class TransactionServiceImpl implements TransactionService {
 //	}
 
 	
-//	@Override
-//	public boolean performTransaction(String userName) {
-//		boolean tr=restTemplate.postForObject("http://transaction-service/transaction/",userName, Boolean.class);
-//		
 	@Override
-	public boolean performTransaction(String customer) {
-		boolean tr=restTemplate.postForObject("http://transaction-service/transactions",customer, Boolean.class);
-		return tr;
+	public boolean performTransaction(String userName) {
+		restTemplate.postForObject("http://transaction-service/transaction/"+userName, userName,Transaction.class);
+//		restTemplate.post
+		return true;
+		
 	}
+//	@Override
+//	public boolean performTransaction(String customer) {
+//		restTemplate.postForObject("http://transaction-service/transactions",customer, Boolean.class);
+//		return true;
+//	}
 
 
 

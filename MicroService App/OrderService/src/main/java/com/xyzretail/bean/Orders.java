@@ -17,7 +17,6 @@ public class Orders {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-
 	private int OrderId;
 	private int transactionId;
 	private String itemId;

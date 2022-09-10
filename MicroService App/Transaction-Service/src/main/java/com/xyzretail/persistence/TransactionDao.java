@@ -25,7 +25,7 @@ public interface TransactionDao extends JpaRepository<Transaction, Integer> {
 	@Modifying
 	@Transactional
 	@Query(value="insert into transaction (date, time, userName) values(date(now()) , time(now()),:userName);" ,nativeQuery = true )
-	int saveTransactionByUserName (@Param("userName") String userName);
+	void saveTransactionByUserName (@Param("userName") String userName);
 		
 	
 }

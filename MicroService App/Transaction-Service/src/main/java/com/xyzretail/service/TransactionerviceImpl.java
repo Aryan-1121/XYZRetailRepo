@@ -13,7 +13,6 @@ public class TransactionerviceImpl implements TransactionService{
 	@Autowired
 	private TransactionDao transactionDao;
 		
-
 	@Override
 	public boolean saveTransaction(Transaction transaction) {
 			Transaction rows=transactionDao.save(transaction);

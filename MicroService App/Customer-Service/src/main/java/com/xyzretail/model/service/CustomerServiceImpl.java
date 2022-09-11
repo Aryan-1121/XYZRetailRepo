@@ -45,17 +45,17 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	
-//	@Override
-//	public boolean registerCustomer(Customer customer) {
-//		Customer cus= customerDao.findById(customer.getUserName()).get();		// check if username is already present in the table or not
-//		if (cus!=null) {			// if username is not present i.e.  null
-//			int rows=customerDao.registerCustomer(customer.getUserName(), customer.getUserPassword());		// return the customer (bcs it is a new customer )
-//			if(rows>0) {
-//				return true;
-//			}
-//		}	
-//		return false;
-//	}
+	@Override
+	public boolean registerCustomerByParam(String userName ,String password) {
+		Customer cus= customerDao.findById(userName).get();		// check if username is already present in the table or not
+		if (cus!=null) {			// if username is not present i.e.  null
+			int rows=customerDao.registerCustomer(userName, password);		// return the customer (bcs it is a new customer )
+			if(rows>0) {
+				return true;
+			}
+		}	
+		return false;
+	}
 	@Override
 	public Customer loginCustomer(String user_Name, String user_Password) {
 		Customer cus = customerDao.findById(user_Name).orElse(null);		// check if entered username is present or not in table

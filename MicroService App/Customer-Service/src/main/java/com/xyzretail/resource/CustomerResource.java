@@ -28,26 +28,36 @@ public class CustomerResource {
 	@GetMapping(path = "/customers/{user_Name}",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer> getCustomerByUserNameResource(@PathVariable("user_Name") String user_Name) {
 		Customer customer = customerService.customerByName(user_Name);
-		if(customer != null) {
-			return new ResponseEntity<Customer>(customer , HttpStatus.FOUND);
+		if(customer == null) {
+			return new ResponseEntity<Customer>(new Customer("000","000"), HttpStatus.NOT_FOUND);		
 		}
+		return new ResponseEntity<Customer>(customer , HttpStatus.FOUND);
 		
-		return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_FOUND);
 	}
 	
 	
-	@PostMapping(path = "/customers/", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/customers/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer>  registerCustomerResource(@RequestBody  Customer customer) {
+//		try {
+//			
 		Customer cus = customerService.customerByName(customer.getUserName());
-		boolean isRegistered=false;
+//		boolean isRegistered=false;
 		if(cus==null) {
 			customerService.registerCustomer(customer);
 			return new ResponseEntity<Customer>(customer , HttpStatus.ACCEPTED);
 		}
-		
-		return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_ACCEPTABLE);
-	
+		else
+		return new ResponseEntity<Customer>(new Customer("000","000"), HttpStatus.NOT_ACCEPTABLE);
+//		}
+//		catch(Exception ex) {
+//			return new ResponseEntity<Customer>(new Customer(), HttpStatus.NOT_FOUND);
+//
+//		}
 	}
+//	@PostMapping(path = "/customers/{userName}/{password}")
+//	public boolean registerCustomerByParamResource(@PathVariable("usreName") String userName, @PathVariable("password") String password) {
+//		return customerService.registerCustomerByParam(userName, password);
+//	}
 	
 	@GetMapping(path = "customers/{user_Name}/{user_Password}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Customer> loginCustomerResource(@PathVariable("user_Name") String user_Name,@PathVariable("user_Password") String user_Password) {

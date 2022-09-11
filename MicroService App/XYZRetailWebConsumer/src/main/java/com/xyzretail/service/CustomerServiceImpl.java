@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.xyzretail.bean.Customer;
+import com.xyzretail.bean.Customers;
 @Service("customerService")
 public class CustomerServiceImpl implements CustomerService {	
 	@Autowired
@@ -15,13 +16,22 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 
 	public boolean addCustomer(Customer customer) {
-		ResponseEntity<Customer> cust=restTemplate.postForEntity("http://customer-service/customers/",customer, Customer.class);
-//		if(cust.getBody()!=null)
-//			return true;
-//		return false;
-		if(cust.getBody().getUserName()!=null)
+		try {
+
+		Customers cus= restTemplate.getForObject("http://customer-service/customers/", Customers.class);
+		if(!cus.getCustomers().contains(customer)) {
+			ResponseEntity<Customer> cust= restTemplate.postForEntity("http://customer-service/customers/", customer,Customer.class);	
 			return true;
+		}
 		return false;
+//			
+		}
+		catch(Exception ex){
+			return false ;
+		}
+
+		
+//		restTemplate.postForObject("http://customer-service/customers/"+customer.getUserName()+"/"+customer.getUserPassword(),  customer.getUserName(),customer.getUserPassword(),Boolean.class);
 	}
 	
 	@Override

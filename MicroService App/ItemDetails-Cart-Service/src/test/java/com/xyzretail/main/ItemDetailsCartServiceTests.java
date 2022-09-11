@@ -28,7 +28,7 @@ import com.xyzretail.service.ItemDetailServiceImpl;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
-class CustomerServiceApplicationTests {
+class ItemDetailsCartServiceTests {
 	
 	@InjectMocks
 	@Autowired
@@ -94,17 +94,17 @@ class CustomerServiceApplicationTests {
 		Mockito.when(itemDetailDao.findByItemIdAndAvailableQuantity(null,0)).thenThrow(new NullPointerException());
 	}
 	
-//	@Test
-//	void R004_T001() {
-//		Mockito.when(itemDetailDao.updateRecord(100,"B-101")).thenReturn(1);
-//		Mockito.when(itemDetailDao.updateRecord(10,"C-101")).thenReturn(1);
-//		Mockito.when(itemDetailDao.updateRecord(30,"CS-101")).thenReturn(1);
-//		assertEquals(item.get(0), itemDetailServiceImpl.updateRecord("B-101",100));
-//	}
+	@Test
+	void R004_T001() {
+		Mockito.when(itemDetailDao.updateRecord(100,"B-101")).thenReturn(1);
+		Mockito.when(itemDetailDao.updateRecord(10,"C-101")).thenReturn(1);
+		Mockito.when(itemDetailDao.updateRecord(30,"CS-101")).thenReturn(1);
+		assertEquals(1, itemDetailServiceImpl.updateRecord("B-101",100));
+	}
 
 	@Test
 	void R004_T002() {
 		Mockito.when(itemDetailDao.updateRecord(0,null)).thenReturn(0);
-		assertEquals(null, itemDetailServiceImpl.updateRecord(null,0));
+		assertEquals(0, itemDetailServiceImpl.updateRecord(null,0));
 	}
 }

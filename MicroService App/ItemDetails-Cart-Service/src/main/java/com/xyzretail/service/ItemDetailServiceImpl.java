@@ -37,7 +37,11 @@ public class ItemDetailServiceImpl implements ItemDetailService{
 
 	@Override
 	public ItemDetail updateRecord(String itemId, int quantity) {
-		if(itemDetailDao.updateRecord(quantity,itemId)>0) {
+		ItemDetail id = itemDetailDao.findById(itemId).orElse(null);
+		int updatedQuantity = id.getAvailableQuantity() - quantity;
+		
+		if(itemDetailDao.updateRecord(updatedQuantity,itemId)>0) {
+			
 			return findByItemId(itemId);
 		}
 		return null;

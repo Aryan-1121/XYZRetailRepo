@@ -144,7 +144,7 @@ public class XyzRetailController {
 
 	@RequestMapping("/shopPage")
 	public ModelAndView ShopPageController() {
-		return new ModelAndView("shop");
+		return new ModelAndView("shop"); 
 	}
 		
 }

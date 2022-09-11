@@ -30,7 +30,7 @@ public class ItemsServiceImpl implements ItemsService {
 //		this.persistenceDao = persistenceDao;
 //	}
 
-	@Override
+	@Override 
 	public ItemDetail searchItemsById(String itemId) {
 		ItemDetail item=restTemplate.getForObject("http://itemDetails-Cart-service/itemDetail/"+itemId,ItemDetail.class);
 		if(item!=null) {
@@ -59,6 +59,9 @@ public class ItemsServiceImpl implements ItemsService {
 
 	@Override
 	public void updateRecord(String itemID, int quantity) {
+		 restTemplate.put("http://itemDetails-Cart-service/itemDetail/"+itemID+"/"+quantity,Boolean.class);
+		 System.out.println("updated");
+		
 		
 	}
 

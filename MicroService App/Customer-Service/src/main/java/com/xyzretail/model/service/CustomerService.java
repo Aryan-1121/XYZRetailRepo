@@ -11,6 +11,6 @@ public interface CustomerService {
 	List<Customer> getAllCustomer();
 	boolean registerCustomer(Customer customer);
 	Customer loginCustomer(String user_Name, String user_Password);
-
+	public boolean registerCustomerByParam(String userName ,String password);
 
 }

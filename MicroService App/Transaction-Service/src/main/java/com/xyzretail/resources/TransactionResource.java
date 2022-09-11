@@ -33,10 +33,12 @@ public class TransactionResource {
 		return a;
 	}
 	
-	@PostMapping(path = "/transaction", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public int  performTransactionByPathVariableResource(@RequestBody String userName) {
-		int a= transactionService.saveTransactionByUserName(userName);		
-		return a;
+	@PostMapping(path = "/transaction/{userName}", produces = MediaType.APPLICATION_JSON_VALUE )//, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public void  performTransactionByPathVariableResource(@PathVariable("userName") String userName) {
+//		int a= transactionService.saveTransactionByUserName(userName);		
+		transactionService.saveTransactionByUserName(userName);		
+
+//		return a;
 	}
 	
 	@GetMapping(path = "/transactions", produces =MediaType.APPLICATION_JSON_VALUE )
